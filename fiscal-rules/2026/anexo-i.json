@@ -1,0 +1,21 @@
+{
+  "id": "SN-2026-ANEXO-I",
+  "versao": "2026.1-mvp",
+  "status": "CALCULO_MATEMATICO_NAO_HOMOLOGADO",
+  "vigencia_inicio": "2026-01-01",
+  "vigencia_fim": "2026-12-31",
+  "descricao": "Simples Nacional - Anexo I, comércio, receita comum sem segregações e situações especiais",
+  "referencias": [
+    {"nome":"Lei Complementar 123/2006, Anexo I e art. 18", "url":"https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm"},
+    {"nome":"Resolução CGSN 140/2018, arts. 21 e 25", "url":"https://normas.receita.fazenda.gov.br/sijut2consulta/link.action?idAto=92278"},
+    {"nome":"Comitê Gestor: sublimite 2026", "url":"https://www8.receita.fazenda.gov.br/simplesnacional/noticias/NoticiaCompleta.aspx?id=94c10cc2-7eb5-4ef0-bfb2-5479e72caff8"}
+  ],
+  "faixas": [
+    {"numero":1,"ate_centavos":"18000000","aliquota_bps":400,"deducao_centavos":"0","reparticao_bps":{"IRPJ":550,"CSLL":350,"COFINS":1274,"PIS":276,"CPP":4150,"ICMS":3400}},
+    {"numero":2,"ate_centavos":"36000000","aliquota_bps":730,"deducao_centavos":"594000","reparticao_bps":{"IRPJ":550,"CSLL":350,"COFINS":1274,"PIS":276,"CPP":4150,"ICMS":3400}},
+    {"numero":3,"ate_centavos":"72000000","aliquota_bps":950,"deducao_centavos":"1386000","reparticao_bps":{"IRPJ":550,"CSLL":350,"COFINS":1274,"PIS":276,"CPP":4200,"ICMS":3350}},
+    {"numero":4,"ate_centavos":"180000000","aliquota_bps":1070,"deducao_centavos":"2250000","reparticao_bps":{"IRPJ":550,"CSLL":350,"COFINS":1274,"PIS":276,"CPP":4200,"ICMS":3350}},
+    {"numero":5,"ate_centavos":"360000000","aliquota_bps":1430,"deducao_centavos":"8730000","reparticao_bps":{"IRPJ":550,"CSLL":350,"COFINS":1274,"PIS":276,"CPP":4200,"ICMS":3350}},
+    {"numero":6,"ate_centavos":"480000000","aliquota_bps":1900,"deducao_centavos":"37800000","reparticao_bps":{"IRPJ":1350,"CSLL":1000,"COFINS":2827,"PIS":613,"CPP":4210,"ICMS":0}}
+  ]
+}

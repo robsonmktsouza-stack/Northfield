@@ -1,0 +1,9 @@
+{
+  "name": "northfield/northfield",
+  "description": "Northfield: conferência educacional e auditável do PGDAS-D, sem retenção de dados fiscais.",
+  "type": "project",
+  "license": "MIT",
+  "require": {"php": "^8.4"},
+  "autoload": {"psr-4": {"Northfield\\": "app/"}},
+  "scripts": {"test": "php tests/run.php"}
+}

@@ -1,0 +1,20 @@
+name: Verificacoes
+on:
+  push:
+  pull_request:
+jobs:
+  php:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: PHP 8.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: none
+      - name: Sintaxe PHP
+        run: find app public resources tests -type f -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: Testes de cálculo
+        run: php tests/run.php
+      - name: JSON de regras
+        run: php -r 'json_decode(file_get_contents("fiscal-rules/2026/anexo-i.json"), true, 512, JSON_THROW_ON_ERROR); echo "Regras JSON validas\n";'
