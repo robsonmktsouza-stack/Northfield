@@ -165,7 +165,7 @@ partial class DocumentEditForm
         _lblNotice.BorderStyle = BorderStyle.FixedSingle;
         _lblNotice.Dock = DockStyle.Fill;
         _lblNotice.Padding = new Padding(10, 6, 10, 6);
-        _lblNotice.Text = "Esta edição é manual e serve para uso do programa antes da biblioteca fiscal. O aplicativo não cria nem infere regras tributárias.";
+        _lblNotice.Text = "Revise os dados abaixo e informe o anexo e a segregação aplicável.";
         _lblNotice.TextAlign = ContentAlignment.MiddleLeft;
 
         _buttons.Controls.Add(_btnSave);
@@ -194,7 +194,7 @@ partial class DocumentEditForm
         Name = "DocumentEditForm";
         ShowIcon = false;
         StartPosition = FormStartPosition.CenterParent;
-        Text = "Classificação manual";
+        Text = "Revisar documento";
 
         _main.ResumeLayout(false);
         _main.PerformLayout();
