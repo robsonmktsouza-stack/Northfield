@@ -22,6 +22,7 @@ partial class CompaniesListForm
     private Panel _footer;
     private Label _lblCount;
     private NorthfieldButton _btnClose;
+    private ToolTip _toolTip;
 
     protected override void Dispose(bool disposing)
     {
@@ -49,6 +50,7 @@ partial class CompaniesListForm
         _footer = new Panel();
         _lblCount = new Label();
         _btnClose = new NorthfieldButton();
+        _toolTip = new ToolTip(components);
 
         _root.SuspendLayout();
         _header.SuspendLayout();
@@ -98,30 +100,34 @@ partial class CompaniesListForm
         _actions.Location = new Point(90, 6);
         _actions.Margin = new Padding(0);
         _actions.Name = "_actions";
-        _actions.Size = new Size(336, 24);
+        _actions.Size = new Size(108, 24);
         _actions.WrapContents = false;
 
-        _btnSelect.Margin = new Padding(4, 0, 0, 0);
+        _btnSelect.Margin = new Padding(3, 0, 0, 0);
         _btnSelect.Name = "_btnSelect";
-        _btnSelect.Size = new Size(94, 24);
-        _btnSelect.Text = "Selecionar";
+        _btnSelect.Size = new Size(24, 24);
+        _btnSelect.Text = "";
+        _toolTip.SetToolTip(_btnSelect, "Selecionar empresa");
 
-        _btnNew.Margin = new Padding(0, 0, 4, 0);
+        _btnNew.Margin = new Padding(0, 0, 3, 0);
         _btnNew.Name = "_btnNew";
-        _btnNew.Size = new Size(72, 24);
-        _btnNew.Text = "Novo";
+        _btnNew.Size = new Size(24, 24);
+        _btnNew.Text = "";
+        _toolTip.SetToolTip(_btnNew, "Nova empresa");
 
         _btnEdit.Enabled = false;
-        _btnEdit.Margin = new Padding(0, 0, 4, 0);
+        _btnEdit.Margin = new Padding(0, 0, 3, 0);
         _btnEdit.Name = "_btnEdit";
-        _btnEdit.Size = new Size(74, 24);
-        _btnEdit.Text = "Editar";
+        _btnEdit.Size = new Size(24, 24);
+        _btnEdit.Text = "";
+        _toolTip.SetToolTip(_btnEdit, "Editar empresa");
 
         _btnDelete.Enabled = false;
-        _btnDelete.Margin = new Padding(0, 0, 4, 0);
+        _btnDelete.Margin = new Padding(0, 0, 3, 0);
         _btnDelete.Name = "_btnDelete";
-        _btnDelete.Size = new Size(78, 24);
-        _btnDelete.Text = "Excluir";
+        _btnDelete.Size = new Size(24, 24);
+        _btnDelete.Text = "";
+        _toolTip.SetToolTip(_btnDelete, "Excluir empresa");
 
         _searchPanel.Controls.Add(_lblSearch);
         _searchPanel.Controls.Add(_txtSearch);
