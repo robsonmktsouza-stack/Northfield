@@ -19,6 +19,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- O Visual Studio pode gerar/copiar arquivos MainForm*.resx auxiliares.
+         Mantemos somente o recurso oficial do formulário para evitar dois
+         .resources resolvendo para Northfield.Fiscal.Desktop.Forms.MainForm.resources. -->
+    <EmbeddedResource Remove="**\MainForm*.resx" />
+    <EmbeddedResource Include="Forms\MainForm.resx" Condition="Exists('Forms\MainForm.resx')">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+
     <Compile Update="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
