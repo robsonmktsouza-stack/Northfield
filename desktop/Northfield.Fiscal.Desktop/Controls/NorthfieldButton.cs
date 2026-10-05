@@ -99,7 +99,6 @@ public sealed class NorthfieldButton : Button
         {
             FlatStyle = FlatStyle.Flat;
             FlatAppearance.BorderSize = 0;
-            FlatAppearance.BorderColor = Color.Transparent;
 
             var idleBack = Parent?.BackColor ?? Theme.ToolbarBack;
 
