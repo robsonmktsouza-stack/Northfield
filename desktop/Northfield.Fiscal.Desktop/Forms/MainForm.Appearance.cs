@@ -9,7 +9,7 @@ public sealed partial class MainForm
         Font = Theme.UiFont(8.6F);
         DoubleBuffered = true;
 
-        _menu.BackColor = Theme.ToolbarBack;
+        _menu.BackColor = Theme.MenuBack;
         _menu.Renderer = Theme.ToolRenderer;
         _menu.Font = Theme.UiFont(8.4F);
         _menu.Padding = new Padding(6, 2, 6, 2);
