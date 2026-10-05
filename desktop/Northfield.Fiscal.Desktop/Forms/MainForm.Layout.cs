@@ -193,15 +193,13 @@ public sealed partial class MainForm
         {
             Dock = DockStyle.Fill,
             Orientation = Orientation.Vertical,
-            SplitterDistance = 980,
             SplitterWidth = 5,
-            BackColor = Theme.AppBack,
-            Panel1MinSize = 620,
-            Panel2MinSize = 280
+            BackColor = Theme.AppBack
         };
         root.Controls.Add(upper, 0, 1);
         upper.Panel1.Controls.Add(BuildMainDocumentsPanel());
         upper.Panel2.Controls.Add(BuildSummaryPanel());
+        ConfigurePreferredSplitter(upper, preferredDistance: 980, trailingPanelMinimum: 280);
 
         root.Controls.Add(BuildMemoryPanel(), 0, 2);
     }
@@ -396,8 +394,9 @@ public sealed partial class MainForm
         };
         panel.Controls.Add(title);
 
-        var split = new SplitContainer { Dock = DockStyle.Fill, SplitterDistance = 390, SplitterWidth = 5, BackColor = Theme.PanelBack, Padding = new Padding(0, 32, 0, 0) };
+        var split = new SplitContainer { Dock = DockStyle.Fill, SplitterWidth = 5, BackColor = Theme.PanelBack, Padding = new Padding(0, 32, 0, 0) };
         panel.Controls.Add(split);
+        ConfigurePreferredSplitter(split, preferredDistance: 390, trailingPanelMinimum: 320);
 
         var details = new TableLayoutPanel { Dock = DockStyle.Fill, RowCount = 8, ColumnCount = 2, Padding = new Padding(4) };
         details.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150));
@@ -568,6 +567,29 @@ public sealed partial class MainForm
         grid.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Situação", Width = 130 });
         grid.CellDoubleClick += (_, e) => { if (e.RowIndex >= 0) EditSelectedDocument(grid); };
         grid.SelectionChanged += (_, _) => GridSelectionChanged(grid);
+    }
+
+    private static void ConfigurePreferredSplitter(SplitContainer split, int preferredDistance, int trailingPanelMinimum)
+    {
+        void Apply()
+        {
+            var available = split.Orientation == Orientation.Vertical
+                ? split.ClientSize.Width - split.SplitterWidth
+                : split.ClientSize.Height - split.SplitterWidth;
+
+            if (available <= 40)
+                return;
+
+            var trailing = Math.Min(trailingPanelMinimum, Math.Max(80, available / 2));
+            var maximumDistance = Math.Max(20, available - trailing);
+            var target = Math.Clamp(preferredDistance, 20, maximumDistance);
+
+            if (target > 0 && target < available && split.SplitterDistance != target)
+                split.SplitterDistance = target;
+        }
+
+        split.SizeChanged += (_, _) => Apply();
+        split.HandleCreated += (_, _) => Apply();
     }
 
     private static DataGridViewTextBoxColumn MoneyColumn(string title, int width) => new()
