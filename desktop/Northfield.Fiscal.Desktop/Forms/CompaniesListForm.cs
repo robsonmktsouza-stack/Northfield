@@ -1,5 +1,6 @@
 using Northfield.Fiscal.Desktop.Controls;
 using Northfield.Fiscal.Desktop.Models;
+using Northfield.Fiscal.Desktop.Resources;
 
 namespace Northfield.Fiscal.Desktop.Forms;
 
@@ -44,6 +45,11 @@ public sealed partial class CompaniesListForm : Form
         _btnSelect.Primary = true;
         _btnClose.Primary = false;
 
+        ApplyCompanyActionIcon(_btnNew, CompanyActionIcons.Novo());
+        ApplyCompanyActionIcon(_btnEdit, CompanyActionIcons.Editar());
+        ApplyCompanyActionIcon(_btnDelete, CompanyActionIcons.Excluir());
+        ApplyCompanyActionIcon(_btnSelect, CompanyActionIcons.Selecionar());
+
         _grid.ApplyNorthfieldStyle();
         _grid.RowTemplate.Height = 23;
         _grid.ColumnHeadersHeight = 25;
@@ -80,6 +86,14 @@ public sealed partial class CompaniesListForm : Form
             HeaderText = "Situação",
             Width = 78
         });
+    }
+
+    private static void ApplyCompanyActionIcon(Button button, Image icon)
+    {
+        button.Image = icon;
+        button.ImageAlign = ContentAlignment.MiddleLeft;
+        button.TextImageRelation = TextImageRelation.ImageBeforeText;
+        button.Padding = new Padding(5, 0, 5, 0);
     }
 
     private void HookEvents()
