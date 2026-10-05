@@ -9,7 +9,6 @@ partial class CompaniesListForm
     private IContainer components = null;
     private TableLayoutPanel _root;
     private NorthfieldPanel _header;
-    private Label _lblTitle;
     private FlowLayoutPanel _actions;
     private NorthfieldButton _btnNew;
     private NorthfieldButton _btnEdit;
@@ -43,7 +42,6 @@ partial class CompaniesListForm
         components = new Container();
         _root = new TableLayoutPanel();
         _header = new NorthfieldPanel();
-        _lblTitle = new Label();
         _actions = new FlowLayoutPanel();
         _btnNew = new NorthfieldButton();
         _btnEdit = new NorthfieldButton();
@@ -89,18 +87,12 @@ partial class CompaniesListForm
         _root.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
         _root.Size = new Size(1000, 560);
 
-        _header.Controls.Add(_lblTitle);
         _header.Controls.Add(_actions);
         _header.Dock = DockStyle.Fill;
         _header.Location = new Point(0, 0);
         _header.Margin = new Padding(0);
         _header.Name = "_header";
         _header.Size = new Size(1000, 36);
-
-        _lblTitle.AutoSize = true;
-        _lblTitle.Location = new Point(10, 10);
-        _lblTitle.Name = "_lblTitle";
-        _lblTitle.Text = "Empresas";
 
         _actions.Anchor = AnchorStyles.Top | AnchorStyles.Left;
         _actions.AutoSize = true;
@@ -115,75 +107,75 @@ partial class CompaniesListForm
         _actions.Controls.Add(_btnImport);
         _actions.Controls.Add(_btnExport);
         _actions.FlowDirection = FlowDirection.LeftToRight;
-        _actions.Location = new Point(90, 6);
+        _actions.Location = new Point(8, 3);
         _actions.Margin = new Padding(0);
         _actions.Name = "_actions";
-        _actions.Size = new Size(267, 24);
+        _actions.Size = new Size(318, 30);
         _actions.WrapContents = false;
 
-        _btnSelect.Margin = new Padding(3, 0, 0, 0);
+        _btnSelect.Margin = new Padding(2, 0, 0, 0);
         _btnSelect.Name = "_btnSelect";
-        _btnSelect.Size = new Size(24, 24);
+        _btnSelect.Size = new Size(30, 30);
         _btnSelect.Text = "";
         _toolTip.SetToolTip(_btnSelect, "Selecionar empresa");
 
-        _btnNew.Margin = new Padding(0, 0, 3, 0);
+        _btnNew.Margin = new Padding(0, 0, 2, 0);
         _btnNew.Name = "_btnNew";
-        _btnNew.Size = new Size(24, 24);
+        _btnNew.Size = new Size(30, 30);
         _btnNew.Text = "";
         _toolTip.SetToolTip(_btnNew, "Nova empresa");
 
         _btnEdit.Enabled = false;
-        _btnEdit.Margin = new Padding(0, 0, 3, 0);
+        _btnEdit.Margin = new Padding(0, 0, 2, 0);
         _btnEdit.Name = "_btnEdit";
-        _btnEdit.Size = new Size(24, 24);
+        _btnEdit.Size = new Size(30, 30);
         _btnEdit.Text = "";
         _toolTip.SetToolTip(_btnEdit, "Editar empresa");
 
         _btnDelete.Enabled = false;
-        _btnDelete.Margin = new Padding(0, 0, 3, 0);
+        _btnDelete.Margin = new Padding(0, 0, 2, 0);
         _btnDelete.Name = "_btnDelete";
-        _btnDelete.Size = new Size(24, 24);
+        _btnDelete.Size = new Size(30, 30);
         _btnDelete.Text = "";
         _toolTip.SetToolTip(_btnDelete, "Excluir empresa");
         
         _btnDuplicate.Enabled = false;
-        _btnDuplicate.Margin = new Padding(0, 0, 3, 0);
+        _btnDuplicate.Margin = new Padding(0, 0, 2, 0);
         _btnDuplicate.Name = "_btnDuplicate";
-        _btnDuplicate.Size = new Size(24, 24);
+        _btnDuplicate.Size = new Size(30, 30);
         _btnDuplicate.Text = "";
         _toolTip.SetToolTip(_btnDuplicate, "Duplicar empresa");
 
         _btnToggleActive.Enabled = false;
-        _btnToggleActive.Margin = new Padding(0, 0, 3, 0);
+        _btnToggleActive.Margin = new Padding(0, 0, 2, 0);
         _btnToggleActive.Name = "_btnToggleActive";
-        _btnToggleActive.Size = new Size(24, 24);
+        _btnToggleActive.Size = new Size(30, 30);
         _btnToggleActive.Text = "";
         _toolTip.SetToolTip(_btnToggleActive, "Ativar / Inativar empresa");
 
         _btnHistory.Enabled = false;
-        _btnHistory.Margin = new Padding(0, 0, 3, 0);
+        _btnHistory.Margin = new Padding(0, 0, 2, 0);
         _btnHistory.Name = "_btnHistory";
-        _btnHistory.Size = new Size(24, 24);
+        _btnHistory.Size = new Size(30, 30);
         _btnHistory.Text = "";
         _toolTip.SetToolTip(_btnHistory, "Histórico da empresa");
 
         _btnCertificate.Enabled = false;
-        _btnCertificate.Margin = new Padding(0, 0, 3, 0);
+        _btnCertificate.Margin = new Padding(0, 0, 2, 0);
         _btnCertificate.Name = "_btnCertificate";
-        _btnCertificate.Size = new Size(24, 24);
+        _btnCertificate.Size = new Size(30, 30);
         _btnCertificate.Text = "";
         _toolTip.SetToolTip(_btnCertificate, "Certificado digital");
 
-        _btnImport.Margin = new Padding(0, 0, 3, 0);
+        _btnImport.Margin = new Padding(0, 0, 2, 0);
         _btnImport.Name = "_btnImport";
-        _btnImport.Size = new Size(24, 24);
+        _btnImport.Size = new Size(30, 30);
         _btnImport.Text = "";
         _toolTip.SetToolTip(_btnImport, "Importar cadastro");
 
         _btnExport.Margin = new Padding(0);
         _btnExport.Name = "_btnExport";
-        _btnExport.Size = new Size(24, 24);
+        _btnExport.Size = new Size(30, 30);
         _btnExport.Text = "";
         _toolTip.SetToolTip(_btnExport, "Exportar lista");
 
