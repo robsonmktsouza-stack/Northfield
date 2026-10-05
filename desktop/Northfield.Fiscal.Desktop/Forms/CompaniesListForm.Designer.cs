@@ -15,6 +15,12 @@ partial class CompaniesListForm
     private NorthfieldButton _btnEdit;
     private NorthfieldButton _btnDelete;
     private NorthfieldButton _btnSelect;
+    private NorthfieldButton _btnDuplicate;
+    private NorthfieldButton _btnToggleActive;
+    private NorthfieldButton _btnHistory;
+    private NorthfieldButton _btnCertificate;
+    private NorthfieldButton _btnImport;
+    private NorthfieldButton _btnExport;
     private Panel _searchPanel;
     private Label _lblSearch;
     private NorthfieldSearchBox _txtSearch;
@@ -43,6 +49,12 @@ partial class CompaniesListForm
         _btnEdit = new NorthfieldButton();
         _btnDelete = new NorthfieldButton();
         _btnSelect = new NorthfieldButton();
+        _btnDuplicate = new NorthfieldButton();
+        _btnToggleActive = new NorthfieldButton();
+        _btnHistory = new NorthfieldButton();
+        _btnCertificate = new NorthfieldButton();
+        _btnImport = new NorthfieldButton();
+        _btnExport = new NorthfieldButton();
         _searchPanel = new Panel();
         _lblSearch = new Label();
         _txtSearch = new NorthfieldSearchBox();
@@ -96,11 +108,17 @@ partial class CompaniesListForm
         _actions.Controls.Add(_btnEdit);
         _actions.Controls.Add(_btnDelete);
         _actions.Controls.Add(_btnSelect);
+        _actions.Controls.Add(_btnDuplicate);
+        _actions.Controls.Add(_btnToggleActive);
+        _actions.Controls.Add(_btnHistory);
+        _actions.Controls.Add(_btnCertificate);
+        _actions.Controls.Add(_btnImport);
+        _actions.Controls.Add(_btnExport);
         _actions.FlowDirection = FlowDirection.LeftToRight;
         _actions.Location = new Point(90, 6);
         _actions.Margin = new Padding(0);
         _actions.Name = "_actions";
-        _actions.Size = new Size(108, 24);
+        _actions.Size = new Size(267, 24);
         _actions.WrapContents = false;
 
         _btnSelect.Margin = new Padding(3, 0, 0, 0);
@@ -128,6 +146,46 @@ partial class CompaniesListForm
         _btnDelete.Size = new Size(24, 24);
         _btnDelete.Text = "";
         _toolTip.SetToolTip(_btnDelete, "Excluir empresa");
+        
+        _btnDuplicate.Enabled = false;
+        _btnDuplicate.Margin = new Padding(0, 0, 3, 0);
+        _btnDuplicate.Name = "_btnDuplicate";
+        _btnDuplicate.Size = new Size(24, 24);
+        _btnDuplicate.Text = "";
+        _toolTip.SetToolTip(_btnDuplicate, "Duplicar empresa");
+
+        _btnToggleActive.Enabled = false;
+        _btnToggleActive.Margin = new Padding(0, 0, 3, 0);
+        _btnToggleActive.Name = "_btnToggleActive";
+        _btnToggleActive.Size = new Size(24, 24);
+        _btnToggleActive.Text = "";
+        _toolTip.SetToolTip(_btnToggleActive, "Ativar / Inativar empresa");
+
+        _btnHistory.Enabled = false;
+        _btnHistory.Margin = new Padding(0, 0, 3, 0);
+        _btnHistory.Name = "_btnHistory";
+        _btnHistory.Size = new Size(24, 24);
+        _btnHistory.Text = "";
+        _toolTip.SetToolTip(_btnHistory, "Histórico da empresa");
+
+        _btnCertificate.Enabled = false;
+        _btnCertificate.Margin = new Padding(0, 0, 3, 0);
+        _btnCertificate.Name = "_btnCertificate";
+        _btnCertificate.Size = new Size(24, 24);
+        _btnCertificate.Text = "";
+        _toolTip.SetToolTip(_btnCertificate, "Certificado digital");
+
+        _btnImport.Margin = new Padding(0, 0, 3, 0);
+        _btnImport.Name = "_btnImport";
+        _btnImport.Size = new Size(24, 24);
+        _btnImport.Text = "";
+        _toolTip.SetToolTip(_btnImport, "Importar cadastro");
+
+        _btnExport.Margin = new Padding(0);
+        _btnExport.Name = "_btnExport";
+        _btnExport.Size = new Size(24, 24);
+        _btnExport.Text = "";
+        _toolTip.SetToolTip(_btnExport, "Exportar lista");
 
         _searchPanel.Controls.Add(_lblSearch);
         _searchPanel.Controls.Add(_txtSearch);
