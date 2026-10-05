@@ -14,9 +14,9 @@ public class NorthfieldSearchBox : UserControl
         BackColor = Color.White;
         Font = Theme.UiFont(8.4F);
         ForeColor = Theme.Text;
-        MinimumSize = new Size(120, 30);
-        Size = new Size(320, 30);
-        Padding = new Padding(28, 5, 27, 4);
+        MinimumSize = new Size(120, 26);
+        Size = new Size(320, 26);
+        Padding = new Padding(26, 4, 25, 3);
         SetStyle(ControlStyles.AllPaintingInWmPaint |
                  ControlStyles.OptimizedDoubleBuffer |
                  ControlStyles.ResizeRedraw |
@@ -103,7 +103,7 @@ public class NorthfieldSearchBox : UserControl
         var iconColor = _focused ? Theme.PrimaryDark : Theme.Muted;
         using var iconPen = new Pen(iconColor, 1.4F);
         e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-        e.Graphics.DrawEllipse(iconPen, 9, 9, 8, 8);
-        e.Graphics.DrawLine(iconPen, 16, 16, 20, 20);
+        e.Graphics.DrawEllipse(iconPen, 8, 7, 8, 8);
+        e.Graphics.DrawLine(iconPen, 15, 14, 19, 18);
     }
 }
