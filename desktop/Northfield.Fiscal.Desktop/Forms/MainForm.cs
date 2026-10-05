@@ -23,6 +23,7 @@ public sealed partial class MainForm : Form
     public MainForm()
     {
         InitializeComponent();
+        InitializeHomeWorkspace();
         ApplyRuntimeTheme();
         HookEvents();
         LoadLastSession();
@@ -106,6 +107,7 @@ public sealed partial class MainForm : Form
         UpdateFactorR();
         RefreshSummary();
         RefreshStatus();
+        RefreshHomeWorkspace();
     }
 
     private CompanyContext ReadCompanyFromForm() => new()
@@ -160,6 +162,7 @@ public sealed partial class MainForm : Form
         RefreshMemory();
         RefreshFullMemory();
         RefreshStatus();
+        RefreshHomeWorkspace();
     }
 
     private void RefreshDocumentGrids()
@@ -475,6 +478,7 @@ public sealed partial class MainForm : Form
         LoadCompanyToForm(new CompanyContext());
         _txtSearch.Clear();
         RefreshAll();
+        _tabs.SelectedTab = _tabApuracao;
     }
 
     private SessionData CreateSessionData() => new()
@@ -497,6 +501,8 @@ public sealed partial class MainForm : Form
             var data = _sessionService.Load(dialog.FileName);
             LoadSessionData(data);
             _currentSessionPath = dialog.FileName;
+            _tabs.SelectedTab = _tabApuracao;
+            RefreshAll();
         }
         catch (Exception ex)
         {
@@ -523,6 +529,7 @@ public sealed partial class MainForm : Form
         {
             _sessionService.Save(CreateSessionData(), path!);
             _currentSessionPath = path;
+            RefreshHomeWorkspace();
             MessageBox.Show(this, "Sessão guardada.", "Northfield Fiscal", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         catch (Exception ex)
