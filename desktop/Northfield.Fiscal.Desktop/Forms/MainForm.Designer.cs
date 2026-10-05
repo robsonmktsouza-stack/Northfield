@@ -456,7 +456,7 @@ partial class MainForm
         _menuAjuda.Text = "Ajuda";
         _miSobre.Text = "Sobre";
 
-        _menu.Items.AddRange(new ToolStripItem[] { _menuFile, _menuCadastros, _menuMovimentos, _menuFiscal, _menuRelatorios, _menuFerramentas, _menuAjuda, _sepTool1, _tbNovo, _tbAbrir, _sepTool3, _tbImportar, _sepTool4, _tbProcessar, _tbApuracao, _sepTool2, _tbExportar, _tbImprimir, _tbEnvironment });
+        _menu.Items.AddRange(new ToolStripItem[] { _menuFile, _menuCadastros, _menuMovimentos, _menuFiscal, _menuRelatorios, _menuFerramentas, _menuAjuda, _tbEnvironment });
         _menu.Location = new Point(0, 0);
         _menu.Name = "_menu";
         _menu.Size = new Size(1600, 30);
