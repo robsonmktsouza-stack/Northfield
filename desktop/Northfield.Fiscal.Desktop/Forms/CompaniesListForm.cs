@@ -43,12 +43,24 @@ public sealed partial class CompaniesListForm : Form
         _btnEdit.Primary = false;
         _btnDelete.Primary = false;
         _btnSelect.Primary = true;
+        _btnDuplicate.Primary = false;
+        _btnToggleActive.Primary = false;
+        _btnHistory.Primary = false;
+        _btnCertificate.Primary = false;
+        _btnImport.Primary = false;
+        _btnExport.Primary = false;
         _btnClose.Primary = false;
 
         ApplyCompanyActionIcon(_btnNew, CompanyActionIcons.Novo());
         ApplyCompanyActionIcon(_btnEdit, CompanyActionIcons.Editar());
         ApplyCompanyActionIcon(_btnDelete, CompanyActionIcons.Excluir());
         ApplyCompanyActionIcon(_btnSelect, CompanyActionIcons.Selecionar());
+        ApplyCompanyActionIcon(_btnDuplicate, CompanyActionIcons.Duplicar());
+        ApplyCompanyActionIcon(_btnToggleActive, CompanyActionIcons.AtivarInativar());
+        ApplyCompanyActionIcon(_btnHistory, CompanyActionIcons.Historico());
+        ApplyCompanyActionIcon(_btnCertificate, CompanyActionIcons.Certificado());
+        ApplyCompanyActionIcon(_btnImport, CompanyActionIcons.Importar());
+        ApplyCompanyActionIcon(_btnExport, CompanyActionIcons.Exportar());
 
         _grid.ApplyNorthfieldStyle();
         _grid.RowTemplate.Height = 23;
@@ -166,6 +178,10 @@ public sealed partial class CompaniesListForm : Form
         var hasSelection = _grid.SelectedRows.Count > 0;
         _btnEdit.Enabled = hasSelection;
         _btnSelect.Enabled = hasSelection;
+        _btnDuplicate.Enabled = hasSelection;
+        _btnToggleActive.Enabled = hasSelection;
+        _btnHistory.Enabled = hasSelection;
+        _btnCertificate.Enabled = hasSelection;
 
         // A exclusão ficará ligada quando o cadastro de empresas deixar de ser derivado
         // das sessões de apuração. Mantemos o comando visível sem apagar dados fiscais.
