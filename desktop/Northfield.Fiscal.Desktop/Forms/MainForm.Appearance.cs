@@ -83,6 +83,14 @@ public sealed partial class MainForm
         {
             switch (control)
             {
+                case FlowLayoutPanel flow:
+                    flow.BackColor = flow.Parent is TabPage ? Theme.ToolbarBack : Color.White;
+                    break;
+
+                case TableLayoutPanel table:
+                    table.BackColor = Color.White;
+                    break;
+
                 case Panel panel when panel.Dock == DockStyle.Top && panel.Height == 42:
                     panel.BackColor = Theme.HeaderBack;
                     foreach (Control child in panel.Controls)
@@ -116,19 +124,6 @@ public sealed partial class MainForm
                 case Label label:
                     if (label.ForeColor == SystemColors.ControlText)
                         label.ForeColor = Theme.Text;
-                    break;
-
-                case FlowLayoutPanel flow:
-                    flow.BackColor = flow.Parent is TabPage ? Theme.ToolbarBack : Color.White;
-                    break;
-
-                case TableLayoutPanel table:
-                    table.BackColor = Color.White;
-                    break;
-
-                case TextBox textBox:
-                    if (textBox.Font is null)
-                        textBox.Font = Theme.UiFont();
                     break;
             }
 
