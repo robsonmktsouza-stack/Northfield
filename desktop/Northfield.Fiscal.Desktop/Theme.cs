@@ -9,6 +9,10 @@ internal static class Theme
     public static readonly Color HeaderBack = Color.FromArgb(205, 221, 237);
     public static readonly Color HeaderBackStrong = Color.FromArgb(188, 210, 231);
     public static readonly Color ToolbarBack = Color.FromArgb(236, 237, 238);
+    public static readonly Color MenuBack = Color.FromArgb(232, 232, 232);
+    public static readonly Color MenuHover = Color.FromArgb(222, 222, 222);
+    public static readonly Color MenuPressed = Color.FromArgb(214, 214, 214);
+    public static readonly Color MenuBorder = Color.FromArgb(184, 184, 184);
     public static readonly Color Border = Color.FromArgb(148, 156, 164);
     public static readonly Color BorderSoft = Color.FromArgb(190, 196, 202);
     public static readonly Color Primary = Color.FromArgb(58, 101, 142);
@@ -30,10 +34,7 @@ internal static class Theme
         new("Segoe UI", size, style, GraphicsUnit.Point);
 
     public static ToolStripRenderer ToolRenderer { get; } =
-        new ToolStripProfessionalRenderer(new AccountingColorTable())
-        {
-            RoundedEdges = false
-        };
+        new AccountingToolStripRenderer(new AccountingColorTable());
 
     public static void StyleGrid(DataGridView grid)
     {
@@ -91,30 +92,51 @@ internal static class Theme
         button.ForeColor = Text;
     }
 
+    private sealed class AccountingToolStripRenderer : ToolStripProfessionalRenderer
+    {
+        public AccountingToolStripRenderer(ProfessionalColorTable colorTable)
+            : base(colorTable)
+        {
+            RoundedEdges = false;
+        }
+
+        protected override void OnRenderToolStripBorder(ToolStripRenderEventArgs e)
+        {
+            if (e.ToolStrip is MenuStrip)
+            {
+                using var pen = new Pen(MenuBorder);
+                e.Graphics.DrawLine(pen, 0, e.ToolStrip.Height - 1, e.ToolStrip.Width, e.ToolStrip.Height - 1);
+                return;
+            }
+
+            base.OnRenderToolStripBorder(e);
+        }
+    }
+
     private sealed class AccountingColorTable : ProfessionalColorTable
     {
         public override Color ToolStripGradientBegin => ToolbarBack;
         public override Color ToolStripGradientMiddle => ToolbarBack;
         public override Color ToolStripGradientEnd => ToolbarBack;
-        public override Color MenuStripGradientBegin => Color.FromArgb(239, 240, 241);
-        public override Color MenuStripGradientEnd => Color.FromArgb(229, 230, 231);
-        public override Color MenuItemSelected => HeaderBack;
-        public override Color MenuItemBorder => Border;
-        public override Color MenuItemPressedGradientBegin => HeaderBackStrong;
-        public override Color MenuItemPressedGradientMiddle => HeaderBackStrong;
-        public override Color MenuItemPressedGradientEnd => HeaderBackStrong;
-        public override Color ButtonSelectedGradientBegin => HeaderBack;
-        public override Color ButtonSelectedGradientMiddle => HeaderBack;
-        public override Color ButtonSelectedGradientEnd => HeaderBack;
-        public override Color ButtonSelectedBorder => Border;
-        public override Color ButtonPressedGradientBegin => HeaderBackStrong;
-        public override Color ButtonPressedGradientMiddle => HeaderBackStrong;
-        public override Color ButtonPressedGradientEnd => HeaderBackStrong;
-        public override Color SeparatorDark => Border;
-        public override Color SeparatorLight => Color.White;
-        public override Color ToolStripBorder => Border;
-        public override Color ImageMarginGradientBegin => ToolbarBack;
-        public override Color ImageMarginGradientMiddle => ToolbarBack;
-        public override Color ImageMarginGradientEnd => ToolbarBack;
+        public override Color MenuStripGradientBegin => MenuBack;
+        public override Color MenuStripGradientEnd => MenuBack;
+        public override Color MenuItemSelected => MenuHover;
+        public override Color MenuItemBorder => Color.FromArgb(198, 198, 198);
+        public override Color MenuItemPressedGradientBegin => MenuPressed;
+        public override Color MenuItemPressedGradientMiddle => MenuPressed;
+        public override Color MenuItemPressedGradientEnd => MenuPressed;
+        public override Color ButtonSelectedGradientBegin => MenuHover;
+        public override Color ButtonSelectedGradientMiddle => MenuHover;
+        public override Color ButtonSelectedGradientEnd => MenuHover;
+        public override Color ButtonSelectedBorder => Color.FromArgb(198, 198, 198);
+        public override Color ButtonPressedGradientBegin => MenuPressed;
+        public override Color ButtonPressedGradientMiddle => MenuPressed;
+        public override Color ButtonPressedGradientEnd => MenuPressed;
+        public override Color SeparatorDark => MenuBorder;
+        public override Color SeparatorLight => Color.FromArgb(245, 245, 245);
+        public override Color ToolStripBorder => MenuBorder;
+        public override Color ImageMarginGradientBegin => MenuBack;
+        public override Color ImageMarginGradientMiddle => MenuBack;
+        public override Color ImageMarginGradientEnd => MenuBack;
     }
 }
