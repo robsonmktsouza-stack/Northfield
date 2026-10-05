@@ -7,6 +7,8 @@ public sealed class CompanyContext
     public string CorporateName { get; set; } = string.Empty;
     public string TaxRegime { get; set; } = "Simples Nacional";
     public string Municipality { get; set; } = string.Empty;
+    public string Uf { get; set; } = string.Empty;
+    public bool IsActive { get; set; } = true;
     public decimal Rbt12 { get; set; }
     public decimal Payroll12m { get; set; }
     public bool ConsiderIssWithheld { get; set; } = true;
