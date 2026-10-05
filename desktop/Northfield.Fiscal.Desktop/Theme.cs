@@ -3,8 +3,8 @@ namespace Northfield.Fiscal.Desktop;
 internal static class Theme
 {
     // Visual inspirado em sistemas contábeis desktop clássicos:
-    // área de trabalho cinza, painéis claros, cabeçalhos azulados e bordas firmes.
-    public static readonly Color AppBack = Color.FromArgb(188, 190, 192);
+    // área de trabalho em cinza neutro, painéis claros, cabeçalhos azulados e bordas firmes.
+    public static readonly Color AppBack = Color.FromArgb(198, 198, 198);
     public static readonly Color PanelBack = Color.FromArgb(241, 242, 243);
     public static readonly Color HeaderBack = Color.FromArgb(205, 221, 237);
     public static readonly Color HeaderBackStrong = Color.FromArgb(188, 210, 231);
