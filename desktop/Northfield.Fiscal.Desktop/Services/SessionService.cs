@@ -40,6 +40,61 @@ public sealed class SessionService
         catch { return null; }
     }
 
+    public IReadOnlyList<CompanyListItem> GetCompanies(CompanyContext? currentCompany = null)
+    {
+        Directory.CreateDirectory(AppDataDirectory);
+
+        var items = new List<CompanyListItem>();
+
+        foreach (var path in Directory.EnumerateFiles(AppDataDirectory, "*.northfield.json", SearchOption.TopDirectoryOnly))
+        {
+            try
+            {
+                var data = Load(path);
+                if (string.IsNullOrWhiteSpace(data.Company.Cnpj) &&
+                    string.IsNullOrWhiteSpace(data.Company.CorporateName))
+                {
+                    continue;
+                }
+
+                items.Add(new CompanyListItem
+                {
+                    Company = data.Company,
+                    LastCompetence = data.Company.Competence,
+                    LastUpdatedAt = data.SavedAt
+                });
+            }
+            catch
+            {
+                // Sessões inválidas são ignoradas na listagem de empresas.
+            }
+        }
+
+        if (currentCompany is not null &&
+            (!string.IsNullOrWhiteSpace(currentCompany.Cnpj) ||
+             !string.IsNullOrWhiteSpace(currentCompany.CorporateName)))
+        {
+            items.Add(new CompanyListItem
+            {
+                Company = currentCompany,
+                LastCompetence = currentCompany.Competence,
+                LastUpdatedAt = DateTime.Now
+            });
+        }
+
+        return items
+            .GroupBy(x =>
+                !string.IsNullOrWhiteSpace(x.Company.Cnpj)
+                    ? x.Company.Cnpj.Trim()
+                    : x.Company.CorporateName.Trim(),
+                StringComparer.OrdinalIgnoreCase)
+            .Select(g => g
+                .OrderByDescending(x => x.LastUpdatedAt)
+                .First())
+            .OrderBy(x => x.Company.CorporateName)
+            .ToList();
+    }
+
     public IReadOnlyList<RecentSessionInfo> GetRecentSessions(string? additionalPath = null, int limit = 10)
     {
         Directory.CreateDirectory(AppDataDirectory);
