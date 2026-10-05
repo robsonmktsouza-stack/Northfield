@@ -18,6 +18,7 @@ public sealed partial class MainForm : Form
     private Guid? _selectedDocumentId;
     private string? _currentSessionPath;
     private bool _loadingForm;
+    private System.Windows.Forms.Timer? _clockTimer;
 
     public MainForm()
     {
@@ -82,12 +83,21 @@ public sealed partial class MainForm : Form
         _tbImprimir.Click += (_, _) => PrintSummary();
 
         FormClosing += (_, _) => SaveLastSessionSilently();
+        FormClosed += (_, _) =>
+        {
+            _clockTimer?.Stop();
+            _clockTimer?.Dispose();
+            _clockTimer = null;
+        };
         DragEnter += MainForm_DragEnter;
         DragDrop += MainForm_DragDrop;
 
-        var timer = new System.Windows.Forms.Timer(components!) { Interval = 30000 };
-        timer.Tick += (_, _) => _stClock.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
-        timer.Start();
+        _clockTimer = new System.Windows.Forms.Timer
+        {
+            Interval = 30000
+        };
+        _clockTimer.Tick += (_, _) => _stClock.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+        _clockTimer.Start();
     }
 
     private void CompanyFormChanged()
