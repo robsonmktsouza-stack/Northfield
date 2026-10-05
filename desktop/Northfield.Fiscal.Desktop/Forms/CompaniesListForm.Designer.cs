@@ -81,7 +81,7 @@ partial class CompaniesListForm
         _root.Margin = new Padding(0);
         _root.Name = "_root";
         _root.RowCount = 4;
-        _root.RowStyles.Add(new RowStyle(SizeType.Absolute, 36F));
+        _root.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
         _root.RowStyles.Add(new RowStyle(SizeType.Absolute, 34F));
         _root.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
         _root.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
@@ -92,7 +92,7 @@ partial class CompaniesListForm
         _header.Location = new Point(0, 0);
         _header.Margin = new Padding(0);
         _header.Name = "_header";
-        _header.Size = new Size(1000, 36);
+        _header.Size = new Size(1000, 42);
 
         _actions.Anchor = AnchorStyles.Top | AnchorStyles.Left;
         _actions.AutoSize = true;
@@ -110,79 +110,79 @@ partial class CompaniesListForm
         _actions.Location = new Point(8, 3);
         _actions.Margin = new Padding(0);
         _actions.Name = "_actions";
-        _actions.Size = new Size(318, 30);
+        _actions.Size = new Size(378, 36);
         _actions.WrapContents = false;
 
         _btnSelect.Margin = new Padding(2, 0, 0, 0);
         _btnSelect.Name = "_btnSelect";
-        _btnSelect.Size = new Size(30, 30);
+        _btnSelect.Size = new Size(36, 36);
         _btnSelect.Text = "";
         _toolTip.SetToolTip(_btnSelect, "Selecionar empresa");
 
         _btnNew.Margin = new Padding(0, 0, 2, 0);
         _btnNew.Name = "_btnNew";
-        _btnNew.Size = new Size(30, 30);
+        _btnNew.Size = new Size(36, 36);
         _btnNew.Text = "";
         _toolTip.SetToolTip(_btnNew, "Nova empresa");
 
         _btnEdit.Enabled = false;
         _btnEdit.Margin = new Padding(0, 0, 2, 0);
         _btnEdit.Name = "_btnEdit";
-        _btnEdit.Size = new Size(30, 30);
+        _btnEdit.Size = new Size(36, 36);
         _btnEdit.Text = "";
         _toolTip.SetToolTip(_btnEdit, "Editar empresa");
 
         _btnDelete.Enabled = false;
         _btnDelete.Margin = new Padding(0, 0, 2, 0);
         _btnDelete.Name = "_btnDelete";
-        _btnDelete.Size = new Size(30, 30);
+        _btnDelete.Size = new Size(36, 36);
         _btnDelete.Text = "";
         _toolTip.SetToolTip(_btnDelete, "Excluir empresa");
         
         _btnDuplicate.Enabled = false;
         _btnDuplicate.Margin = new Padding(0, 0, 2, 0);
         _btnDuplicate.Name = "_btnDuplicate";
-        _btnDuplicate.Size = new Size(30, 30);
+        _btnDuplicate.Size = new Size(36, 36);
         _btnDuplicate.Text = "";
         _toolTip.SetToolTip(_btnDuplicate, "Duplicar empresa");
 
         _btnToggleActive.Enabled = false;
         _btnToggleActive.Margin = new Padding(0, 0, 2, 0);
         _btnToggleActive.Name = "_btnToggleActive";
-        _btnToggleActive.Size = new Size(30, 30);
+        _btnToggleActive.Size = new Size(36, 36);
         _btnToggleActive.Text = "";
         _toolTip.SetToolTip(_btnToggleActive, "Ativar / Inativar empresa");
 
         _btnHistory.Enabled = false;
         _btnHistory.Margin = new Padding(0, 0, 2, 0);
         _btnHistory.Name = "_btnHistory";
-        _btnHistory.Size = new Size(30, 30);
+        _btnHistory.Size = new Size(36, 36);
         _btnHistory.Text = "";
         _toolTip.SetToolTip(_btnHistory, "Histórico da empresa");
 
         _btnCertificate.Enabled = false;
         _btnCertificate.Margin = new Padding(0, 0, 2, 0);
         _btnCertificate.Name = "_btnCertificate";
-        _btnCertificate.Size = new Size(30, 30);
+        _btnCertificate.Size = new Size(36, 36);
         _btnCertificate.Text = "";
         _toolTip.SetToolTip(_btnCertificate, "Certificado digital");
 
         _btnImport.Margin = new Padding(0, 0, 2, 0);
         _btnImport.Name = "_btnImport";
-        _btnImport.Size = new Size(30, 30);
+        _btnImport.Size = new Size(36, 36);
         _btnImport.Text = "";
         _toolTip.SetToolTip(_btnImport, "Importar cadastro");
 
         _btnExport.Margin = new Padding(0);
         _btnExport.Name = "_btnExport";
-        _btnExport.Size = new Size(30, 30);
+        _btnExport.Size = new Size(36, 36);
         _btnExport.Text = "";
         _toolTip.SetToolTip(_btnExport, "Exportar lista");
 
         _searchPanel.Controls.Add(_lblSearch);
         _searchPanel.Controls.Add(_txtSearch);
         _searchPanel.Dock = DockStyle.Fill;
-        _searchPanel.Location = new Point(0, 36);
+        _searchPanel.Location = new Point(0, 42);
         _searchPanel.Margin = new Padding(0);
         _searchPanel.Name = "_searchPanel";
         _searchPanel.Padding = new Padding(10, 4, 10, 4);
@@ -199,10 +199,10 @@ partial class CompaniesListForm
         _txtSearch.Size = new Size(320, 26);
 
         _grid.Dock = DockStyle.Fill;
-        _grid.Location = new Point(0, 70);
+        _grid.Location = new Point(0, 76);
         _grid.Margin = new Padding(0);
         _grid.Name = "_grid";
-        _grid.Size = new Size(1000, 460);
+        _grid.Size = new Size(1000, 454);
 
         _footer.Controls.Add(_lblCount);
         _footer.Controls.Add(_btnClose);
