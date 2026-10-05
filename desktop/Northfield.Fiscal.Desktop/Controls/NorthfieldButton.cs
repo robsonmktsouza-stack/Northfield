@@ -5,6 +5,7 @@ namespace Northfield.Fiscal.Desktop.Controls;
 public sealed class NorthfieldButton : Button
 {
     private bool _primary;
+    private bool _toolbarButton;
     private bool _hovered;
     private bool _pressed;
 
@@ -30,6 +31,18 @@ public sealed class NorthfieldButton : Button
             if (_primary == value) return;
             _primary = value;
             Font = Theme.UiFont(8.3F, _primary ? FontStyle.Bold : FontStyle.Regular);
+            ApplyVisualState();
+        }
+    }
+
+    [DefaultValue(false)]
+    public bool ToolbarButton
+    {
+        get => _toolbarButton;
+        set
+        {
+            if (_toolbarButton == value) return;
+            _toolbarButton = value;
             ApplyVisualState();
         }
     }
@@ -72,9 +85,38 @@ public sealed class NorthfieldButton : Button
         ApplyVisualState();
     }
 
+    protected override void OnParentChanged(EventArgs e)
+    {
+        base.OnParentChanged(e);
+        ApplyVisualState();
+    }
+
     private void ApplyVisualState()
     {
         ForeColor = Enabled ? Theme.Text : SystemColors.GrayText;
+
+        if (_toolbarButton)
+        {
+            FlatStyle = FlatStyle.Flat;
+            FlatAppearance.BorderSize = 0;
+            FlatAppearance.BorderColor = Color.Transparent;
+
+            var idleBack = Parent?.BackColor ?? Theme.ToolbarBack;
+
+            if (!Enabled)
+            {
+                BackColor = idleBack;
+                return;
+            }
+
+            BackColor = _pressed
+                ? Theme.MenuPressed
+                : _hovered
+                    ? Theme.MenuHover
+                    : idleBack;
+
+            return;
+        }
 
         if (!Enabled)
         {
