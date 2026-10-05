@@ -8,13 +8,19 @@ partial class CompaniesListForm
 {
     private IContainer components = null;
     private TableLayoutPanel _root;
-    private NorthfieldPanel _commands;
+    private NorthfieldPanel _header;
     private Label _lblTitle;
-    private NorthfieldSearchBox _txtSearch;
-    private NorthfieldStatusBadge _lblCount;
-    private NorthfieldGrid _grid;
-    private FlowLayoutPanel _bottom;
+    private FlowLayoutPanel _actions;
+    private NorthfieldButton _btnNew;
+    private NorthfieldButton _btnEdit;
+    private NorthfieldButton _btnDelete;
     private NorthfieldButton _btnSelect;
+    private Panel _searchPanel;
+    private Label _lblSearch;
+    private NorthfieldSearchBox _txtSearch;
+    private NorthfieldGrid _grid;
+    private Panel _footer;
+    private Label _lblCount;
     private NorthfieldButton _btnClose;
 
     protected override void Dispose(bool disposing)
@@ -29,107 +35,160 @@ partial class CompaniesListForm
     {
         components = new Container();
         _root = new TableLayoutPanel();
-        _commands = new NorthfieldPanel();
+        _header = new NorthfieldPanel();
         _lblTitle = new Label();
-        _txtSearch = new NorthfieldSearchBox();
-        _lblCount = new NorthfieldStatusBadge();
-        _grid = new NorthfieldGrid();
-        _bottom = new FlowLayoutPanel();
+        _actions = new FlowLayoutPanel();
+        _btnNew = new NorthfieldButton();
+        _btnEdit = new NorthfieldButton();
+        _btnDelete = new NorthfieldButton();
         _btnSelect = new NorthfieldButton();
+        _searchPanel = new Panel();
+        _lblSearch = new Label();
+        _txtSearch = new NorthfieldSearchBox();
+        _grid = new NorthfieldGrid();
+        _footer = new Panel();
+        _lblCount = new Label();
         _btnClose = new NorthfieldButton();
 
         _root.SuspendLayout();
-        _commands.SuspendLayout();
+        _header.SuspendLayout();
+        _actions.SuspendLayout();
+        _searchPanel.SuspendLayout();
         ((ISupportInitialize)_grid).BeginInit();
-        _bottom.SuspendLayout();
+        _footer.SuspendLayout();
         SuspendLayout();
 
         _root.ColumnCount = 1;
         _root.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-        _root.Controls.Add(_commands, 0, 0);
-        _root.Controls.Add(_grid, 0, 1);
-        _root.Controls.Add(_bottom, 0, 2);
+        _root.Controls.Add(_header, 0, 0);
+        _root.Controls.Add(_searchPanel, 0, 1);
+        _root.Controls.Add(_grid, 0, 2);
+        _root.Controls.Add(_footer, 0, 3);
         _root.Dock = DockStyle.Fill;
         _root.Location = new Point(0, 0);
         _root.Margin = new Padding(0);
         _root.Name = "_root";
-        _root.RowCount = 3;
-        _root.RowStyles.Add(new RowStyle(SizeType.Absolute, 70F));
+        _root.RowCount = 4;
+        _root.RowStyles.Add(new RowStyle(SizeType.Absolute, 46F));
+        _root.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
         _root.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-        _root.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-        _root.Size = new Size(1100, 650);
+        _root.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
+        _root.Size = new Size(1080, 620);
 
-        _commands.Controls.Add(_lblTitle);
-        _commands.Controls.Add(_txtSearch);
-        _commands.Controls.Add(_lblCount);
-        _commands.Dock = DockStyle.Fill;
-        _commands.Location = new Point(0, 0);
-        _commands.Margin = new Padding(0);
-        _commands.Name = "_commands";
-        _commands.Size = new Size(1100, 70);
+        _header.Controls.Add(_lblTitle);
+        _header.Controls.Add(_actions);
+        _header.Dock = DockStyle.Fill;
+        _header.Location = new Point(0, 0);
+        _header.Margin = new Padding(0);
+        _header.Name = "_header";
+        _header.Size = new Size(1080, 46);
 
         _lblTitle.AutoSize = true;
-        _lblTitle.Location = new Point(14, 10);
+        _lblTitle.Location = new Point(13, 14);
         _lblTitle.Name = "_lblTitle";
         _lblTitle.Text = "Empresas";
 
-        _txtSearch.Location = new Point(14, 34);
+        _actions.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        _actions.AutoSize = true;
+        _actions.Controls.Add(_btnSelect);
+        _actions.Controls.Add(_btnNew);
+        _actions.Controls.Add(_btnEdit);
+        _actions.Controls.Add(_btnDelete);
+        _actions.FlowDirection = FlowDirection.LeftToRight;
+        _actions.Location = new Point(698, 8);
+        _actions.Margin = new Padding(0);
+        _actions.Name = "_actions";
+        _actions.Size = new Size(368, 30);
+        _actions.WrapContents = false;
+
+        _btnSelect.Margin = new Padding(0, 0, 6, 0);
+        _btnSelect.Name = "_btnSelect";
+        _btnSelect.Size = new Size(92, 30);
+        _btnSelect.Text = "Selecionar";
+
+        _btnNew.Margin = new Padding(0, 0, 6, 0);
+        _btnNew.Name = "_btnNew";
+        _btnNew.Size = new Size(80, 30);
+        _btnNew.Text = "Novo";
+
+        _btnEdit.Enabled = false;
+        _btnEdit.Margin = new Padding(0, 0, 6, 0);
+        _btnEdit.Name = "_btnEdit";
+        _btnEdit.Size = new Size(80, 30);
+        _btnEdit.Text = "Editar";
+
+        _btnDelete.Enabled = false;
+        _btnDelete.Margin = new Padding(0);
+        _btnDelete.Name = "_btnDelete";
+        _btnDelete.Size = new Size(92, 30);
+        _btnDelete.Text = "Excluir";
+
+        _searchPanel.Controls.Add(_lblSearch);
+        _searchPanel.Controls.Add(_txtSearch);
+        _searchPanel.Dock = DockStyle.Fill;
+        _searchPanel.Location = new Point(0, 46);
+        _searchPanel.Margin = new Padding(0);
+        _searchPanel.Name = "_searchPanel";
+        _searchPanel.Padding = new Padding(12, 8, 12, 8);
+        _searchPanel.Size = new Size(1080, 48);
+
+        _lblSearch.AutoSize = true;
+        _lblSearch.Location = new Point(14, 17);
+        _lblSearch.Name = "_lblSearch";
+        _lblSearch.Text = "Pesquisar:";
+
+        _txtSearch.Location = new Point(80, 9);
         _txtSearch.Name = "_txtSearch";
-        _txtSearch.PlaceholderText = "Pesquisar por CNPJ, razão social ou município...";
+        _txtSearch.PlaceholderText = "CNPJ, razão social, município ou UF";
         _txtSearch.Size = new Size(390, 30);
 
-        _lblCount.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-        _lblCount.AutoSize = true;
-        _lblCount.Location = new Point(978, 34);
-        _lblCount.Name = "_lblCount";
-        _lblCount.Text = "0 empresa(s)";
-
         _grid.Dock = DockStyle.Fill;
-        _grid.Location = new Point(0, 70);
+        _grid.Location = new Point(0, 94);
         _grid.Margin = new Padding(0);
         _grid.Name = "_grid";
-        _grid.Size = new Size(1100, 530);
+        _grid.Size = new Size(1080, 486);
 
-        _bottom.Controls.Add(_btnClose);
-        _bottom.Controls.Add(_btnSelect);
-        _bottom.Dock = DockStyle.Fill;
-        _bottom.FlowDirection = FlowDirection.RightToLeft;
-        _bottom.Location = new Point(0, 600);
-        _bottom.Margin = new Padding(0);
-        _bottom.Name = "_bottom";
-        _bottom.Padding = new Padding(8, 9, 8, 8);
-        _bottom.Size = new Size(1100, 50);
-        _bottom.WrapContents = false;
+        _footer.Controls.Add(_lblCount);
+        _footer.Controls.Add(_btnClose);
+        _footer.Dock = DockStyle.Fill;
+        _footer.Location = new Point(0, 580);
+        _footer.Margin = new Padding(0);
+        _footer.Name = "_footer";
+        _footer.Size = new Size(1080, 40);
 
+        _lblCount.AutoSize = true;
+        _lblCount.Location = new Point(13, 13);
+        _lblCount.Name = "_lblCount";
+        _lblCount.Text = "0 registros";
+
+        _btnClose.Anchor = AnchorStyles.Top | AnchorStyles.Right;
         _btnClose.DialogResult = DialogResult.Cancel;
-        _btnClose.Margin = new Padding(6, 0, 0, 0);
+        _btnClose.Location = new Point(976, 5);
         _btnClose.Name = "_btnClose";
-        _btnClose.Size = new Size(92, 30);
+        _btnClose.Size = new Size(90, 30);
         _btnClose.Text = "Fechar";
-
-        _btnSelect.Enabled = false;
-        _btnSelect.Margin = new Padding(6, 0, 0, 0);
-        _btnSelect.Name = "_btnSelect";
-        _btnSelect.Size = new Size(112, 30);
-        _btnSelect.Text = "Selecionar";
 
         AcceptButton = _btnSelect;
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         CancelButton = _btnClose;
-        ClientSize = new Size(1100, 650);
+        ClientSize = new Size(1080, 620);
         Controls.Add(_root);
-        MinimumSize = new Size(850, 500);
+        MinimumSize = new Size(900, 520);
         Name = "CompaniesListForm";
         ShowIcon = false;
         StartPosition = FormStartPosition.CenterParent;
         Text = "Empresas";
 
         _root.ResumeLayout(false);
-        _commands.ResumeLayout(false);
-        _commands.PerformLayout();
+        _header.ResumeLayout(false);
+        _header.PerformLayout();
+        _actions.ResumeLayout(false);
+        _searchPanel.ResumeLayout(false);
+        _searchPanel.PerformLayout();
         ((ISupportInitialize)_grid).EndInit();
-        _bottom.ResumeLayout(false);
+        _footer.ResumeLayout(false);
+        _footer.PerformLayout();
         ResumeLayout(false);
     }
 }
