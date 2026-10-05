@@ -662,7 +662,7 @@ partial class MainForm
         _documentsTitle.Text = "Documentos da competência";
         _documentsSubtitle.AutoSize = true;
         _documentsSubtitle.Location = new Point(12, 23);
-        _documentsSubtitle.Text = "Notas e receitas carregadas para a apuração";
+        _documentsSubtitle.Text = "Documentos da competência";
         _gridApuracao.Dock = DockStyle.Fill;
         _gridApuracao.Location = new Point(0, 42);
         _gridApuracao.Name = "_gridApuracao";
@@ -782,7 +782,7 @@ partial class MainForm
         _memoryTitle.Text = "Memória de cálculo";
         _memorySubtitle.AutoSize = true;
         _memorySubtitle.Location = new Point(12, 23);
-        _memorySubtitle.Text = "Documento selecionado e trilha da decisão";
+        _memorySubtitle.Text = "Dados do documento selecionado";
 
         _splitMemory.Dock = DockStyle.Fill;
         _splitMemory.Location = new Point(0, 42);
@@ -970,7 +970,7 @@ partial class MainForm
         _segregationTitle.Text = "Segregação da competência";
         _segregationSubtitle.AutoSize = true;
         _segregationSubtitle.Location = new Point(12, 23);
-        _segregationSubtitle.Text = "Receitas agrupadas conforme a classificação vigente";
+        _segregationSubtitle.Text = "Receitas agrupadas para conferência";
         _gridSegregation.Dock = DockStyle.Fill;
         _gridSegregation.Location = new Point(0, 42);
 
@@ -999,7 +999,7 @@ partial class MainForm
         _fullMemoryTitle.Text = "Memória completa";
         _fullMemorySubtitle.AutoSize = true;
         _fullMemorySubtitle.Location = new Point(12, 23);
-        _fullMemorySubtitle.Text = "Rastreamento da competência e das classificações";
+        _fullMemorySubtitle.Text = "Detalhamento da competência";
         _txtFullMemory.BorderStyle = BorderStyle.None;
         _txtFullMemory.Dock = DockStyle.Fill;
         _txtFullMemory.Location = new Point(0, 42);

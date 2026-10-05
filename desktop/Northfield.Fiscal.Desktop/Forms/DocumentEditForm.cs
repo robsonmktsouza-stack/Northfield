@@ -23,21 +23,21 @@ public sealed partial class DocumentEditForm : Form
 
     private void ApplyRuntimeTheme()
     {
-        Font = Theme.UiFont();
+        Font = Theme.UiFont(8.5F);
         BackColor = Theme.AppBack;
         DoubleBuffered = true;
 
-        _main.BackColor = Color.White;
+        _main.BackColor = Theme.PanelBack;
         _buttons.BackColor = Theme.ToolbarBack;
-        _buttons.BorderStyle = BorderStyle.FixedSingle;
+        _buttons.BorderStyle = BorderStyle.Fixed3D;
 
         foreach (Control control in _main.Controls)
         {
             switch (control)
             {
                 case Label label:
-                    label.ForeColor = Theme.Muted;
-                    label.Font = Theme.UiFont(8.4F);
+                    label.ForeColor = Theme.Text;
+                    label.Font = Theme.UiFont(8.3F);
                     break;
                 case TextBox textBox:
                     textBox.Font = Theme.UiFont(8.8F);
@@ -51,12 +51,13 @@ public sealed partial class DocumentEditForm : Form
             }
         }
 
-        _lblDocumentValue.ForeColor = Theme.Text;
-        _lblDocumentValue.Font = Theme.UiFont(9F, FontStyle.Bold);
+        _lblDocumentValue.ForeColor = Theme.PrimaryDark;
+        _lblDocumentValue.Font = Theme.UiFont(8.6F, FontStyle.Bold);
 
-        _lblNotice.ForeColor = Theme.PrimaryDark;
-        _lblNotice.BackColor = Theme.PrimarySoft;
-        _lblNotice.Font = Theme.UiFont(8.4F);
+        _lblNotice.ForeColor = Theme.Text;
+        _lblNotice.BackColor = Theme.HeaderBack;
+        _lblNotice.BorderStyle = BorderStyle.FixedSingle;
+        _lblNotice.Font = Theme.UiFont(8.2F);
 
         Theme.StyleButton(_btnSave, primary: true);
         Theme.StyleButton(_btnCancel);
