@@ -1,3 +1,4 @@
+using Northfield.Fiscal.Desktop.Controls;
 using Northfield.Fiscal.Desktop.Models;
 
 namespace Northfield.Fiscal.Desktop.Forms;
@@ -25,19 +26,18 @@ public sealed partial class CompaniesListForm : Form
         ForeColor = Theme.Text;
         Font = Theme.UiFont(8.5F);
 
-        _commands.BackColor = Theme.ToolbarBack;
-        _commands.BorderStyle = BorderStyle.FixedSingle;
-        _bottom.BackColor = Theme.ToolbarBack;
+        _commands.BackColor = Color.FromArgb(236, 237, 238);
+        _commands.BorderColor = Theme.MenuBorder;
+        _bottom.BackColor = Color.FromArgb(236, 237, 238);
         _bottom.BorderStyle = BorderStyle.FixedSingle;
 
         _lblTitle.ForeColor = Theme.PrimaryDark;
-        _lblTitle.Font = Theme.UiFont(9.2F, FontStyle.Bold);
-        _lblCount.ForeColor = Theme.Muted;
-        _txtSearch.Font = Theme.UiFont(8.4F);
+        _lblTitle.Font = Theme.UiFont(9.4F, FontStyle.Bold);
+        _lblCount.Tone = NorthfieldBadgeTone.Neutral;
 
-        Theme.StyleButton(_btnSelect, primary: true);
-        Theme.StyleButton(_btnClose);
-        Theme.StyleGrid(_grid);
+        _btnSelect.Primary = true;
+        _btnClose.Primary = false;
+        _grid.ApplyNorthfieldStyle();
 
         _grid.Columns.Clear();
         _grid.Columns.Add(new DataGridViewTextBoxColumn
@@ -129,6 +129,7 @@ public sealed partial class CompaniesListForm : Form
         }
 
         _lblCount.Text = $"{rows.Count} empresa(s)";
+        _lblCount.Tone = rows.Count > 0 ? NorthfieldBadgeTone.Success : NorthfieldBadgeTone.Neutral;
         _btnSelect.Enabled = _grid.SelectedRows.Count > 0;
     }
 
