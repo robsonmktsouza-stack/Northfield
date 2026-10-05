@@ -32,11 +32,11 @@ public sealed partial class CompaniesListForm : Form
         _footer.BackColor = Color.FromArgb(236, 237, 238);
 
         _lblTitle.ForeColor = Theme.PrimaryDark;
-        _lblTitle.Font = Theme.UiFont(9.2F, FontStyle.Bold);
+        _lblTitle.Font = Theme.UiFont(8.6F, FontStyle.Bold);
         _lblSearch.ForeColor = Theme.Text;
-        _lblSearch.Font = Theme.UiFont(8.2F);
+        _lblSearch.Font = Theme.UiFont(8F);
         _lblCount.ForeColor = Theme.Muted;
-        _lblCount.Font = Theme.UiFont(8F);
+        _lblCount.Font = Theme.UiFont(7.8F);
 
         _btnNew.Primary = false;
         _btnEdit.Primary = false;
@@ -45,19 +45,19 @@ public sealed partial class CompaniesListForm : Form
         _btnClose.Primary = false;
 
         _grid.ApplyNorthfieldStyle();
-        _grid.RowTemplate.Height = 27;
-        _grid.ColumnHeadersHeight = 29;
+        _grid.RowTemplate.Height = 23;
+        _grid.ColumnHeadersHeight = 25;
 
         _grid.Columns.Clear();
         _grid.Columns.Add(new DataGridViewTextBoxColumn
         {
             HeaderText = "Código",
-            Width = 72
+            Width = 64
         });
         _grid.Columns.Add(new DataGridViewTextBoxColumn
         {
             HeaderText = "CNPJ",
-            Width = 150
+            Width = 132
         });
         _grid.Columns.Add(new DataGridViewTextBoxColumn
         {
@@ -68,17 +68,17 @@ public sealed partial class CompaniesListForm : Form
         _grid.Columns.Add(new DataGridViewTextBoxColumn
         {
             HeaderText = "Município",
-            Width = 190
+            Width = 150
         });
         _grid.Columns.Add(new DataGridViewTextBoxColumn
         {
             HeaderText = "UF",
-            Width = 56
+            Width = 46
         });
         _grid.Columns.Add(new DataGridViewTextBoxColumn
         {
             HeaderText = "Situação",
-            Width = 92
+            Width = 78
         });
     }
 
