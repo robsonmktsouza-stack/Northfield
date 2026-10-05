@@ -84,7 +84,7 @@ public sealed partial class MainForm : Form
         DragEnter += MainForm_DragEnter;
         DragDrop += MainForm_DragDrop;
 
-        var timer = new System.Windows.Forms.Timer(components) { Interval = 30000 };
+        var timer = new System.Windows.Forms.Timer(components!) { Interval = 30000 };
         timer.Tick += (_, _) => _stClock.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
         timer.Start();
     }
