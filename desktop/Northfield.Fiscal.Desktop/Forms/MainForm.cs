@@ -29,6 +29,8 @@ public sealed partial class MainForm : Form
         Font = Theme.UiFont();
         KeyPreview = true;
         AllowDrop = true;
+        DoubleBuffered = true;
+        AutoScaleMode = AutoScaleMode.Dpi;
 
         BuildUi();
         HookEvents();
