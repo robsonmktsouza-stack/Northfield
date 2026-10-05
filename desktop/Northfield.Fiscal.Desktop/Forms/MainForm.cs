@@ -543,6 +543,9 @@ public sealed partial class MainForm : Form
         print.PrintPage += (_, e) =>
         {
             var g = e.Graphics;
+            if (g is null)
+                return;
+
             var y = 50f;
             using var titleFont = new Font("Segoe UI", 16, FontStyle.Bold);
             using var headerFont = new Font("Segoe UI", 10, FontStyle.Bold);
