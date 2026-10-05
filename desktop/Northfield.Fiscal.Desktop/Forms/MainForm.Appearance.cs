@@ -12,18 +12,15 @@ public sealed partial class MainForm
         _menu.BackColor = Color.White;
         _menu.Renderer = Theme.ToolRenderer;
         _menu.Font = Theme.UiFont(9F);
-        _menu.Padding = new Padding(8, 2, 0, 2);
 
         _tool.BackColor = Theme.ToolbarBack;
         _tool.Renderer = Theme.ToolRenderer;
         _tool.Font = Theme.UiFont(8.8F);
-        _tool.Padding = new Padding(8, 4, 8, 4);
 
         foreach (ToolStripItem item in _tool.Items)
         {
             if (item is ToolStripButton button)
             {
-                button.DisplayStyle = ToolStripItemDisplayStyle.Text;
                 button.Padding = new Padding(9, 2, 9, 2);
                 button.Margin = new Padding(1, 0, 1, 0);
                 button.ForeColor = Theme.Text;
@@ -40,11 +37,7 @@ public sealed partial class MainForm
         _tabs.DrawMode = TabDrawMode.OwnerDrawFixed;
         _tabs.SizeMode = TabSizeMode.Fixed;
         _tabs.ItemSize = new Size(150, 31);
-        _tabs.Padding = new Point(14, 5);
         _tabs.Font = Theme.UiFont(8.8F);
-
-        foreach (TabPage tab in _tabs.TabPages)
-            tab.BackColor = Theme.AppBack;
 
         Theme.StyleButton(_btnImportDocs, primary: true);
         Theme.StyleButton(_btnEditDoc);
@@ -60,6 +53,27 @@ public sealed partial class MainForm
         ConfigureSegregationGrid();
         ConfigurePgdasGrid();
 
+        StyleSection(_documentsHeader, _documentsAccent, _documentsTitle, _documentsSubtitle);
+        StyleSection(_summaryHeader, _summaryAccent, _summaryTitle, _summarySubtitle);
+        StyleSection(_memoryHeader, _memoryAccent, _memoryTitle, _memorySubtitle);
+        StyleSection(_segregationHeader, _segregationAccent, _segregationTitle, _segregationSubtitle);
+        StyleSection(_fullMemoryHeader, _fullMemoryAccent, _fullMemoryTitle, _fullMemorySubtitle);
+
+        _companyPanel.BackColor = Color.White;
+        _companyTable.BackColor = Color.White;
+        _documentsSection.BackColor = Color.White;
+        _summarySection.BackColor = Color.White;
+        _memorySection.BackColor = Color.White;
+        _segregationSection.BackColor = Color.White;
+        _fullMemorySection.BackColor = Color.White;
+
+        _lblCompanyInfo.BackColor = Theme.PrimarySoft;
+        _lblCompanyInfo.ForeColor = Theme.PrimaryDark;
+
+        _pgdasNotice.BackColor = Theme.PrimarySoft;
+        _pgdasNotice.ForeColor = Theme.PrimaryDark;
+        _pgdasNotice.Font = Theme.UiFont(8.8F, FontStyle.Bold);
+
         _txtFullMemory.BackColor = Color.White;
         _txtFullMemory.ForeColor = Theme.Text;
         _lstMemory.BackColor = Color.White;
@@ -68,68 +82,18 @@ public sealed partial class MainForm
         _status.BackColor = Theme.ToolbarBack;
         _status.Renderer = Theme.ToolRenderer;
         _status.Font = Theme.UiFont(8.1F);
-        _status.Padding = new Padding(6, 1, 6, 1);
         _stEngine.ForeColor = Theme.Warning;
         _stClock.ForeColor = Theme.Muted;
-
-        ApplyThemeRecursive(this);
-        ConfigurePreferredSplitter(_splitDocuments, preferredDistance: 1010, trailingPanelMinimum: 340);
-        ConfigurePreferredSplitter(_splitMemory, preferredDistance: 390, trailingPanelMinimum: 360);
     }
 
-    private static void ApplyThemeRecursive(Control parent)
+    private static void StyleSection(Panel header, Panel accent, Label title, Label subtitle)
     {
-        foreach (Control control in parent.Controls)
-        {
-            switch (control)
-            {
-                case FlowLayoutPanel flow:
-                    flow.BackColor = flow.Parent is TabPage ? Theme.ToolbarBack : Color.White;
-                    break;
-
-                case TableLayoutPanel table:
-                    table.BackColor = Color.White;
-                    break;
-
-                case Panel panel when panel.Dock == DockStyle.Top && panel.Height == 42:
-                    panel.BackColor = Theme.HeaderBack;
-                    foreach (Control child in panel.Controls)
-                    {
-                        if (child is Panel accent && accent.Dock == DockStyle.Left && accent.Width <= 6)
-                            accent.BackColor = Theme.Primary;
-                        else if (child is Label label && label.Top < 15)
-                        {
-                            label.ForeColor = Theme.PrimaryDark;
-                            label.Font = Theme.UiFont(9.6F, FontStyle.Bold);
-                        }
-                        else if (child is Label subLabel)
-                        {
-                            subLabel.ForeColor = Theme.Muted;
-                            subLabel.Font = Theme.UiFont(7.8F);
-                        }
-                    }
-                    break;
-
-                case Panel panel:
-                    if (panel.BorderStyle == BorderStyle.FixedSingle)
-                        panel.BackColor = Color.White;
-                    break;
-
-                case Label label when label.Text.StartsWith("A interface organiza", StringComparison.Ordinal):
-                    label.BackColor = Theme.PrimarySoft;
-                    label.ForeColor = Theme.PrimaryDark;
-                    label.Font = Theme.UiFont(8.2F);
-                    break;
-
-                case Label label:
-                    if (label.ForeColor == SystemColors.ControlText)
-                        label.ForeColor = Theme.Text;
-                    break;
-            }
-
-            if (control.HasChildren)
-                ApplyThemeRecursive(control);
-        }
+        header.BackColor = Theme.HeaderBack;
+        accent.BackColor = Theme.Primary;
+        title.ForeColor = Theme.PrimaryDark;
+        title.Font = Theme.UiFont(9.6F, FontStyle.Bold);
+        subtitle.ForeColor = Theme.Muted;
+        subtitle.Font = Theme.UiFont(7.8F);
     }
 
     private void DrawMainTab(object? sender, DrawItemEventArgs e)
@@ -139,6 +103,7 @@ public sealed partial class MainForm
 
         var selected = e.Index == _tabs.SelectedIndex;
         var rect = e.Bounds;
+
         using var background = new SolidBrush(selected ? Color.White : Theme.ToolbarBack);
         e.Graphics.FillRectangle(background, rect);
 
@@ -148,11 +113,10 @@ public sealed partial class MainForm
             e.Graphics.FillRectangle(accent, rect.Left + 8, rect.Bottom - 3, Math.Max(1, rect.Width - 16), 3);
         }
 
-        var text = _tabs.TabPages[e.Index].Text;
         using var font = Theme.UiFont(8.8F, selected ? FontStyle.Bold : FontStyle.Regular);
         TextRenderer.DrawText(
             e.Graphics,
-            text,
+            _tabs.TabPages[e.Index].Text,
             font,
             rect,
             selected ? Theme.PrimaryDark : Theme.Text,
@@ -211,28 +175,4 @@ public sealed partial class MainForm
             Format = "N2"
         }
     };
-
-    private static void ConfigurePreferredSplitter(SplitContainer split, int preferredDistance, int trailingPanelMinimum)
-    {
-        void Apply()
-        {
-            var available = split.Orientation == Orientation.Vertical
-                ? split.ClientSize.Width - split.SplitterWidth
-                : split.ClientSize.Height - split.SplitterWidth;
-
-            if (available <= 40)
-                return;
-
-            var trailing = Math.Min(trailingPanelMinimum, Math.Max(80, available / 2));
-            var maximumDistance = Math.Max(20, available - trailing);
-            var target = Math.Clamp(preferredDistance, 20, maximumDistance);
-
-            if (target > 0 && target < available && split.SplitterDistance != target)
-                split.SplitterDistance = target;
-        }
-
-        split.SizeChanged += (_, _) => Apply();
-        split.HandleCreated += (_, _) => Apply();
-        Apply();
-    }
 }
