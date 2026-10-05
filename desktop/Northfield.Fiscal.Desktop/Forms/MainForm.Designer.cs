@@ -1,152 +1,260 @@
+#nullable disable
 using System.ComponentModel;
 
 namespace Northfield.Fiscal.Desktop.Forms;
 
 partial class MainForm
 {
-    private IContainer? components = null;
+    private IContainer components = null;
 
-    private MenuStrip _menu = null!;
-    private ToolStrip _tool = null!;
-    private TabControl _tabs = null!;
-    private TabPage _tabApuracao = null!;
-    private TabPage _tabDocumentos = null!;
-    private TabPage _tabSegregacao = null!;
-    private TabPage _tabMemoria = null!;
-    private TabPage _tabPgdas = null!;
+    private MenuStrip _menu;
+    private ToolStrip _tool;
+    private TabControl _tabs;
+    private TabPage _tabApuracao;
+    private TabPage _tabDocumentos;
+    private TabPage _tabSegregacao;
+    private TabPage _tabMemoria;
+    private TabPage _tabPgdas;
 
-    private ToolStripMenuItem _miNovo = null!;
-    private ToolStripMenuItem _miAbrir = null!;
-    private ToolStripMenuItem _miSalvar = null!;
-    private ToolStripMenuItem _miSalvarComo = null!;
-    private ToolStripMenuItem _miImportar = null!;
-    private ToolStripMenuItem _miImportarMovimentos = null!;
-    private ToolStripMenuItem _miExportar = null!;
-    private ToolStripMenuItem _miSair = null!;
-    private ToolStripMenuItem _miDadosEmpresa = null!;
-    private ToolStripMenuItem _miEditarDocumento = null!;
-    private ToolStripMenuItem _miRemoverDocumento = null!;
-    private ToolStripMenuItem _miProcessar = null!;
-    private ToolStripMenuItem _miRecalcular = null!;
-    private ToolStripMenuItem _miSegregacao = null!;
-    private ToolStripMenuItem _miMemoria = null!;
-    private ToolStripMenuItem _miPgdas = null!;
-    private ToolStripMenuItem _miExportarCsv = null!;
-    private ToolStripMenuItem _miImprimir = null!;
-    private ToolStripMenuItem _miLimpar = null!;
-    private ToolStripMenuItem _miPastaLocal = null!;
-    private ToolStripMenuItem _miSobre = null!;
+    private ToolStripMenuItem _menuFile;
+    private ToolStripMenuItem _menuCadastros;
+    private ToolStripMenuItem _menuMovimentos;
+    private ToolStripMenuItem _menuFiscal;
+    private ToolStripMenuItem _menuRelatorios;
+    private ToolStripMenuItem _menuFerramentas;
+    private ToolStripMenuItem _menuAjuda;
 
-    private ToolStripButton _tbNovo = null!;
-    private ToolStripButton _tbAbrir = null!;
-    private ToolStripButton _tbImportar = null!;
-    private ToolStripButton _tbProcessar = null!;
-    private ToolStripButton _tbApuracao = null!;
-    private ToolStripButton _tbExportar = null!;
-    private ToolStripButton _tbImprimir = null!;
-    private ToolStripLabel _tbEnvironment = null!;
+    private ToolStripMenuItem _miNovo;
+    private ToolStripMenuItem _miAbrir;
+    private ToolStripMenuItem _miSalvar;
+    private ToolStripMenuItem _miSalvarComo;
+    private ToolStripMenuItem _miImportar;
+    private ToolStripMenuItem _miImportarMovimentos;
+    private ToolStripMenuItem _miExportar;
+    private ToolStripMenuItem _miSair;
+    private ToolStripMenuItem _miDadosEmpresa;
+    private ToolStripMenuItem _miEditarDocumento;
+    private ToolStripMenuItem _miRemoverDocumento;
+    private ToolStripMenuItem _miProcessar;
+    private ToolStripMenuItem _miRecalcular;
+    private ToolStripMenuItem _miSegregacao;
+    private ToolStripMenuItem _miMemoria;
+    private ToolStripMenuItem _miPgdas;
+    private ToolStripMenuItem _miExportarCsv;
+    private ToolStripMenuItem _miImprimir;
+    private ToolStripMenuItem _miLimpar;
+    private ToolStripMenuItem _miPastaLocal;
+    private ToolStripMenuItem _miSobre;
 
-    private DateTimePicker _dtCompetence = null!;
-    private MaskedTextBox _txtCnpj = null!;
-    private TextBox _txtCorporateName = null!;
-    private ComboBox _cboTaxRegime = null!;
-    private TextBox _txtMunicipality = null!;
-    private NumericUpDown _numRbt12 = null!;
-    private NumericUpDown _numPayroll = null!;
-    private TextBox _txtFactorR = null!;
-    private CheckBox _chkConsiderIss = null!;
-    private CheckBox _chkGroup = null!;
+    private ToolStripSeparator _sepFile1;
+    private ToolStripSeparator _sepFile2;
+    private ToolStripSeparator _sepFiscal;
+    private ToolStripSeparator _sepTool1;
+    private ToolStripSeparator _sepTool2;
+    private ToolStripButton _tbNovo;
+    private ToolStripButton _tbAbrir;
+    private ToolStripButton _tbImportar;
+    private ToolStripButton _tbProcessar;
+    private ToolStripButton _tbApuracao;
+    private ToolStripButton _tbExportar;
+    private ToolStripButton _tbImprimir;
+    private ToolStripLabel _tbEnvironment;
 
-    private DataGridView _gridApuracao = null!;
-    private DataGridView _gridDocuments = null!;
-    private DataGridView _gridSegregation = null!;
-    private DataGridView _gridPgdas = null!;
-    private TextBox _txtSearch = null!;
-    private Button _btnImportDocs = null!;
-    private Button _btnEditDoc = null!;
-    private Button _btnRemoveDoc = null!;
+    private TableLayoutPanel _apuracaoRoot;
+    private Panel _companyPanel;
+    private TableLayoutPanel _companyTable;
+    private Label _lblCompetenceCaption;
+    private Label _lblCnpjCaption;
+    private Label _lblCorporateNameCaption;
+    private Label _lblTaxRegimeCaption;
+    private Label _lblMunicipalityCaption;
+    private Label _lblRbt12Caption;
+    private Label _lblPayrollCaption;
+    private Label _lblFactorRCaption;
+    private Label _lblCompanyInfo;
+    private FlowLayoutPanel _optionsPanel;
 
-    private Label _lblSummaryRevenue = null!;
-    private Label _lblSummaryNoRetention = null!;
-    private Label _lblSummaryRetention = null!;
-    private Label _lblSummaryPending = null!;
-    private Label _lblSummaryFactorR = null!;
-    private Label _lblSummaryTotal = null!;
-    private Label _lblAlerts = null!;
+    private DateTimePicker _dtCompetence;
+    private MaskedTextBox _txtCnpj;
+    private TextBox _txtCorporateName;
+    private ComboBox _cboTaxRegime;
+    private TextBox _txtMunicipality;
+    private NumericUpDown _numRbt12;
+    private NumericUpDown _numPayroll;
+    private TextBox _txtFactorR;
+    private CheckBox _chkConsiderIss;
+    private CheckBox _chkGroup;
 
-    private Label _lblMemDocument = null!;
-    private Label _lblMemIssue = null!;
-    private Label _lblMemRecipient = null!;
-    private Label _lblMemTaxId = null!;
-    private Label _lblMemMunicipality = null!;
-    private Label _lblMemValue = null!;
-    private Label _lblMemIssBase = null!;
-    private Label _lblMemIss = null!;
-    private ListBox _lstMemory = null!;
-    private TextBox _txtFullMemory = null!;
+    private SplitContainer _splitDocuments;
+    private Panel _documentsSection;
+    private Panel _documentsHeader;
+    private Panel _documentsAccent;
+    private Label _documentsTitle;
+    private Label _documentsSubtitle;
+    private DataGridView _gridApuracao;
 
-    private StatusStrip _status = null!;
-    private ToolStripStatusLabel _stRecords = null!;
-    private ToolStripStatusLabel _stSelected = null!;
-    private ToolStripStatusLabel _stCompany = null!;
-    private ToolStripStatusLabel _stCompetence = null!;
-    private ToolStripStatusLabel _stEngine = null!;
-    private ToolStripStatusLabel _stClock = null!;
+    private Panel _summarySection;
+    private Panel _summaryHeader;
+    private Panel _summaryAccent;
+    private Label _summaryTitle;
+    private Label _summarySubtitle;
+    private TableLayoutPanel _summaryTable;
+    private Label _lblSummaryRevenueCaption;
+    private Label _lblSummaryNoRetentionCaption;
+    private Label _lblSummaryRetentionCaption;
+    private Label _lblSummaryPendingCaption;
+    private Label _lblSummaryFactorRCaption;
+    private Label _lblSummaryTotalCaption;
+    private Label _lblAlertsCaption;
+    private Label _lblSummaryRevenue;
+    private Label _lblSummaryNoRetention;
+    private Label _lblSummaryRetention;
+    private Label _lblSummaryPending;
+    private Label _lblSummaryFactorR;
+    private Label _lblSummaryTotal;
+    private Label _lblAlerts;
 
-    private SplitContainer _splitDocuments = null!;
-    private SplitContainer _splitMemory = null!;
+    private Panel _memorySection;
+    private Panel _memoryHeader;
+    private Panel _memoryAccent;
+    private Label _memoryTitle;
+    private Label _memorySubtitle;
+    private SplitContainer _splitMemory;
+    private TableLayoutPanel _memoryDetails;
+    private Label _lblMemDocumentCaption;
+    private Label _lblMemIssueCaption;
+    private Label _lblMemRecipientCaption;
+    private Label _lblMemTaxIdCaption;
+    private Label _lblMemMunicipalityCaption;
+    private Label _lblMemValueCaption;
+    private Label _lblMemIssBaseCaption;
+    private Label _lblMemIssCaption;
+    private Label _lblMemDocument;
+    private Label _lblMemIssue;
+    private Label _lblMemRecipient;
+    private Label _lblMemTaxId;
+    private Label _lblMemMunicipality;
+    private Label _lblMemValue;
+    private Label _lblMemIssBase;
+    private Label _lblMemIss;
+    private TabControl _memoryTabs;
+    private TabPage _memoryFiscalTab;
+    private TabPage _memoryLcTab;
+    private TabPage _memorySegTab;
+    private TabPage _memoryObsTab;
+    private ListBox _lstMemory;
+    private TextBox _txtMemoryLcInfo;
+    private TextBox _txtMemorySegInfo;
+    private TextBox _txtMemoryObsInfo;
+
+    private TableLayoutPanel _documentsRoot;
+    private FlowLayoutPanel _documentsCommands;
+    private Button _btnImportDocs;
+    private Button _btnEditDoc;
+    private Button _btnRemoveDoc;
+    private TextBox _txtSearch;
+    private DataGridView _gridDocuments;
+
+    private Panel _segregationSection;
+    private Panel _segregationHeader;
+    private Panel _segregationAccent;
+    private Label _segregationTitle;
+    private Label _segregationSubtitle;
+    private DataGridView _gridSegregation;
+
+    private Panel _fullMemorySection;
+    private Panel _fullMemoryHeader;
+    private Panel _fullMemoryAccent;
+    private Label _fullMemoryTitle;
+    private Label _fullMemorySubtitle;
+    private TextBox _txtFullMemory;
+
+    private TableLayoutPanel _pgdasRoot;
+    private Label _pgdasNotice;
+    private DataGridView _gridPgdas;
+
+    private StatusStrip _status;
+    private ToolStripStatusLabel _stRecords;
+    private ToolStripStatusLabel _stSep1;
+    private ToolStripStatusLabel _stSelected;
+    private ToolStripStatusLabel _stSep2;
+    private ToolStripStatusLabel _stCompany;
+    private ToolStripStatusLabel _stSep3;
+    private ToolStripStatusLabel _stCompetence;
+    private ToolStripStatusLabel _stEngine;
+    private ToolStripStatusLabel _stSep4;
+    private ToolStripStatusLabel _stClock;
 
     protected override void Dispose(bool disposing)
     {
-        if (disposing)
-            components?.Dispose();
+        if (disposing && (components != null))
+        {
+            components.Dispose();
+        }
         base.Dispose(disposing);
     }
 
     private void InitializeComponent()
     {
         components = new Container();
-
         _menu = new MenuStrip();
+        _menuFile = new ToolStripMenuItem();
+        _miNovo = new ToolStripMenuItem();
+        _miAbrir = new ToolStripMenuItem();
+        _miSalvar = new ToolStripMenuItem();
+        _miSalvarComo = new ToolStripMenuItem();
+        _sepFile1 = new ToolStripSeparator();
+        _miImportar = new ToolStripMenuItem();
+        _miExportar = new ToolStripMenuItem();
+        _sepFile2 = new ToolStripSeparator();
+        _miSair = new ToolStripMenuItem();
+        _menuCadastros = new ToolStripMenuItem();
+        _miDadosEmpresa = new ToolStripMenuItem();
+        _menuMovimentos = new ToolStripMenuItem();
+        _miImportarMovimentos = new ToolStripMenuItem();
+        _miEditarDocumento = new ToolStripMenuItem();
+        _miRemoverDocumento = new ToolStripMenuItem();
+        _menuFiscal = new ToolStripMenuItem();
+        _miProcessar = new ToolStripMenuItem();
+        _miRecalcular = new ToolStripMenuItem();
+        _sepFiscal = new ToolStripSeparator();
+        _miSegregacao = new ToolStripMenuItem();
+        _miMemoria = new ToolStripMenuItem();
+        _miPgdas = new ToolStripMenuItem();
+        _menuRelatorios = new ToolStripMenuItem();
+        _miExportarCsv = new ToolStripMenuItem();
+        _miImprimir = new ToolStripMenuItem();
+        _menuFerramentas = new ToolStripMenuItem();
+        _miLimpar = new ToolStripMenuItem();
+        _miPastaLocal = new ToolStripMenuItem();
+        _menuAjuda = new ToolStripMenuItem();
+        _miSobre = new ToolStripMenuItem();
         _tool = new ToolStrip();
+        _tbNovo = new ToolStripButton();
+        _tbAbrir = new ToolStripButton();
+        _sepTool1 = new ToolStripSeparator();
+        _tbImportar = new ToolStripButton();
+        _tbProcessar = new ToolStripButton();
+        _tbApuracao = new ToolStripButton();
+        _sepTool2 = new ToolStripSeparator();
+        _tbExportar = new ToolStripButton();
+        _tbImprimir = new ToolStripButton();
+        _tbEnvironment = new ToolStripLabel();
         _tabs = new TabControl();
         _tabApuracao = new TabPage();
-        _tabDocumentos = new TabPage();
-        _tabSegregacao = new TabPage();
-        _tabMemoria = new TabPage();
-        _tabPgdas = new TabPage();
-
-        _miNovo = new ToolStripMenuItem("Novo");
-        _miAbrir = new ToolStripMenuItem("Abrir sessão...");
-        _miSalvar = new ToolStripMenuItem("Guardar sessão");
-        _miSalvarComo = new ToolStripMenuItem("Guardar sessão como...");
-        _miImportar = new ToolStripMenuItem("Importar XML/ZIP...");
-        _miImportarMovimentos = new ToolStripMenuItem("Importar documentos");
-        _miExportar = new ToolStripMenuItem("Exportar CSV...");
-        _miSair = new ToolStripMenuItem("Sair");
-        _miDadosEmpresa = new ToolStripMenuItem("Dados da empresa");
-        _miEditarDocumento = new ToolStripMenuItem("Editar documento selecionado");
-        _miRemoverDocumento = new ToolStripMenuItem("Remover documento selecionado");
-        _miProcessar = new ToolStripMenuItem("Processar competência");
-        _miRecalcular = new ToolStripMenuItem("Recalcular resumo");
-        _miSegregacao = new ToolStripMenuItem("Segregação");
-        _miMemoria = new ToolStripMenuItem("Memória de cálculo");
-        _miPgdas = new ToolStripMenuItem("PGDAS-D");
-        _miExportarCsv = new ToolStripMenuItem("Exportar documentos em CSV");
-        _miImprimir = new ToolStripMenuItem("Imprimir resumo da apuração");
-        _miLimpar = new ToolStripMenuItem("Limpar documentos");
-        _miPastaLocal = new ToolStripMenuItem("Abrir pasta de dados locais");
-        _miSobre = new ToolStripMenuItem("Sobre");
-
-        _tbNovo = new ToolStripButton("Novo");
-        _tbAbrir = new ToolStripButton("Abrir");
-        _tbImportar = new ToolStripButton("Importar XML");
-        _tbProcessar = new ToolStripButton("Processar");
-        _tbApuracao = new ToolStripButton("Apuração");
-        _tbExportar = new ToolStripButton("Exportar");
-        _tbImprimir = new ToolStripButton("Imprimir");
-        _tbEnvironment = new ToolStripLabel("Northfield Fiscal  •  Ambiente local");
-
+        _apuracaoRoot = new TableLayoutPanel();
+        _companyPanel = new Panel();
+        _companyTable = new TableLayoutPanel();
+        _lblCompetenceCaption = new Label();
+        _lblCnpjCaption = new Label();
+        _lblCorporateNameCaption = new Label();
+        _lblTaxRegimeCaption = new Label();
+        _lblMunicipalityCaption = new Label();
+        _lblRbt12Caption = new Label();
+        _lblPayrollCaption = new Label();
+        _lblFactorRCaption = new Label();
+        _lblCompanyInfo = new Label();
+        _optionsPanel = new FlowLayoutPanel();
         _dtCompetence = new DateTimePicker();
         _txtCnpj = new MaskedTextBox();
         _txtCorporateName = new TextBox();
@@ -157,16 +265,26 @@ partial class MainForm
         _txtFactorR = new TextBox();
         _chkConsiderIss = new CheckBox();
         _chkGroup = new CheckBox();
-
+        _splitDocuments = new SplitContainer();
+        _documentsSection = new Panel();
+        _documentsHeader = new Panel();
+        _documentsAccent = new Panel();
+        _documentsTitle = new Label();
+        _documentsSubtitle = new Label();
         _gridApuracao = new DataGridView();
-        _gridDocuments = new DataGridView();
-        _gridSegregation = new DataGridView();
-        _gridPgdas = new DataGridView();
-        _txtSearch = new TextBox();
-        _btnImportDocs = new Button();
-        _btnEditDoc = new Button();
-        _btnRemoveDoc = new Button();
-
+        _summarySection = new Panel();
+        _summaryHeader = new Panel();
+        _summaryAccent = new Panel();
+        _summaryTitle = new Label();
+        _summarySubtitle = new Label();
+        _summaryTable = new TableLayoutPanel();
+        _lblSummaryRevenueCaption = new Label();
+        _lblSummaryNoRetentionCaption = new Label();
+        _lblSummaryRetentionCaption = new Label();
+        _lblSummaryPendingCaption = new Label();
+        _lblSummaryFactorRCaption = new Label();
+        _lblSummaryTotalCaption = new Label();
+        _lblAlertsCaption = new Label();
         _lblSummaryRevenue = new Label();
         _lblSummaryNoRetention = new Label();
         _lblSummaryRetention = new Label();
@@ -174,7 +292,21 @@ partial class MainForm
         _lblSummaryFactorR = new Label();
         _lblSummaryTotal = new Label();
         _lblAlerts = new Label();
-
+        _memorySection = new Panel();
+        _memoryHeader = new Panel();
+        _memoryAccent = new Panel();
+        _memoryTitle = new Label();
+        _memorySubtitle = new Label();
+        _splitMemory = new SplitContainer();
+        _memoryDetails = new TableLayoutPanel();
+        _lblMemDocumentCaption = new Label();
+        _lblMemIssueCaption = new Label();
+        _lblMemRecipientCaption = new Label();
+        _lblMemTaxIdCaption = new Label();
+        _lblMemMunicipalityCaption = new Label();
+        _lblMemValueCaption = new Label();
+        _lblMemIssBaseCaption = new Label();
+        _lblMemIssCaption = new Label();
         _lblMemDocument = new Label();
         _lblMemIssue = new Label();
         _lblMemRecipient = new Label();
@@ -183,439 +315,817 @@ partial class MainForm
         _lblMemValue = new Label();
         _lblMemIssBase = new Label();
         _lblMemIss = new Label();
+        _memoryTabs = new TabControl();
+        _memoryFiscalTab = new TabPage();
+        _memoryLcTab = new TabPage();
+        _memorySegTab = new TabPage();
+        _memoryObsTab = new TabPage();
         _lstMemory = new ListBox();
+        _txtMemoryLcInfo = new TextBox();
+        _txtMemorySegInfo = new TextBox();
+        _txtMemoryObsInfo = new TextBox();
+        _tabDocumentos = new TabPage();
+        _documentsRoot = new TableLayoutPanel();
+        _documentsCommands = new FlowLayoutPanel();
+        _btnImportDocs = new Button();
+        _btnEditDoc = new Button();
+        _btnRemoveDoc = new Button();
+        _txtSearch = new TextBox();
+        _gridDocuments = new DataGridView();
+        _tabSegregacao = new TabPage();
+        _segregationSection = new Panel();
+        _segregationHeader = new Panel();
+        _segregationAccent = new Panel();
+        _segregationTitle = new Label();
+        _segregationSubtitle = new Label();
+        _gridSegregation = new DataGridView();
+        _tabMemoria = new TabPage();
+        _fullMemorySection = new Panel();
+        _fullMemoryHeader = new Panel();
+        _fullMemoryAccent = new Panel();
+        _fullMemoryTitle = new Label();
+        _fullMemorySubtitle = new Label();
         _txtFullMemory = new TextBox();
-
+        _tabPgdas = new TabPage();
+        _pgdasRoot = new TableLayoutPanel();
+        _pgdasNotice = new Label();
+        _gridPgdas = new DataGridView();
         _status = new StatusStrip();
-        _stRecords = new ToolStripStatusLabel("Registros: 0");
-        _stSelected = new ToolStripStatusLabel("Selecionado: 0");
-        _stCompany = new ToolStripStatusLabel("Empresa: -");
-        _stCompetence = new ToolStripStatusLabel("Competência: -");
-        _stEngine = new ToolStripStatusLabel("Motor: não conectado");
+        _stRecords = new ToolStripStatusLabel();
+        _stSep1 = new ToolStripStatusLabel();
+        _stSelected = new ToolStripStatusLabel();
+        _stSep2 = new ToolStripStatusLabel();
+        _stCompany = new ToolStripStatusLabel();
+        _stSep3 = new ToolStripStatusLabel();
+        _stCompetence = new ToolStripStatusLabel();
+        _stEngine = new ToolStripStatusLabel();
+        _stSep4 = new ToolStripStatusLabel();
         _stClock = new ToolStripStatusLabel();
-
-        _splitDocuments = new SplitContainer();
-        _splitMemory = new SplitContainer();
-
+        _menu.SuspendLayout();
+        _tool.SuspendLayout();
+        _tabs.SuspendLayout();
+        _tabApuracao.SuspendLayout();
+        _apuracaoRoot.SuspendLayout();
+        _companyPanel.SuspendLayout();
+        _companyTable.SuspendLayout();
+        _optionsPanel.SuspendLayout();
+        ((ISupportInitialize)_numRbt12).BeginInit();
+        ((ISupportInitialize)_numPayroll).BeginInit();
+        ((ISupportInitialize)_splitDocuments).BeginInit();
+        _splitDocuments.Panel1.SuspendLayout();
+        _splitDocuments.Panel2.SuspendLayout();
+        _splitDocuments.SuspendLayout();
+        _documentsSection.SuspendLayout();
+        _documentsHeader.SuspendLayout();
+        ((ISupportInitialize)_gridApuracao).BeginInit();
+        _summarySection.SuspendLayout();
+        _summaryHeader.SuspendLayout();
+        _summaryTable.SuspendLayout();
+        _memorySection.SuspendLayout();
+        _memoryHeader.SuspendLayout();
+        ((ISupportInitialize)_splitMemory).BeginInit();
+        _splitMemory.Panel1.SuspendLayout();
+        _splitMemory.Panel2.SuspendLayout();
+        _splitMemory.SuspendLayout();
+        _memoryDetails.SuspendLayout();
+        _memoryTabs.SuspendLayout();
+        _memoryFiscalTab.SuspendLayout();
+        _memoryLcTab.SuspendLayout();
+        _memorySegTab.SuspendLayout();
+        _memoryObsTab.SuspendLayout();
+        _tabDocumentos.SuspendLayout();
+        _documentsRoot.SuspendLayout();
+        _documentsCommands.SuspendLayout();
+        ((ISupportInitialize)_gridDocuments).BeginInit();
+        _tabSegregacao.SuspendLayout();
+        _segregationSection.SuspendLayout();
+        _segregationHeader.SuspendLayout();
+        ((ISupportInitialize)_gridSegregation).BeginInit();
+        _tabMemoria.SuspendLayout();
+        _fullMemorySection.SuspendLayout();
+        _fullMemoryHeader.SuspendLayout();
+        _tabPgdas.SuspendLayout();
+        _pgdasRoot.SuspendLayout();
+        ((ISupportInitialize)_gridPgdas).BeginInit();
+        _status.SuspendLayout();
         SuspendLayout();
 
-        // Menu
-        var menuFile = new ToolStripMenuItem("Ficheiro");
-        menuFile.DropDownItems.AddRange([
-            _miNovo, _miAbrir, _miSalvar, _miSalvarComo,
-            new ToolStripSeparator(), _miImportar, _miExportar,
-            new ToolStripSeparator(), _miSair
-        ]);
-        var menuCadastros = new ToolStripMenuItem("Cadastros");
-        menuCadastros.DropDownItems.Add(_miDadosEmpresa);
-        var menuMovimentos = new ToolStripMenuItem("Movimentos");
-        menuMovimentos.DropDownItems.AddRange([_miImportarMovimentos, _miEditarDocumento, _miRemoverDocumento]);
-        var menuFiscal = new ToolStripMenuItem("Fiscal");
-        menuFiscal.DropDownItems.AddRange([_miProcessar, _miRecalcular, new ToolStripSeparator(), _miSegregacao, _miMemoria, _miPgdas]);
-        var menuRelatorios = new ToolStripMenuItem("Relatórios");
-        menuRelatorios.DropDownItems.AddRange([_miExportarCsv, _miImprimir]);
-        var menuFerramentas = new ToolStripMenuItem("Ferramentas");
-        menuFerramentas.DropDownItems.AddRange([_miLimpar, _miPastaLocal]);
-        var menuAjuda = new ToolStripMenuItem("Ajuda");
-        menuAjuda.DropDownItems.Add(_miSobre);
+        _menuFile.DropDownItems.AddRange(new ToolStripItem[] { _miNovo, _miAbrir, _miSalvar, _miSalvarComo, _sepFile1, _miImportar, _miExportar, _sepFile2, _miSair });
+        _menuFile.Text = "Ficheiro";
+        _miNovo.Text = "Novo";
+        _miAbrir.Text = "Abrir sessão...";
+        _miSalvar.Text = "Guardar sessão";
+        _miSalvarComo.Text = "Guardar sessão como...";
+        _miImportar.Text = "Importar XML/ZIP...";
+        _miExportar.Text = "Exportar CSV...";
+        _miSair.Text = "Sair";
 
-        _menu.Dock = DockStyle.Top;
-        _menu.Items.AddRange([menuFile, menuCadastros, menuMovimentos, menuFiscal, menuRelatorios, menuFerramentas, menuAjuda]);
+        _menuCadastros.DropDownItems.AddRange(new ToolStripItem[] { _miDadosEmpresa });
+        _menuCadastros.Text = "Cadastros";
+        _miDadosEmpresa.Text = "Dados da empresa";
+
+        _menuMovimentos.DropDownItems.AddRange(new ToolStripItem[] { _miImportarMovimentos, _miEditarDocumento, _miRemoverDocumento });
+        _menuMovimentos.Text = "Movimentos";
+        _miImportarMovimentos.Text = "Importar documentos";
+        _miEditarDocumento.Text = "Editar documento selecionado";
+        _miRemoverDocumento.Text = "Remover documento selecionado";
+
+        _menuFiscal.DropDownItems.AddRange(new ToolStripItem[] { _miProcessar, _miRecalcular, _sepFiscal, _miSegregacao, _miMemoria, _miPgdas });
+        _menuFiscal.Text = "Fiscal";
+        _miProcessar.Text = "Processar competência";
+        _miRecalcular.Text = "Recalcular resumo";
+        _miSegregacao.Text = "Segregação";
+        _miMemoria.Text = "Memória de cálculo";
+        _miPgdas.Text = "PGDAS-D";
+
+        _menuRelatorios.DropDownItems.AddRange(new ToolStripItem[] { _miExportarCsv, _miImprimir });
+        _menuRelatorios.Text = "Relatórios";
+        _miExportarCsv.Text = "Exportar documentos em CSV";
+        _miImprimir.Text = "Imprimir resumo da apuração";
+
+        _menuFerramentas.DropDownItems.AddRange(new ToolStripItem[] { _miLimpar, _miPastaLocal });
+        _menuFerramentas.Text = "Ferramentas";
+        _miLimpar.Text = "Limpar documentos";
+        _miPastaLocal.Text = "Abrir pasta de dados locais";
+
+        _menuAjuda.DropDownItems.AddRange(new ToolStripItem[] { _miSobre });
+        _menuAjuda.Text = "Ajuda";
+        _miSobre.Text = "Sobre";
+
+        _menu.Items.AddRange(new ToolStripItem[] { _menuFile, _menuCadastros, _menuMovimentos, _menuFiscal, _menuRelatorios, _menuFerramentas, _menuAjuda });
+        _menu.Location = new Point(0, 0);
         _menu.Name = "_menu";
-        _menu.Size = new Size(1600, 28);
+        _menu.Size = new Size(1600, 24);
+        _menu.TabIndex = 0;
 
-        // Toolbar
-        _tool.Dock = DockStyle.Top;
-        _tool.GripStyle = ToolStripGripStyle.Hidden;
-        _tool.Height = 40;
-        _tool.Items.AddRange([
-            _tbNovo, _tbAbrir, new ToolStripSeparator(),
-            _tbImportar, _tbProcessar, _tbApuracao,
-            new ToolStripSeparator(), _tbExportar, _tbImprimir, _tbEnvironment
-        ]);
+        _tbNovo.Text = "Novo";
+        _tbNovo.DisplayStyle = ToolStripItemDisplayStyle.Text;
+        _tbAbrir.Text = "Abrir";
+        _tbAbrir.DisplayStyle = ToolStripItemDisplayStyle.Text;
+        _tbImportar.Text = "Importar XML";
+        _tbImportar.DisplayStyle = ToolStripItemDisplayStyle.Text;
+        _tbProcessar.Text = "Processar";
+        _tbProcessar.DisplayStyle = ToolStripItemDisplayStyle.Text;
+        _tbApuracao.Text = "Apuração";
+        _tbApuracao.DisplayStyle = ToolStripItemDisplayStyle.Text;
+        _tbExportar.Text = "Exportar";
+        _tbExportar.DisplayStyle = ToolStripItemDisplayStyle.Text;
+        _tbImprimir.Text = "Imprimir";
+        _tbImprimir.DisplayStyle = ToolStripItemDisplayStyle.Text;
+        _tbEnvironment.Text = "Northfield Fiscal  •  Ambiente local";
         _tbEnvironment.Alignment = ToolStripItemAlignment.Right;
+
+        _tool.Items.AddRange(new ToolStripItem[] { _tbNovo, _tbAbrir, _sepTool1, _tbImportar, _tbProcessar, _tbApuracao, _sepTool2, _tbExportar, _tbImprimir, _tbEnvironment });
+        _tool.Location = new Point(0, 24);
         _tool.Name = "_tool";
+        _tool.Size = new Size(1600, 27);
+        _tool.TabIndex = 1;
+        _tool.GripStyle = ToolStripGripStyle.Hidden;
 
-        // Main tabs
+        _tabs.Controls.Add(_tabApuracao);
+        _tabs.Controls.Add(_tabDocumentos);
+        _tabs.Controls.Add(_tabSegregacao);
+        _tabs.Controls.Add(_tabMemoria);
+        _tabs.Controls.Add(_tabPgdas);
         _tabs.Dock = DockStyle.Fill;
+        _tabs.Location = new Point(0, 51);
         _tabs.Name = "_tabs";
-        _tabs.Controls.AddRange([_tabApuracao, _tabDocumentos, _tabSegregacao, _tabMemoria, _tabPgdas]);
+        _tabs.SelectedIndex = 0;
+        _tabs.Size = new Size(1600, 825);
+        _tabs.TabIndex = 2;
+
+        _tabApuracao.Controls.Add(_apuracaoRoot);
+        _tabApuracao.Location = new Point(4, 24);
+        _tabApuracao.Name = "_tabApuracao";
+        _tabApuracao.Padding = new Padding(8);
+        _tabApuracao.Size = new Size(1592, 797);
+        _tabApuracao.TabIndex = 0;
         _tabApuracao.Text = "Apuração";
-        _tabDocumentos.Text = "Documentos";
-        _tabSegregacao.Text = "Segregação";
-        _tabMemoria.Text = "Memória de Cálculo";
-        _tabPgdas.Text = "PGDAS-D";
-        foreach (TabPage tab in _tabs.TabPages)
-        {
-            tab.Padding = new Padding(8);
-            tab.UseVisualStyleBackColor = false;
-        }
+        _tabApuracao.UseVisualStyleBackColor = true;
 
-        // Apuração
-        var apuracaoRoot = new TableLayoutPanel
-        {
-            Dock = DockStyle.Fill,
-            ColumnCount = 1,
-            RowCount = 3,
-            Padding = new Padding(0)
-        };
-        apuracaoRoot.RowStyles.Add(new RowStyle(SizeType.Absolute, 128));
-        apuracaoRoot.RowStyles.Add(new RowStyle(SizeType.Percent, 63F));
-        apuracaoRoot.RowStyles.Add(new RowStyle(SizeType.Percent, 37F));
-        _tabApuracao.Controls.Add(apuracaoRoot);
+        _apuracaoRoot.ColumnCount = 1;
+        _apuracaoRoot.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+        _apuracaoRoot.Controls.Add(_companyPanel, 0, 0);
+        _apuracaoRoot.Controls.Add(_splitDocuments, 0, 1);
+        _apuracaoRoot.Controls.Add(_memorySection, 0, 2);
+        _apuracaoRoot.Dock = DockStyle.Fill;
+        _apuracaoRoot.Location = new Point(8, 8);
+        _apuracaoRoot.Name = "_apuracaoRoot";
+        _apuracaoRoot.RowCount = 3;
+        _apuracaoRoot.RowStyles.Add(new RowStyle(SizeType.Absolute, 128F));
+        _apuracaoRoot.RowStyles.Add(new RowStyle(SizeType.Percent, 63F));
+        _apuracaoRoot.RowStyles.Add(new RowStyle(SizeType.Percent, 37F));
+        _apuracaoRoot.Size = new Size(1576, 781);
 
-        var companyPanel = new Panel
-        {
-            Dock = DockStyle.Fill,
-            BorderStyle = BorderStyle.FixedSingle,
-            Padding = new Padding(10, 7, 10, 7),
-            Margin = new Padding(0, 0, 0, 7)
-        };
-        var companyTable = new TableLayoutPanel
-        {
-            Dock = DockStyle.Fill,
-            ColumnCount = 6,
-            RowCount = 2,
-            Margin = new Padding(0)
-        };
-        companyTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
-        companyTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 190F));
-        companyTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 44F));
-        companyTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 175F));
-        companyTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 56F));
-        companyTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 285F));
-        companyTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 55F));
-        companyTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 55F));
-        companyPanel.Controls.Add(companyTable);
-        apuracaoRoot.Controls.Add(companyPanel, 0, 0);
+        _companyPanel.BorderStyle = BorderStyle.FixedSingle;
+        _companyPanel.Controls.Add(_companyTable);
+        _companyPanel.Dock = DockStyle.Fill;
+        _companyPanel.Location = new Point(0, 0);
+        _companyPanel.Margin = new Padding(0, 0, 0, 7);
+        _companyPanel.Name = "_companyPanel";
+        _companyPanel.Padding = new Padding(10, 7, 10, 7);
+        _companyPanel.Size = new Size(1576, 121);
 
-        AddDesignerField(companyTable, 0, 0, "Competência", _dtCompetence);
-        AddDesignerField(companyTable, 1, 0, "CNPJ", _txtCnpj);
-        AddDesignerField(companyTable, 2, 0, "Razão social", _txtCorporateName);
-        AddDesignerField(companyTable, 3, 0, "Regime tributário", _cboTaxRegime);
-        AddDesignerField(companyTable, 4, 0, "Município", _txtMunicipality);
+        _companyTable.ColumnCount = 6;
+        _companyTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
+        _companyTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 190F));
+        _companyTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 44F));
+        _companyTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 175F));
+        _companyTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 56F));
+        _companyTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 285F));
+        _companyTable.Controls.Add(_lblCompetenceCaption, 0, 0);
+        _companyTable.Controls.Add(_lblCnpjCaption, 1, 0);
+        _companyTable.Controls.Add(_lblCorporateNameCaption, 2, 0);
+        _companyTable.Controls.Add(_lblTaxRegimeCaption, 3, 0);
+        _companyTable.Controls.Add(_lblMunicipalityCaption, 4, 0);
+        _companyTable.Controls.Add(_optionsPanel, 5, 0);
+        _companyTable.Controls.Add(_dtCompetence, 0, 1);
+        _companyTable.Controls.Add(_txtCnpj, 1, 1);
+        _companyTable.Controls.Add(_txtCorporateName, 2, 1);
+        _companyTable.Controls.Add(_cboTaxRegime, 3, 1);
+        _companyTable.Controls.Add(_txtMunicipality, 4, 1);
+        _companyTable.Controls.Add(_lblRbt12Caption, 0, 2);
+        _companyTable.Controls.Add(_lblPayrollCaption, 1, 2);
+        _companyTable.Controls.Add(_lblFactorRCaption, 2, 2);
+        _companyTable.Controls.Add(_numRbt12, 0, 3);
+        _companyTable.Controls.Add(_numPayroll, 1, 3);
+        _companyTable.Controls.Add(_txtFactorR, 2, 3);
+        _companyTable.Controls.Add(_lblCompanyInfo, 3, 2);
+        _companyTable.Dock = DockStyle.Fill;
+        _companyTable.Name = "_companyTable";
+        _companyTable.RowCount = 4;
+        _companyTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+        _companyTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+        _companyTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+        _companyTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+        _companyTable.SetColumnSpan(_lblCompanyInfo, 3);
+        _companyTable.SetRowSpan(_lblCompanyInfo, 2);
 
-        _dtCompetence.Format = DateTimePickerFormat.Custom;
+        _lblCompetenceCaption.Dock = DockStyle.Fill;
+        _lblCompetenceCaption.Text = "Competência";
+        _lblCompetenceCaption.TextAlign = ContentAlignment.BottomLeft;
+        _lblCnpjCaption.Dock = DockStyle.Fill;
+        _lblCnpjCaption.Text = "CNPJ";
+        _lblCnpjCaption.TextAlign = ContentAlignment.BottomLeft;
+        _lblCorporateNameCaption.Dock = DockStyle.Fill;
+        _lblCorporateNameCaption.Text = "Razão social";
+        _lblCorporateNameCaption.TextAlign = ContentAlignment.BottomLeft;
+        _lblTaxRegimeCaption.Dock = DockStyle.Fill;
+        _lblTaxRegimeCaption.Text = "Regime tributário";
+        _lblTaxRegimeCaption.TextAlign = ContentAlignment.BottomLeft;
+        _lblMunicipalityCaption.Dock = DockStyle.Fill;
+        _lblMunicipalityCaption.Text = "Município";
+        _lblMunicipalityCaption.TextAlign = ContentAlignment.BottomLeft;
+        _lblRbt12Caption.Dock = DockStyle.Fill;
+        _lblRbt12Caption.Text = "RBT12 (R$)";
+        _lblRbt12Caption.TextAlign = ContentAlignment.BottomLeft;
+        _lblPayrollCaption.Dock = DockStyle.Fill;
+        _lblPayrollCaption.Text = "Folha 12m (R$)";
+        _lblPayrollCaption.TextAlign = ContentAlignment.BottomLeft;
+        _lblFactorRCaption.Dock = DockStyle.Fill;
+        _lblFactorRCaption.Text = "Fator R (%)";
+        _lblFactorRCaption.TextAlign = ContentAlignment.BottomLeft;
+
         _dtCompetence.CustomFormat = "MM/yyyy";
+        _dtCompetence.Dock = DockStyle.Fill;
+        _dtCompetence.Format = DateTimePickerFormat.Custom;
         _dtCompetence.ShowUpDown = true;
+        _txtCnpj.Dock = DockStyle.Fill;
         _txtCnpj.Mask = "00.000.000/0000-00";
+        _txtCorporateName.Dock = DockStyle.Fill;
+        _cboTaxRegime.Dock = DockStyle.Fill;
         _cboTaxRegime.DropDownStyle = ComboBoxStyle.DropDownList;
-        _cboTaxRegime.Items.Add("Simples Nacional");
+        _cboTaxRegime.Items.AddRange(new object[] { "Simples Nacional" });
         _cboTaxRegime.SelectedIndex = 0;
+        _txtMunicipality.Dock = DockStyle.Fill;
 
-        var optionsPanel = new FlowLayoutPanel
-        {
-            Dock = DockStyle.Fill,
-            FlowDirection = FlowDirection.TopDown,
-            WrapContents = false,
-            Padding = new Padding(8, 7, 0, 0)
-        };
-        _chkConsiderIss.Text = "Considerar ISS retido";
+        _optionsPanel.Controls.Add(_chkConsiderIss);
+        _optionsPanel.Controls.Add(_chkGroup);
+        _optionsPanel.Dock = DockStyle.Fill;
+        _optionsPanel.FlowDirection = FlowDirection.TopDown;
+        _optionsPanel.Padding = new Padding(8, 4, 0, 0);
+        _optionsPanel.WrapContents = false;
+        _companyTable.SetRowSpan(_optionsPanel, 2);
         _chkConsiderIss.AutoSize = true;
         _chkConsiderIss.Checked = true;
-        _chkGroup.Text = "Agrupar por segregação";
+        _chkConsiderIss.CheckState = CheckState.Checked;
+        _chkConsiderIss.Text = "Considerar ISS retido";
         _chkGroup.AutoSize = true;
-        optionsPanel.Controls.Add(_chkConsiderIss);
-        optionsPanel.Controls.Add(_chkGroup);
-        companyTable.Controls.Add(optionsPanel, 5, 0);
+        _chkGroup.Text = "Agrupar por segregação";
 
-        AddDesignerField(companyTable, 0, 1, "RBT12 (R$)", _numRbt12);
-        AddDesignerField(companyTable, 1, 1, "Folha 12m (R$)", _numPayroll);
-        AddDesignerField(companyTable, 2, 1, "Fator R (%)", _txtFactorR);
-
-        foreach (var n in new[] { _numRbt12, _numPayroll })
-        {
-            n.DecimalPlaces = 2;
-            n.Maximum = 999999999999m;
-            n.ThousandsSeparator = true;
-            n.TextAlign = HorizontalAlignment.Right;
-        }
+        _numRbt12.DecimalPlaces = 2;
+        _numRbt12.Dock = DockStyle.Fill;
+        _numRbt12.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
+        _numRbt12.ThousandsSeparator = true;
+        _numRbt12.TextAlign = HorizontalAlignment.Right;
+        _numPayroll.DecimalPlaces = 2;
+        _numPayroll.Dock = DockStyle.Fill;
+        _numPayroll.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
+        _numPayroll.ThousandsSeparator = true;
+        _numPayroll.TextAlign = HorizontalAlignment.Right;
+        _txtFactorR.Dock = DockStyle.Fill;
         _txtFactorR.ReadOnly = true;
         _txtFactorR.TextAlign = HorizontalAlignment.Right;
 
-        var companyInfo = new Label
-        {
-            Text = "A interface organiza os documentos e resultados. As regras tributárias ficam isoladas na biblioteca fiscal.",
-            Dock = DockStyle.Fill,
-            TextAlign = ContentAlignment.MiddleLeft,
-            Padding = new Padding(10, 0, 10, 0),
-            BorderStyle = BorderStyle.FixedSingle,
-            Margin = new Padding(3, 6, 0, 5)
-        };
-        companyTable.Controls.Add(companyInfo, 3, 1);
-        companyTable.SetColumnSpan(companyInfo, 3);
+        _lblCompanyInfo.BorderStyle = BorderStyle.FixedSingle;
+        _lblCompanyInfo.Dock = DockStyle.Fill;
+        _lblCompanyInfo.Margin = new Padding(3, 4, 0, 2);
+        _lblCompanyInfo.Padding = new Padding(10, 0, 10, 0);
+        _lblCompanyInfo.Text = "A interface organiza os documentos e resultados. As regras tributárias ficam isoladas na biblioteca fiscal.";
+        _lblCompanyInfo.TextAlign = ContentAlignment.MiddleLeft;
 
-        // Documents / summary split
         _splitDocuments.Dock = DockStyle.Fill;
-        _splitDocuments.Orientation = Orientation.Vertical;
+        _splitDocuments.Location = new Point(0, 128);
+        _splitDocuments.Margin = new Padding(0, 0, 0, 7);
+        _splitDocuments.Name = "_splitDocuments";
+        _splitDocuments.Size = new Size(1576, 405);
+        _splitDocuments.SplitterDistance = 1010;
         _splitDocuments.SplitterWidth = 5;
-        apuracaoRoot.Controls.Add(_splitDocuments, 0, 1);
 
-        var docPanel = CreateDesignerSection("Documentos da competência", "Notas e receitas carregadas para a apuração");
+        _documentsSection.BorderStyle = BorderStyle.FixedSingle;
+        _documentsSection.Controls.Add(_gridApuracao);
+        _documentsSection.Controls.Add(_documentsHeader);
+        _documentsSection.Dock = DockStyle.Fill;
+        _documentsSection.Name = "_documentsSection";
+        _splitDocuments.Panel1.Controls.Add(_documentsSection);
+
+        _documentsHeader.Controls.Add(_documentsSubtitle);
+        _documentsHeader.Controls.Add(_documentsTitle);
+        _documentsHeader.Controls.Add(_documentsAccent);
+        _documentsHeader.Dock = DockStyle.Top;
+        _documentsHeader.Height = 42;
+        _documentsHeader.Name = "_documentsHeader";
+        _documentsAccent.Dock = DockStyle.Left;
+        _documentsAccent.Width = 4;
+        _documentsTitle.AutoSize = true;
+        _documentsTitle.Location = new Point(12, 5);
+        _documentsTitle.Text = "Documentos da competência";
+        _documentsSubtitle.AutoSize = true;
+        _documentsSubtitle.Location = new Point(12, 23);
+        _documentsSubtitle.Text = "Notas e receitas carregadas para a apuração";
         _gridApuracao.Dock = DockStyle.Fill;
-        docPanel.Controls.Add(_gridApuracao);
-        _gridApuracao.BringToFront();
-        _splitDocuments.Panel1.Controls.Add(docPanel);
+        _gridApuracao.Location = new Point(0, 42);
+        _gridApuracao.Name = "_gridApuracao";
 
-        var summaryPanel = CreateDesignerSection("Resumo da apuração", "Consolidação da competência");
-        var summaryTable = new TableLayoutPanel
-        {
-            Dock = DockStyle.Fill,
-            ColumnCount = 2,
-            RowCount = 7,
-            Padding = new Padding(12, 8, 12, 8)
-        };
-        summaryTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 66F));
-        summaryTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 34F));
-        for (var i = 0; i < 7; i++) summaryTable.RowStyles.Add(new RowStyle(SizeType.Percent, 14.285F));
-        AddSummaryDesignerRow(summaryTable, 0, "Receita bruta do período", _lblSummaryRevenue);
-        AddSummaryDesignerRow(summaryTable, 1, "Serviços sem retenção", _lblSummaryNoRetention);
-        AddSummaryDesignerRow(summaryTable, 2, "Serviços com retenção", _lblSummaryRetention);
-        AddSummaryDesignerRow(summaryTable, 3, "Receita pendente de classificação", _lblSummaryPending);
-        AddSummaryDesignerRow(summaryTable, 4, "Fator R do período", _lblSummaryFactorR);
-        AddSummaryDesignerRow(summaryTable, 5, "Total para segregação", _lblSummaryTotal);
-        AddSummaryDesignerRow(summaryTable, 6, "Alertas / Pendências", _lblAlerts);
-        summaryPanel.Controls.Add(summaryTable);
-        summaryTable.BringToFront();
-        _splitDocuments.Panel2.Controls.Add(summaryPanel);
+        _summarySection.BorderStyle = BorderStyle.FixedSingle;
+        _summarySection.Controls.Add(_summaryTable);
+        _summarySection.Controls.Add(_summaryHeader);
+        _summarySection.Dock = DockStyle.Fill;
+        _summarySection.Name = "_summarySection";
+        _splitDocuments.Panel2.Controls.Add(_summarySection);
 
-        // Memory panel
-        var memoryPanel = CreateDesignerSection("Memória de cálculo", "Documento selecionado e trilha da decisão");
+        _summaryHeader.Controls.Add(_summarySubtitle);
+        _summaryHeader.Controls.Add(_summaryTitle);
+        _summaryHeader.Controls.Add(_summaryAccent);
+        _summaryHeader.Dock = DockStyle.Top;
+        _summaryHeader.Height = 42;
+        _summaryHeader.Name = "_summaryHeader";
+        _summaryAccent.Dock = DockStyle.Left;
+        _summaryAccent.Width = 4;
+        _summaryTitle.AutoSize = true;
+        _summaryTitle.Location = new Point(12, 5);
+        _summaryTitle.Text = "Resumo da apuração";
+        _summarySubtitle.AutoSize = true;
+        _summarySubtitle.Location = new Point(12, 23);
+        _summarySubtitle.Text = "Consolidação da competência";
+
+        _summaryTable.ColumnCount = 2;
+        _summaryTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 66F));
+        _summaryTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 34F));
+        _summaryTable.Controls.Add(_lblSummaryRevenueCaption, 0, 0);
+        _summaryTable.Controls.Add(_lblSummaryRevenue, 1, 0);
+        _summaryTable.Controls.Add(_lblSummaryNoRetentionCaption, 0, 1);
+        _summaryTable.Controls.Add(_lblSummaryNoRetention, 1, 1);
+        _summaryTable.Controls.Add(_lblSummaryRetentionCaption, 0, 2);
+        _summaryTable.Controls.Add(_lblSummaryRetention, 1, 2);
+        _summaryTable.Controls.Add(_lblSummaryPendingCaption, 0, 3);
+        _summaryTable.Controls.Add(_lblSummaryPending, 1, 3);
+        _summaryTable.Controls.Add(_lblSummaryFactorRCaption, 0, 4);
+        _summaryTable.Controls.Add(_lblSummaryFactorR, 1, 4);
+        _summaryTable.Controls.Add(_lblSummaryTotalCaption, 0, 5);
+        _summaryTable.Controls.Add(_lblSummaryTotal, 1, 5);
+        _summaryTable.Controls.Add(_lblAlertsCaption, 0, 6);
+        _summaryTable.Controls.Add(_lblAlerts, 1, 6);
+        _summaryTable.Dock = DockStyle.Fill;
+        _summaryTable.Location = new Point(0, 42);
+        _summaryTable.Padding = new Padding(12, 8, 12, 8);
+        _summaryTable.RowCount = 7;
+        _summaryTable.RowStyles.Add(new RowStyle(SizeType.Percent, 14.285F));
+        _summaryTable.RowStyles.Add(new RowStyle(SizeType.Percent, 14.285F));
+        _summaryTable.RowStyles.Add(new RowStyle(SizeType.Percent, 14.285F));
+        _summaryTable.RowStyles.Add(new RowStyle(SizeType.Percent, 14.285F));
+        _summaryTable.RowStyles.Add(new RowStyle(SizeType.Percent, 14.285F));
+        _summaryTable.RowStyles.Add(new RowStyle(SizeType.Percent, 14.285F));
+        _summaryTable.RowStyles.Add(new RowStyle(SizeType.Percent, 14.29F));
+
+        _lblSummaryRevenueCaption.Dock = DockStyle.Fill;
+        _lblSummaryRevenueCaption.Text = "Receita bruta do período";
+        _lblSummaryRevenueCaption.TextAlign = ContentAlignment.MiddleLeft;
+        _lblSummaryNoRetentionCaption.Dock = DockStyle.Fill;
+        _lblSummaryNoRetentionCaption.Text = "Serviços sem retenção";
+        _lblSummaryNoRetentionCaption.TextAlign = ContentAlignment.MiddleLeft;
+        _lblSummaryRetentionCaption.Dock = DockStyle.Fill;
+        _lblSummaryRetentionCaption.Text = "Serviços com retenção";
+        _lblSummaryRetentionCaption.TextAlign = ContentAlignment.MiddleLeft;
+        _lblSummaryPendingCaption.Dock = DockStyle.Fill;
+        _lblSummaryPendingCaption.Text = "Receita pendente de classificação";
+        _lblSummaryPendingCaption.TextAlign = ContentAlignment.MiddleLeft;
+        _lblSummaryFactorRCaption.Dock = DockStyle.Fill;
+        _lblSummaryFactorRCaption.Text = "Fator R do período";
+        _lblSummaryFactorRCaption.TextAlign = ContentAlignment.MiddleLeft;
+        _lblSummaryTotalCaption.Dock = DockStyle.Fill;
+        _lblSummaryTotalCaption.Text = "Total para segregação";
+        _lblSummaryTotalCaption.TextAlign = ContentAlignment.MiddleLeft;
+        _lblAlertsCaption.Dock = DockStyle.Fill;
+        _lblAlertsCaption.Text = "Alertas / Pendências";
+        _lblAlertsCaption.TextAlign = ContentAlignment.MiddleLeft;
+
+        _lblSummaryRevenue.Dock = DockStyle.Fill;
+        _lblSummaryRevenue.Text = "R$ 0,00";
+        _lblSummaryRevenue.TextAlign = ContentAlignment.MiddleRight;
+        _lblSummaryNoRetention.Dock = DockStyle.Fill;
+        _lblSummaryNoRetention.Text = "R$ 0,00";
+        _lblSummaryNoRetention.TextAlign = ContentAlignment.MiddleRight;
+        _lblSummaryRetention.Dock = DockStyle.Fill;
+        _lblSummaryRetention.Text = "R$ 0,00";
+        _lblSummaryRetention.TextAlign = ContentAlignment.MiddleRight;
+        _lblSummaryPending.Dock = DockStyle.Fill;
+        _lblSummaryPending.Text = "R$ 0,00";
+        _lblSummaryPending.TextAlign = ContentAlignment.MiddleRight;
+        _lblSummaryFactorR.Dock = DockStyle.Fill;
+        _lblSummaryFactorR.Text = "0,00 %";
+        _lblSummaryFactorR.TextAlign = ContentAlignment.MiddleRight;
+        _lblSummaryTotal.Dock = DockStyle.Fill;
+        _lblSummaryTotal.Text = "R$ 0,00";
+        _lblSummaryTotal.TextAlign = ContentAlignment.MiddleRight;
+        _lblAlerts.Dock = DockStyle.Fill;
+        _lblAlerts.Text = "Sem pendências";
+        _lblAlerts.TextAlign = ContentAlignment.MiddleRight;
+
+        _memorySection.BorderStyle = BorderStyle.FixedSingle;
+        _memorySection.Controls.Add(_splitMemory);
+        _memorySection.Controls.Add(_memoryHeader);
+        _memorySection.Dock = DockStyle.Fill;
+        _memorySection.Margin = new Padding(0);
+        _memorySection.Name = "_memorySection";
+
+        _memoryHeader.Controls.Add(_memorySubtitle);
+        _memoryHeader.Controls.Add(_memoryTitle);
+        _memoryHeader.Controls.Add(_memoryAccent);
+        _memoryHeader.Dock = DockStyle.Top;
+        _memoryHeader.Height = 42;
+        _memoryHeader.Name = "_memoryHeader";
+        _memoryAccent.Dock = DockStyle.Left;
+        _memoryAccent.Width = 4;
+        _memoryTitle.AutoSize = true;
+        _memoryTitle.Location = new Point(12, 5);
+        _memoryTitle.Text = "Memória de cálculo";
+        _memorySubtitle.AutoSize = true;
+        _memorySubtitle.Location = new Point(12, 23);
+        _memorySubtitle.Text = "Documento selecionado e trilha da decisão";
+
         _splitMemory.Dock = DockStyle.Fill;
+        _splitMemory.Location = new Point(0, 42);
+        _splitMemory.Name = "_splitMemory";
+        _splitMemory.Size = new Size(1574, 238);
+        _splitMemory.SplitterDistance = 390;
         _splitMemory.SplitterWidth = 5;
-        memoryPanel.Controls.Add(_splitMemory);
-        _splitMemory.BringToFront();
-        apuracaoRoot.Controls.Add(memoryPanel, 0, 2);
 
-        var details = new TableLayoutPanel
-        {
-            Dock = DockStyle.Fill,
-            ColumnCount = 2,
-            RowCount = 8,
-            Padding = new Padding(12, 8, 8, 8)
-        };
-        details.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
-        details.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-        for (var i = 0; i < 8; i++) details.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
-        AddMemoryDesignerRow(details, 0, "Documento", _lblMemDocument);
-        AddMemoryDesignerRow(details, 1, "Emissão", _lblMemIssue);
-        AddMemoryDesignerRow(details, 2, "Tomador", _lblMemRecipient);
-        AddMemoryDesignerRow(details, 3, "CNPJ/CPF", _lblMemTaxId);
-        AddMemoryDesignerRow(details, 4, "Município", _lblMemMunicipality);
-        AddMemoryDesignerRow(details, 5, "Valor do serviço", _lblMemValue);
-        AddMemoryDesignerRow(details, 6, "Base de cálculo do ISS", _lblMemIssBase);
-        AddMemoryDesignerRow(details, 7, "ISS retido", _lblMemIss);
-        _splitMemory.Panel1.Controls.Add(details);
+        _memoryDetails.ColumnCount = 2;
+        _memoryDetails.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
+        _memoryDetails.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+        _memoryDetails.Controls.Add(_lblMemDocumentCaption, 0, 0);
+        _memoryDetails.Controls.Add(_lblMemDocument, 1, 0);
+        _memoryDetails.Controls.Add(_lblMemIssueCaption, 0, 1);
+        _memoryDetails.Controls.Add(_lblMemIssue, 1, 1);
+        _memoryDetails.Controls.Add(_lblMemRecipientCaption, 0, 2);
+        _memoryDetails.Controls.Add(_lblMemRecipient, 1, 2);
+        _memoryDetails.Controls.Add(_lblMemTaxIdCaption, 0, 3);
+        _memoryDetails.Controls.Add(_lblMemTaxId, 1, 3);
+        _memoryDetails.Controls.Add(_lblMemMunicipalityCaption, 0, 4);
+        _memoryDetails.Controls.Add(_lblMemMunicipality, 1, 4);
+        _memoryDetails.Controls.Add(_lblMemValueCaption, 0, 5);
+        _memoryDetails.Controls.Add(_lblMemValue, 1, 5);
+        _memoryDetails.Controls.Add(_lblMemIssBaseCaption, 0, 6);
+        _memoryDetails.Controls.Add(_lblMemIssBase, 1, 6);
+        _memoryDetails.Controls.Add(_lblMemIssCaption, 0, 7);
+        _memoryDetails.Controls.Add(_lblMemIss, 1, 7);
+        _memoryDetails.Dock = DockStyle.Fill;
+        _memoryDetails.Padding = new Padding(12, 8, 8, 8);
+        _memoryDetails.RowCount = 8;
+        _memoryDetails.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+        _memoryDetails.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+        _memoryDetails.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+        _memoryDetails.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+        _memoryDetails.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+        _memoryDetails.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+        _memoryDetails.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+        _memoryDetails.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+        _splitMemory.Panel1.Controls.Add(_memoryDetails);
 
-        var memoryTabs = new TabControl { Dock = DockStyle.Fill };
-        var memoryFiscal = new TabPage("Análise fiscal");
-        var memoryLc = new TabPage("Itens da LC 116");
-        var memorySeg = new TabPage("Segregação");
-        var memoryObs = new TabPage("Observações");
-        memoryTabs.TabPages.AddRange([memoryFiscal, memoryLc, memorySeg, memoryObs]);
+        _lblMemDocumentCaption.Dock = DockStyle.Fill;
+        _lblMemDocumentCaption.Text = "Documento";
+        _lblMemDocumentCaption.TextAlign = ContentAlignment.MiddleLeft;
+        _lblMemIssueCaption.Dock = DockStyle.Fill;
+        _lblMemIssueCaption.Text = "Emissão";
+        _lblMemIssueCaption.TextAlign = ContentAlignment.MiddleLeft;
+        _lblMemRecipientCaption.Dock = DockStyle.Fill;
+        _lblMemRecipientCaption.Text = "Tomador";
+        _lblMemRecipientCaption.TextAlign = ContentAlignment.MiddleLeft;
+        _lblMemTaxIdCaption.Dock = DockStyle.Fill;
+        _lblMemTaxIdCaption.Text = "CNPJ/CPF";
+        _lblMemTaxIdCaption.TextAlign = ContentAlignment.MiddleLeft;
+        _lblMemMunicipalityCaption.Dock = DockStyle.Fill;
+        _lblMemMunicipalityCaption.Text = "Município";
+        _lblMemMunicipalityCaption.TextAlign = ContentAlignment.MiddleLeft;
+        _lblMemValueCaption.Dock = DockStyle.Fill;
+        _lblMemValueCaption.Text = "Valor do serviço";
+        _lblMemValueCaption.TextAlign = ContentAlignment.MiddleLeft;
+        _lblMemIssBaseCaption.Dock = DockStyle.Fill;
+        _lblMemIssBaseCaption.Text = "Base de cálculo do ISS";
+        _lblMemIssBaseCaption.TextAlign = ContentAlignment.MiddleLeft;
+        _lblMemIssCaption.Dock = DockStyle.Fill;
+        _lblMemIssCaption.Text = "ISS retido";
+        _lblMemIssCaption.TextAlign = ContentAlignment.MiddleLeft;
+
+        _lblMemDocument.Dock = DockStyle.Fill;
+        _lblMemDocument.Text = "-";
+        _lblMemDocument.TextAlign = ContentAlignment.MiddleLeft;
+        _lblMemIssue.Dock = DockStyle.Fill;
+        _lblMemIssue.Text = "-";
+        _lblMemIssue.TextAlign = ContentAlignment.MiddleLeft;
+        _lblMemRecipient.Dock = DockStyle.Fill;
+        _lblMemRecipient.Text = "-";
+        _lblMemRecipient.TextAlign = ContentAlignment.MiddleLeft;
+        _lblMemTaxId.Dock = DockStyle.Fill;
+        _lblMemTaxId.Text = "-";
+        _lblMemTaxId.TextAlign = ContentAlignment.MiddleLeft;
+        _lblMemMunicipality.Dock = DockStyle.Fill;
+        _lblMemMunicipality.Text = "-";
+        _lblMemMunicipality.TextAlign = ContentAlignment.MiddleLeft;
+        _lblMemValue.Dock = DockStyle.Fill;
+        _lblMemValue.Text = "-";
+        _lblMemValue.TextAlign = ContentAlignment.MiddleLeft;
+        _lblMemIssBase.Dock = DockStyle.Fill;
+        _lblMemIssBase.Text = "-";
+        _lblMemIssBase.TextAlign = ContentAlignment.MiddleLeft;
+        _lblMemIss.Dock = DockStyle.Fill;
+        _lblMemIss.Text = "-";
+        _lblMemIss.TextAlign = ContentAlignment.MiddleLeft;
+
+        _memoryTabs.Controls.Add(_memoryFiscalTab);
+        _memoryTabs.Controls.Add(_memoryLcTab);
+        _memoryTabs.Controls.Add(_memorySegTab);
+        _memoryTabs.Controls.Add(_memoryObsTab);
+        _memoryTabs.Dock = DockStyle.Fill;
+        _memoryTabs.SelectedIndex = 0;
+        _splitMemory.Panel2.Controls.Add(_memoryTabs);
+
+        _memoryFiscalTab.Controls.Add(_lstMemory);
+        _memoryFiscalTab.Text = "Análise fiscal";
+        _memoryLcTab.Controls.Add(_txtMemoryLcInfo);
+        _memoryLcTab.Text = "Itens da LC 116";
+        _memorySegTab.Controls.Add(_txtMemorySegInfo);
+        _memorySegTab.Text = "Segregação";
+        _memoryObsTab.Controls.Add(_txtMemoryObsInfo);
+        _memoryObsTab.Text = "Observações";
+
+        _lstMemory.BorderStyle = BorderStyle.None;
         _lstMemory.Dock = DockStyle.Fill;
-        memoryFiscal.Controls.Add(_lstMemory);
-        memoryLc.Controls.Add(CreateDesignerInfoBox("O código do serviço e a descrição extraídos do XML aparecem na memória. O enquadramento legal será responsabilidade da biblioteca fiscal."));
-        memorySeg.Controls.Add(CreateDesignerInfoBox("A segregação fica visível após classificação manual ou após a futura biblioteca retornar uma decisão."));
-        memoryObs.Controls.Add(CreateDesignerInfoBox("Use duplo clique em um documento para informar uma classificação manual enquanto o motor ainda não estiver conectado."));
-        _splitMemory.Panel2.Controls.Add(memoryTabs);
+        _txtMemoryLcInfo.BorderStyle = BorderStyle.None;
+        _txtMemoryLcInfo.Dock = DockStyle.Fill;
+        _txtMemoryLcInfo.Multiline = true;
+        _txtMemoryLcInfo.ReadOnly = true;
+        _txtMemoryLcInfo.Text = "O código do serviço e a descrição extraídos do XML aparecem na memória. O enquadramento legal será responsabilidade da biblioteca fiscal.";
+        _txtMemorySegInfo.BorderStyle = BorderStyle.None;
+        _txtMemorySegInfo.Dock = DockStyle.Fill;
+        _txtMemorySegInfo.Multiline = true;
+        _txtMemorySegInfo.ReadOnly = true;
+        _txtMemorySegInfo.Text = "A segregação fica visível após classificação manual ou após a futura biblioteca retornar uma decisão.";
+        _txtMemoryObsInfo.BorderStyle = BorderStyle.None;
+        _txtMemoryObsInfo.Dock = DockStyle.Fill;
+        _txtMemoryObsInfo.Multiline = true;
+        _txtMemoryObsInfo.ReadOnly = true;
+        _txtMemoryObsInfo.Text = "Use duplo clique em um documento para informar uma classificação manual enquanto o motor ainda não estiver conectado.";
 
-        // Documents tab
-        var docsRoot = new TableLayoutPanel
-        {
-            Dock = DockStyle.Fill,
-            ColumnCount = 1,
-            RowCount = 2
-        };
-        docsRoot.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
-        docsRoot.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-        _tabDocumentos.Controls.Add(docsRoot);
+        _tabDocumentos.Controls.Add(_documentsRoot);
+        _tabDocumentos.Location = new Point(4, 24);
+        _tabDocumentos.Name = "_tabDocumentos";
+        _tabDocumentos.Padding = new Padding(8);
+        _tabDocumentos.Size = new Size(1592, 797);
+        _tabDocumentos.TabIndex = 1;
+        _tabDocumentos.Text = "Documentos";
+        _tabDocumentos.UseVisualStyleBackColor = true;
 
-        var docsCommands = new FlowLayoutPanel
-        {
-            Dock = DockStyle.Fill,
-            WrapContents = false,
-            Padding = new Padding(6, 7, 6, 5)
-        };
-        _btnImportDocs.Text = "Importar XML/ZIP";
+        _documentsRoot.ColumnCount = 1;
+        _documentsRoot.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+        _documentsRoot.Controls.Add(_documentsCommands, 0, 0);
+        _documentsRoot.Controls.Add(_gridDocuments, 0, 1);
+        _documentsRoot.Dock = DockStyle.Fill;
+        _documentsRoot.RowCount = 2;
+        _documentsRoot.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
+        _documentsRoot.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+
+        _documentsCommands.Controls.Add(_btnImportDocs);
+        _documentsCommands.Controls.Add(_btnEditDoc);
+        _documentsCommands.Controls.Add(_btnRemoveDoc);
+        _documentsCommands.Controls.Add(_txtSearch);
+        _documentsCommands.Dock = DockStyle.Fill;
+        _documentsCommands.Padding = new Padding(6, 7, 6, 5);
+        _documentsCommands.WrapContents = false;
+
         _btnImportDocs.Size = new Size(132, 30);
-        _btnEditDoc.Text = "Editar classificação";
+        _btnImportDocs.Text = "Importar XML/ZIP";
         _btnEditDoc.Size = new Size(138, 30);
-        _btnRemoveDoc.Text = "Remover";
+        _btnEditDoc.Text = "Editar classificação";
         _btnRemoveDoc.Size = new Size(92, 30);
-        _txtSearch.Width = 280;
+        _btnRemoveDoc.Text = "Remover";
+        _txtSearch.Margin = new Padding(18, 3, 3, 3);
         _txtSearch.PlaceholderText = "Pesquisar documento, tomador ou CNPJ...";
-        docsCommands.Controls.AddRange([_btnImportDocs, _btnEditDoc, _btnRemoveDoc, new Label { Width = 16 }, _txtSearch]);
-        docsRoot.Controls.Add(docsCommands, 0, 0);
+        _txtSearch.Size = new Size(280, 23);
         _gridDocuments.Dock = DockStyle.Fill;
-        docsRoot.Controls.Add(_gridDocuments, 0, 1);
 
-        // Segregation tab
-        var segregationPanel = CreateDesignerSection("Segregação da competência", "Receitas agrupadas conforme a classificação vigente");
+        _tabSegregacao.Controls.Add(_segregationSection);
+        _tabSegregacao.Location = new Point(4, 24);
+        _tabSegregacao.Name = "_tabSegregacao";
+        _tabSegregacao.Padding = new Padding(8);
+        _tabSegregacao.Size = new Size(1592, 797);
+        _tabSegregacao.TabIndex = 2;
+        _tabSegregacao.Text = "Segregação";
+        _tabSegregacao.UseVisualStyleBackColor = true;
+
+        _segregationSection.BorderStyle = BorderStyle.FixedSingle;
+        _segregationSection.Controls.Add(_gridSegregation);
+        _segregationSection.Controls.Add(_segregationHeader);
+        _segregationSection.Dock = DockStyle.Fill;
+        _segregationHeader.Controls.Add(_segregationSubtitle);
+        _segregationHeader.Controls.Add(_segregationTitle);
+        _segregationHeader.Controls.Add(_segregationAccent);
+        _segregationHeader.Dock = DockStyle.Top;
+        _segregationHeader.Height = 42;
+        _segregationAccent.Dock = DockStyle.Left;
+        _segregationAccent.Width = 4;
+        _segregationTitle.AutoSize = true;
+        _segregationTitle.Location = new Point(12, 5);
+        _segregationTitle.Text = "Segregação da competência";
+        _segregationSubtitle.AutoSize = true;
+        _segregationSubtitle.Location = new Point(12, 23);
+        _segregationSubtitle.Text = "Receitas agrupadas conforme a classificação vigente";
         _gridSegregation.Dock = DockStyle.Fill;
-        segregationPanel.Controls.Add(_gridSegregation);
-        _gridSegregation.BringToFront();
-        _tabSegregacao.Controls.Add(segregationPanel);
+        _gridSegregation.Location = new Point(0, 42);
 
-        // Full memory tab
-        var fullMemoryPanel = CreateDesignerSection("Memória completa", "Rastreamento da competência e das classificações");
+        _tabMemoria.Controls.Add(_fullMemorySection);
+        _tabMemoria.Location = new Point(4, 24);
+        _tabMemoria.Name = "_tabMemoria";
+        _tabMemoria.Padding = new Padding(8);
+        _tabMemoria.Size = new Size(1592, 797);
+        _tabMemoria.TabIndex = 3;
+        _tabMemoria.Text = "Memória de Cálculo";
+        _tabMemoria.UseVisualStyleBackColor = true;
+
+        _fullMemorySection.BorderStyle = BorderStyle.FixedSingle;
+        _fullMemorySection.Controls.Add(_txtFullMemory);
+        _fullMemorySection.Controls.Add(_fullMemoryHeader);
+        _fullMemorySection.Dock = DockStyle.Fill;
+        _fullMemoryHeader.Controls.Add(_fullMemorySubtitle);
+        _fullMemoryHeader.Controls.Add(_fullMemoryTitle);
+        _fullMemoryHeader.Controls.Add(_fullMemoryAccent);
+        _fullMemoryHeader.Dock = DockStyle.Top;
+        _fullMemoryHeader.Height = 42;
+        _fullMemoryAccent.Dock = DockStyle.Left;
+        _fullMemoryAccent.Width = 4;
+        _fullMemoryTitle.AutoSize = true;
+        _fullMemoryTitle.Location = new Point(12, 5);
+        _fullMemoryTitle.Text = "Memória completa";
+        _fullMemorySubtitle.AutoSize = true;
+        _fullMemorySubtitle.Location = new Point(12, 23);
+        _fullMemorySubtitle.Text = "Rastreamento da competência e das classificações";
+        _txtFullMemory.BorderStyle = BorderStyle.None;
         _txtFullMemory.Dock = DockStyle.Fill;
+        _txtFullMemory.Location = new Point(0, 42);
         _txtFullMemory.Multiline = true;
         _txtFullMemory.ReadOnly = true;
         _txtFullMemory.ScrollBars = ScrollBars.Both;
         _txtFullMemory.WordWrap = false;
-        _txtFullMemory.Font = new Font("Consolas", 9F);
-        fullMemoryPanel.Controls.Add(_txtFullMemory);
-        _txtFullMemory.BringToFront();
-        _tabMemoria.Controls.Add(fullMemoryPanel);
 
-        // PGDAS-D tab
-        var pgdasRoot = new TableLayoutPanel
-        {
-            Dock = DockStyle.Fill,
-            ColumnCount = 1,
-            RowCount = 2
-        };
-        pgdasRoot.RowStyles.Add(new RowStyle(SizeType.Absolute, 76F));
-        pgdasRoot.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-        var pgdasNotice = new Label
-        {
-            Text = "Espelho de preparação para o PGDAS-D. O programa consolida as classificações existentes; a biblioteca será responsável pelas decisões fiscais automáticas.",
-            Dock = DockStyle.Fill,
-            Padding = new Padding(12),
-            BorderStyle = BorderStyle.FixedSingle,
-            TextAlign = ContentAlignment.MiddleLeft
-        };
-        pgdasRoot.Controls.Add(pgdasNotice, 0, 0);
+        _tabPgdas.Controls.Add(_pgdasRoot);
+        _tabPgdas.Location = new Point(4, 24);
+        _tabPgdas.Name = "_tabPgdas";
+        _tabPgdas.Padding = new Padding(8);
+        _tabPgdas.Size = new Size(1592, 797);
+        _tabPgdas.TabIndex = 4;
+        _tabPgdas.Text = "PGDAS-D";
+        _tabPgdas.UseVisualStyleBackColor = true;
+
+        _pgdasRoot.ColumnCount = 1;
+        _pgdasRoot.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+        _pgdasRoot.Controls.Add(_pgdasNotice, 0, 0);
+        _pgdasRoot.Controls.Add(_gridPgdas, 0, 1);
+        _pgdasRoot.Dock = DockStyle.Fill;
+        _pgdasRoot.RowCount = 2;
+        _pgdasRoot.RowStyles.Add(new RowStyle(SizeType.Absolute, 76F));
+        _pgdasRoot.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+        _pgdasNotice.BorderStyle = BorderStyle.FixedSingle;
+        _pgdasNotice.Dock = DockStyle.Fill;
+        _pgdasNotice.Padding = new Padding(12);
+        _pgdasNotice.Text = "Espelho de preparação para o PGDAS-D. O programa consolida as classificações existentes; a biblioteca será responsável pelas decisões fiscais automáticas.";
+        _pgdasNotice.TextAlign = ContentAlignment.MiddleLeft;
         _gridPgdas.Dock = DockStyle.Fill;
-        pgdasRoot.Controls.Add(_gridPgdas, 0, 1);
-        _tabPgdas.Controls.Add(pgdasRoot);
 
-        // Status
-        _status.Dock = DockStyle.Bottom;
+        _stRecords.Text = "Registros: 0";
+        _stSep1.Text = "•";
+        _stSelected.Text = "Selecionado: 0";
+        _stSep2.Text = "•";
+        _stCompany.Text = "Empresa: -";
+        _stSep3.Text = "•";
+        _stCompetence.Text = "Competência: -";
         _stEngine.Spring = true;
+        _stEngine.Text = "Motor: não conectado";
         _stEngine.TextAlign = ContentAlignment.MiddleRight;
-        _stClock.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
-        _status.Items.AddRange([
-            _stRecords, new ToolStripStatusLabel("•"),
-            _stSelected, new ToolStripStatusLabel("•"),
-            _stCompany, new ToolStripStatusLabel("•"),
-            _stCompetence, _stEngine, new ToolStripStatusLabel("•"), _stClock
-        ]);
+        _stSep4.Text = "•";
+        _stClock.Text = "00/00/0000 00:00";
+        _status.Items.AddRange(new ToolStripItem[] { _stRecords, _stSep1, _stSelected, _stSep2, _stCompany, _stSep3, _stCompetence, _stEngine, _stSep4, _stClock });
+        _status.Location = new Point(0, 876);
+        _status.Name = "_status";
+        _status.Size = new Size(1600, 24);
 
-        // Form
-        AutoScaleMode = AutoScaleMode.Dpi;
+        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(1600, 900);
-        MinimumSize = new Size(1180, 720);
-        Name = "MainForm";
-        StartPosition = FormStartPosition.CenterScreen;
-        Text = "Northfield Fiscal - Simples Nacional";
-        WindowState = FormWindowState.Maximized;
-        KeyPreview = true;
-        AllowDrop = true;
-
         Controls.Add(_tabs);
         Controls.Add(_tool);
         Controls.Add(_menu);
         Controls.Add(_status);
         MainMenuStrip = _menu;
+        MinimumSize = new Size(1180, 720);
+        Name = "MainForm";
+        StartPosition = FormStartPosition.CenterScreen;
+        Text = "Northfield Fiscal - Simples Nacional";
+        WindowState = FormWindowState.Maximized;
 
+        _menu.ResumeLayout(false);
+        _menu.PerformLayout();
+        _tool.ResumeLayout(false);
+        _tool.PerformLayout();
+        _tabs.ResumeLayout(false);
+        _tabApuracao.ResumeLayout(false);
+        _apuracaoRoot.ResumeLayout(false);
+        _companyPanel.ResumeLayout(false);
+        _companyTable.ResumeLayout(false);
+        _companyTable.PerformLayout();
+        _optionsPanel.ResumeLayout(false);
+        _optionsPanel.PerformLayout();
+        ((ISupportInitialize)_numRbt12).EndInit();
+        ((ISupportInitialize)_numPayroll).EndInit();
+        _splitDocuments.Panel1.ResumeLayout(false);
+        _splitDocuments.Panel2.ResumeLayout(false);
+        ((ISupportInitialize)_splitDocuments).EndInit();
+        _splitDocuments.ResumeLayout(false);
+        _documentsSection.ResumeLayout(false);
+        _documentsHeader.ResumeLayout(false);
+        _documentsHeader.PerformLayout();
+        ((ISupportInitialize)_gridApuracao).EndInit();
+        _summarySection.ResumeLayout(false);
+        _summaryHeader.ResumeLayout(false);
+        _summaryHeader.PerformLayout();
+        _summaryTable.ResumeLayout(false);
+        _memorySection.ResumeLayout(false);
+        _memoryHeader.ResumeLayout(false);
+        _memoryHeader.PerformLayout();
+        _splitMemory.Panel1.ResumeLayout(false);
+        _splitMemory.Panel2.ResumeLayout(false);
+        ((ISupportInitialize)_splitMemory).EndInit();
+        _splitMemory.ResumeLayout(false);
+        _memoryDetails.ResumeLayout(false);
+        _memoryTabs.ResumeLayout(false);
+        _memoryFiscalTab.ResumeLayout(false);
+        _memoryLcTab.ResumeLayout(false);
+        _memoryLcTab.PerformLayout();
+        _memorySegTab.ResumeLayout(false);
+        _memorySegTab.PerformLayout();
+        _memoryObsTab.ResumeLayout(false);
+        _memoryObsTab.PerformLayout();
+        _tabDocumentos.ResumeLayout(false);
+        _documentsRoot.ResumeLayout(false);
+        _documentsCommands.ResumeLayout(false);
+        _documentsCommands.PerformLayout();
+        ((ISupportInitialize)_gridDocuments).EndInit();
+        _tabSegregacao.ResumeLayout(false);
+        _segregationSection.ResumeLayout(false);
+        _segregationHeader.ResumeLayout(false);
+        _segregationHeader.PerformLayout();
+        ((ISupportInitialize)_gridSegregation).EndInit();
+        _tabMemoria.ResumeLayout(false);
+        _fullMemorySection.ResumeLayout(false);
+        _fullMemorySection.PerformLayout();
+        _fullMemoryHeader.ResumeLayout(false);
+        _fullMemoryHeader.PerformLayout();
+        _tabPgdas.ResumeLayout(false);
+        _pgdasRoot.ResumeLayout(false);
+        ((ISupportInitialize)_gridPgdas).EndInit();
+        _status.ResumeLayout(false);
+        _status.PerformLayout();
         ResumeLayout(false);
         PerformLayout();
-    }
-
-    private static void AddDesignerField(TableLayoutPanel table, int column, int row, string caption, Control control)
-    {
-        var host = new TableLayoutPanel
-        {
-            Dock = DockStyle.Fill,
-            ColumnCount = 1,
-            RowCount = 2,
-            Margin = new Padding(3, 0, 8, 2)
-        };
-        host.RowStyles.Add(new RowStyle(SizeType.Absolute, 21F));
-        host.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-        host.Controls.Add(new Label
-        {
-            Text = caption,
-            Dock = DockStyle.Fill,
-            TextAlign = ContentAlignment.BottomLeft,
-            AutoSize = false
-        }, 0, 0);
-        control.Dock = DockStyle.Fill;
-        control.Margin = new Padding(0, 2, 0, 1);
-        host.Controls.Add(control, 0, 1);
-        table.Controls.Add(host, column, row);
-    }
-
-    private static Panel CreateDesignerSection(string title, string subtitle)
-    {
-        var panel = new Panel
-        {
-            Dock = DockStyle.Fill,
-            BorderStyle = BorderStyle.FixedSingle,
-            Padding = new Padding(0)
-        };
-        var header = new Panel
-        {
-            Dock = DockStyle.Top,
-            Height = 42,
-            Padding = new Padding(12, 4, 8, 4)
-        };
-        var accent = new Panel { Dock = DockStyle.Left, Width = 4 };
-        var titleLabel = new Label
-        {
-            Text = title,
-            AutoSize = true,
-            Location = new Point(12, 5)
-        };
-        var subtitleLabel = new Label
-        {
-            Text = subtitle,
-            AutoSize = true,
-            Location = new Point(12, 23)
-        };
-        header.Controls.Add(subtitleLabel);
-        header.Controls.Add(titleLabel);
-        header.Controls.Add(accent);
-        panel.Controls.Add(header);
-        return panel;
-    }
-
-    private static TextBox CreateDesignerInfoBox(string text) => new()
-    {
-        Text = text,
-        Dock = DockStyle.Fill,
-        Multiline = true,
-        ReadOnly = true,
-        BorderStyle = BorderStyle.None
-    };
-
-    private static void AddSummaryDesignerRow(TableLayoutPanel table, int row, string caption, Label value)
-    {
-        table.Controls.Add(new Label
-        {
-            Text = caption,
-            Dock = DockStyle.Fill,
-            TextAlign = ContentAlignment.MiddleLeft
-        }, 0, row);
-        value.Text = row == 4 ? "0,00 %" : "R$ 0,00";
-        value.Dock = DockStyle.Fill;
-        value.TextAlign = ContentAlignment.MiddleRight;
-        table.Controls.Add(value, 1, row);
-    }
-
-    private static void AddMemoryDesignerRow(TableLayoutPanel table, int row, string caption, Label value)
-    {
-        table.Controls.Add(new Label
-        {
-            Text = caption,
-            Dock = DockStyle.Fill,
-            TextAlign = ContentAlignment.MiddleLeft
-        }, 0, row);
-        value.Text = "-";
-        value.Dock = DockStyle.Fill;
-        value.TextAlign = ContentAlignment.MiddleLeft;
-        table.Controls.Add(value, 1, row);
     }
 }
