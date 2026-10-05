@@ -4,7 +4,7 @@ namespace Northfield.Fiscal.Desktop.Services.Engine;
 
 public sealed class ManualEngineGateway : IEngineGateway
 {
-    public string Name => "Modo manual (motor externo não conectado)";
+    public string Name => "Classificação manual";
     public bool IsAvailable => false;
 
     public Task<EngineAnalysis> AnalyzeAsync(
@@ -17,17 +17,17 @@ public sealed class ManualEngineGateway : IEngineGateway
             DocumentId = d.Id,
             Annex = d.Annex,
             Segregation = d.Segregation,
-            Status = d.ManualClassification ? "Classificação manual" : "Aguardando motor",
+            Status = d.ManualClassification ? "Revisado" : "Aguardando classificação",
             Memory = d.ManualClassification
-                ? ["Classificação informada manualmente no programa hospedeiro.", "Nenhuma regra fiscal automática foi executada."]
-                : ["Documento preparado para análise.", "A biblioteca do Simples ainda não está conectada ao programa hospedeiro."]
+                ? ["Classificação revisada pelo usuário."]
+                : ["Documento aguardando classificação."]
         }).ToList();
 
         return Task.FromResult(new EngineAnalysis
         {
             EngineAvailable = false,
             EngineName = Name,
-            Message = "O programa hospedeiro está pronto. A decisão tributária automática ficará na biblioteca do Simples, sem regras fiscais embutidas na interface.",
+            Message = "A análise automática ainda não está disponível. Revise a classificação dos documentos na aba Documentos.",
             Decisions = decisions
         });
     }

@@ -334,7 +334,7 @@ public sealed partial class MainForm : Form
         _stSelected.Text = $"Selecionado: {(_selectedDocumentId.HasValue ? 1 : 0)}";
         _stCompany.Text = $"Empresa: {(company.CorporateName.Length == 0 ? "-" : company.CorporateName)}";
         _stCompetence.Text = $"Competência: {company.Competence:MM/yyyy}";
-        _stEngine.Text = _engine.IsAvailable ? $"Motor: {_engine.Name}" : "Motor: não conectado | modo manual";
+        _stEngine.Text = _engine.IsAvailable ? $"Análise: {_engine.Name}" : "Classificação: manual";
         _stEngine.ForeColor = _engine.IsAvailable ? Theme.Success : Theme.Warning;
     }
 
@@ -636,7 +636,7 @@ public sealed partial class MainForm : Form
     private void ShowAbout()
     {
         MessageBox.Show(this,
-            "Northfield Fiscal - Simples Nacional\n\nPrograma hospedeiro desktop para importação, conferência, segregação e auditoria de documentos.\n\nA lógica fiscal automática será mantida em biblioteca separada do aplicativo.",
+            "Northfield Fiscal - Simples Nacional\n\nPrograma para importar, conferir e segregar receitas do Simples Nacional.",
             "Sobre o Northfield Fiscal",
             MessageBoxButtons.OK,
             MessageBoxIcon.Information);
