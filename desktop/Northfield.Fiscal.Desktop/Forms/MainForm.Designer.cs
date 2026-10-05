@@ -20,6 +20,7 @@ partial class MainForm
     private ToolStripMenuItem _miSalvar = null!;
     private ToolStripMenuItem _miSalvarComo = null!;
     private ToolStripMenuItem _miImportar = null!;
+    private ToolStripMenuItem _miImportarMovimentos = null!;
     private ToolStripMenuItem _miExportar = null!;
     private ToolStripMenuItem _miSair = null!;
     private ToolStripMenuItem _miDadosEmpresa = null!;
@@ -120,6 +121,7 @@ partial class MainForm
         _miSalvar = new ToolStripMenuItem("Guardar sessão");
         _miSalvarComo = new ToolStripMenuItem("Guardar sessão como...");
         _miImportar = new ToolStripMenuItem("Importar XML/ZIP...");
+        _miImportarMovimentos = new ToolStripMenuItem("Importar documentos");
         _miExportar = new ToolStripMenuItem("Exportar CSV...");
         _miSair = new ToolStripMenuItem("Sair");
         _miDadosEmpresa = new ToolStripMenuItem("Dados da empresa");
@@ -207,7 +209,7 @@ partial class MainForm
         var menuCadastros = new ToolStripMenuItem("Cadastros");
         menuCadastros.DropDownItems.Add(_miDadosEmpresa);
         var menuMovimentos = new ToolStripMenuItem("Movimentos");
-        menuMovimentos.DropDownItems.AddRange([_miImportar, _miEditarDocumento, _miRemoverDocumento]);
+        menuMovimentos.DropDownItems.AddRange([_miImportarMovimentos, _miEditarDocumento, _miRemoverDocumento]);
         var menuFiscal = new ToolStripMenuItem("Fiscal");
         menuFiscal.DropDownItems.AddRange([_miProcessar, _miRecalcular, new ToolStripSeparator(), _miSegregacao, _miMemoria, _miPgdas]);
         var menuRelatorios = new ToolStripMenuItem("Relatórios");
