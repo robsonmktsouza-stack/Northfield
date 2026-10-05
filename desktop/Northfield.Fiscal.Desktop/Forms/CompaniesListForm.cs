@@ -91,9 +91,9 @@ public sealed partial class CompaniesListForm : Form
     private static void ApplyCompanyActionIcon(Button button, Image icon)
     {
         button.Image = icon;
-        button.ImageAlign = ContentAlignment.MiddleLeft;
-        button.TextImageRelation = TextImageRelation.ImageBeforeText;
-        button.Padding = new Padding(5, 0, 5, 0);
+        button.ImageAlign = ContentAlignment.MiddleCenter;
+        button.TextImageRelation = TextImageRelation.Overlay;
+        button.Padding = Padding.Empty;
     }
 
     private void HookEvents()
