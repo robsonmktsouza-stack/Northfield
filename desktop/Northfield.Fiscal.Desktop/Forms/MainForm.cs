@@ -18,6 +18,8 @@ public sealed partial class MainForm : Form
     private Guid? _selectedDocumentId;
     private string? _currentSessionPath;
     private bool _loadingForm;
+    private string _currentCompanyUf = string.Empty;
+    private bool _currentCompanyIsActive = true;
     private System.Windows.Forms.Timer? _clockTimer;
 
     public MainForm()
@@ -117,6 +119,8 @@ public sealed partial class MainForm : Form
         CorporateName = _txtCorporateName.Text.Trim(),
         TaxRegime = _cboTaxRegime.SelectedItem?.ToString() ?? "Simples Nacional",
         Municipality = _txtMunicipality.Text.Trim(),
+        Uf = _currentCompanyUf,
+        IsActive = _currentCompanyIsActive,
         Rbt12 = _numRbt12.Value,
         Payroll12m = _numPayroll.Value,
         ConsiderIssWithheld = _chkConsiderIss.Checked,
@@ -133,6 +137,8 @@ public sealed partial class MainForm : Form
             _txtCorporateName.Text = company.CorporateName;
             _cboTaxRegime.SelectedItem = "Simples Nacional";
             _txtMunicipality.Text = company.Municipality;
+            _currentCompanyUf = company.Uf;
+            _currentCompanyIsActive = company.IsActive;
             _numRbt12.Value = ClampNumeric(_numRbt12, company.Rbt12);
             _numPayroll.Value = ClampNumeric(_numPayroll, company.Payroll12m);
             _chkConsiderIss.Checked = company.ConsiderIssWithheld;

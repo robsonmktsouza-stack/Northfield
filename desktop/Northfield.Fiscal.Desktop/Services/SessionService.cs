@@ -51,11 +51,8 @@ public sealed class SessionService
             try
             {
                 var data = Load(path);
-                if (string.IsNullOrWhiteSpace(data.Company.Cnpj) &&
-                    string.IsNullOrWhiteSpace(data.Company.CorporateName))
-                {
+                if (!HasCompanyIdentity(data.Company))
                     continue;
-                }
 
                 items.Add(new CompanyListItem
                 {
@@ -70,9 +67,7 @@ public sealed class SessionService
             }
         }
 
-        if (currentCompany is not null &&
-            (!string.IsNullOrWhiteSpace(currentCompany.Cnpj) ||
-             !string.IsNullOrWhiteSpace(currentCompany.CorporateName)))
+        if (currentCompany is not null && HasCompanyIdentity(currentCompany))
         {
             items.Add(new CompanyListItem
             {
@@ -84,15 +79,23 @@ public sealed class SessionService
 
         return items
             .GroupBy(x =>
-                !string.IsNullOrWhiteSpace(x.Company.Cnpj)
-                    ? x.Company.Cnpj.Trim()
-                    : x.Company.CorporateName.Trim(),
-                StringComparer.OrdinalIgnoreCase)
+            {
+                var cnpjDigits = new string(x.Company.Cnpj.Where(char.IsDigit).ToArray());
+                return cnpjDigits.Length > 0
+                    ? cnpjDigits
+                    : x.Company.CorporateName.Trim();
+            }, StringComparer.OrdinalIgnoreCase)
             .Select(g => g
                 .OrderByDescending(x => x.LastUpdatedAt)
                 .First())
             .OrderBy(x => x.Company.CorporateName)
             .ToList();
+    }
+
+    private static bool HasCompanyIdentity(CompanyContext company)
+    {
+        var cnpjDigits = new string(company.Cnpj.Where(char.IsDigit).ToArray());
+        return cnpjDigits.Length > 0 || !string.IsNullOrWhiteSpace(company.CorporateName);
     }
 
     public IReadOnlyList<RecentSessionInfo> GetRecentSessions(string? additionalPath = null, int limit = 10)

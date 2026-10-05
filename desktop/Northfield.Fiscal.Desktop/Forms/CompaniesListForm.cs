@@ -26,50 +26,59 @@ public sealed partial class CompaniesListForm : Form
         ForeColor = Theme.Text;
         Font = Theme.UiFont(8.5F);
 
-        _commands.BackColor = Color.FromArgb(236, 237, 238);
-        _commands.BorderColor = Theme.MenuBorder;
-        _bottom.BackColor = Color.FromArgb(236, 237, 238);
-        _bottom.BorderStyle = BorderStyle.FixedSingle;
+        _header.BackColor = Color.FromArgb(236, 237, 238);
+        _header.BorderColor = Theme.MenuBorder;
+        _searchPanel.BackColor = Color.FromArgb(246, 246, 246);
+        _footer.BackColor = Color.FromArgb(236, 237, 238);
 
         _lblTitle.ForeColor = Theme.PrimaryDark;
-        _lblTitle.Font = Theme.UiFont(9.4F, FontStyle.Bold);
-        _lblCount.Tone = NorthfieldBadgeTone.Neutral;
+        _lblTitle.Font = Theme.UiFont(9.2F, FontStyle.Bold);
+        _lblSearch.ForeColor = Theme.Text;
+        _lblSearch.Font = Theme.UiFont(8.2F);
+        _lblCount.ForeColor = Theme.Muted;
+        _lblCount.Font = Theme.UiFont(8F);
 
+        _btnNew.Primary = false;
+        _btnEdit.Primary = false;
+        _btnDelete.Primary = false;
         _btnSelect.Primary = true;
         _btnClose.Primary = false;
+
         _grid.ApplyNorthfieldStyle();
+        _grid.RowTemplate.Height = 27;
+        _grid.ColumnHeadersHeight = 29;
 
         _grid.Columns.Clear();
         _grid.Columns.Add(new DataGridViewTextBoxColumn
         {
+            HeaderText = "Código",
+            Width = 72
+        });
+        _grid.Columns.Add(new DataGridViewTextBoxColumn
+        {
             HeaderText = "CNPJ",
-            Width = 135
+            Width = 150
         });
         _grid.Columns.Add(new DataGridViewTextBoxColumn
         {
             HeaderText = "Razão social",
             AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
-            MinimumWidth = 240
+            MinimumWidth = 280
         });
         _grid.Columns.Add(new DataGridViewTextBoxColumn
         {
             HeaderText = "Município",
-            Width = 180
+            Width = 190
         });
         _grid.Columns.Add(new DataGridViewTextBoxColumn
         {
-            HeaderText = "Regime tributário",
-            Width = 135
+            HeaderText = "UF",
+            Width = 56
         });
         _grid.Columns.Add(new DataGridViewTextBoxColumn
         {
-            HeaderText = "Última competência",
-            Width = 120
-        });
-        _grid.Columns.Add(new DataGridViewTextBoxColumn
-        {
-            HeaderText = "Última alteração",
-            Width = 135
+            HeaderText = "Situação",
+            Width = 92
         });
     }
 
@@ -77,6 +86,8 @@ public sealed partial class CompaniesListForm : Form
     {
         _txtSearch.TextChanged += (_, _) => RefreshGrid();
         _btnClose.Click += (_, _) => Close();
+        _btnNew.Click += (_, _) => CreateNewCompany();
+        _btnEdit.Click += (_, _) => EditCurrentCompany();
         _btnSelect.Click += (_, _) => SelectCurrentCompany();
 
         _grid.CellDoubleClick += (_, e) =>
@@ -85,8 +96,7 @@ public sealed partial class CompaniesListForm : Form
                 SelectCurrentCompany();
         };
 
-        _grid.SelectionChanged += (_, _) =>
-            _btnSelect.Enabled = _grid.SelectedRows.Count > 0;
+        _grid.SelectionChanged += (_, _) => UpdateActionState();
     }
 
     private void RefreshGrid()
@@ -100,25 +110,30 @@ public sealed partial class CompaniesListForm : Form
             filtered = filtered.Where(x =>
                 x.Company.Cnpj.Contains(query, StringComparison.OrdinalIgnoreCase) ||
                 x.Company.CorporateName.Contains(query, StringComparison.OrdinalIgnoreCase) ||
-                x.Company.Municipality.Contains(query, StringComparison.OrdinalIgnoreCase));
+                x.Company.Municipality.Contains(query, StringComparison.OrdinalIgnoreCase) ||
+                x.Company.Uf.Contains(query, StringComparison.OrdinalIgnoreCase));
         }
 
-        var rows = filtered.ToList();
+        var rows = filtered
+            .OrderBy(x => x.Company.CorporateName)
+            .ThenBy(x => x.Company.Cnpj)
+            .ToList();
 
         _grid.SuspendLayout();
         try
         {
             _grid.Rows.Clear();
 
-            foreach (var item in rows)
+            for (var i = 0; i < rows.Count; i++)
             {
+                var item = rows[i];
                 var index = _grid.Rows.Add(
+                    (i + 1).ToString("0000"),
                     item.Company.Cnpj,
                     item.Company.CorporateName,
                     item.Company.Municipality,
-                    item.Company.TaxRegime,
-                    item.LastCompetence.ToString("MM/yyyy"),
-                    item.LastUpdatedAt.ToString("dd/MM/yyyy HH:mm"));
+                    item.Company.Uf,
+                    item.Company.IsActive ? "Ativa" : "Inativa");
 
                 _grid.Rows[index].Tag = item.Company;
             }
@@ -128,10 +143,29 @@ public sealed partial class CompaniesListForm : Form
             _grid.ResumeLayout();
         }
 
-        _lblCount.Text = $"{rows.Count} empresa(s)";
-        _lblCount.Tone = rows.Count > 0 ? NorthfieldBadgeTone.Success : NorthfieldBadgeTone.Neutral;
-        _btnSelect.Enabled = _grid.SelectedRows.Count > 0;
+        _lblCount.Text = rows.Count == 1 ? "1 registro" : $"{rows.Count} registros";
+        UpdateActionState();
     }
+
+    private void UpdateActionState()
+    {
+        var hasSelection = _grid.SelectedRows.Count > 0;
+        _btnEdit.Enabled = hasSelection;
+        _btnSelect.Enabled = hasSelection;
+
+        // A exclusão ficará ligada quando o cadastro de empresas deixar de ser derivado
+        // das sessões de apuração. Mantemos o comando visível sem apagar dados fiscais.
+        _btnDelete.Enabled = false;
+    }
+
+    private void CreateNewCompany()
+    {
+        SelectedCompany = new CompanyContext();
+        DialogResult = DialogResult.OK;
+        Close();
+    }
+
+    private void EditCurrentCompany() => SelectCurrentCompany();
 
     private void SelectCurrentCompany()
     {
