@@ -10,7 +10,7 @@ public class NorthfieldGrid : DataGridView
     public void ApplyNorthfieldStyle()
     {
         BackgroundColor = Color.White;
-        BorderStyle = BorderStyle.FixedSingle;
+        BorderStyle = BorderStyle.None;
         GridColor = Color.FromArgb(216, 220, 224);
         CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
         ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
