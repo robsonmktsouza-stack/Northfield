@@ -2,20 +2,20 @@ namespace Northfield.Fiscal.Desktop;
 
 internal static class Theme
 {
-    public static readonly Color AppBack = Color.FromArgb(241, 244, 248);
+    public static readonly Color AppBack = Color.FromArgb(247, 248, 250);
     public static readonly Color PanelBack = Color.White;
-    public static readonly Color HeaderBack = Color.FromArgb(235, 242, 250);
-    public static readonly Color ToolbarBack = Color.FromArgb(248, 250, 252);
-    public static readonly Color Border = Color.FromArgb(202, 212, 223);
-    public static readonly Color BorderSoft = Color.FromArgb(224, 230, 236);
-    public static readonly Color Primary = Color.FromArgb(32, 103, 171);
-    public static readonly Color PrimaryDark = Color.FromArgb(22, 69, 118);
-    public static readonly Color PrimarySoft = Color.FromArgb(224, 237, 250);
+    public static readonly Color HeaderBack = Color.FromArgb(250, 251, 252);
+    public static readonly Color ToolbarBack = Color.FromArgb(252, 252, 253);
+    public static readonly Color Border = Color.FromArgb(214, 219, 225);
+    public static readonly Color BorderSoft = Color.FromArgb(232, 235, 239);
+    public static readonly Color Primary = Color.FromArgb(72, 103, 132);
+    public static readonly Color PrimaryDark = Color.FromArgb(51, 68, 84);
+    public static readonly Color PrimarySoft = Color.FromArgb(245, 247, 249);
     public static readonly Color Text = Color.FromArgb(31, 41, 55);
-    public static readonly Color Muted = Color.FromArgb(102, 113, 126);
-    public static readonly Color GridHeader = Color.FromArgb(229, 237, 246);
-    public static readonly Color GridAlternate = Color.FromArgb(248, 250, 252);
-    public static readonly Color Selected = Color.FromArgb(211, 229, 247);
+    public static readonly Color Muted = Color.FromArgb(112, 120, 130);
+    public static readonly Color GridHeader = Color.FromArgb(245, 247, 249);
+    public static readonly Color GridAlternate = Color.FromArgb(251, 252, 253);
+    public static readonly Color Selected = Color.FromArgb(233, 238, 243);
     public static readonly Color Success = Color.FromArgb(30, 132, 73);
     public static readonly Color SuccessSoft = Color.FromArgb(232, 246, 238);
     public static readonly Color Warning = Color.FromArgb(186, 112, 0);
@@ -50,8 +50,8 @@ internal static class Theme
         grid.RowTemplate.Height = 29;
         grid.EnableHeadersVisualStyles = false;
         grid.ColumnHeadersDefaultCellStyle.BackColor = GridHeader;
-        grid.ColumnHeadersDefaultCellStyle.ForeColor = PrimaryDark;
-        grid.ColumnHeadersDefaultCellStyle.Font = UiFont(8.4F, FontStyle.Bold);
+        grid.ColumnHeadersDefaultCellStyle.ForeColor = Text;
+        grid.ColumnHeadersDefaultCellStyle.Font = UiFont(8.4F, FontStyle.Regular);
         grid.ColumnHeadersDefaultCellStyle.SelectionBackColor = GridHeader;
         grid.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
         grid.DefaultCellStyle.Font = UiFont(8.5F);
