@@ -32,8 +32,6 @@ public sealed partial class CompaniesListForm : Form
         _searchPanel.BackColor = Color.FromArgb(246, 246, 246);
         _footer.BackColor = Color.FromArgb(236, 237, 238);
 
-        _lblTitle.ForeColor = Theme.PrimaryDark;
-        _lblTitle.Font = Theme.UiFont(8.6F, FontStyle.Bold);
         _lblSearch.ForeColor = Theme.Text;
         _lblSearch.Font = Theme.UiFont(8F);
         _lblCount.ForeColor = Theme.Muted;
@@ -42,7 +40,7 @@ public sealed partial class CompaniesListForm : Form
         _btnNew.Primary = false;
         _btnEdit.Primary = false;
         _btnDelete.Primary = false;
-        _btnSelect.Primary = true;
+        _btnSelect.Primary = false;
         _btnDuplicate.Primary = false;
         _btnToggleActive.Primary = false;
         _btnHistory.Primary = false;
@@ -100,12 +98,15 @@ public sealed partial class CompaniesListForm : Form
         });
     }
 
-    private static void ApplyCompanyActionIcon(Button button, Image icon)
+    private static void ApplyCompanyActionIcon(NorthfieldButton button, Image icon)
     {
-        button.Image = icon;
+        button.ToolbarButton = true;
+        button.Image = new Bitmap(icon, new Size(20, 20));
+        icon.Dispose();
         button.ImageAlign = ContentAlignment.MiddleCenter;
         button.TextImageRelation = TextImageRelation.Overlay;
         button.Padding = Padding.Empty;
+        button.TabStop = false;
     }
 
     private void HookEvents()
