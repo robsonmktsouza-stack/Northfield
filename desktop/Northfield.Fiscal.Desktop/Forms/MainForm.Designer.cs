@@ -452,10 +452,10 @@ partial class MainForm
         _menuAjuda.Text = "Ajuda";
         _miSobre.Text = "Sobre";
 
-        _menu.Items.AddRange(new ToolStripItem[] { _menuFile, _menuCadastros, _menuMovimentos, _menuFiscal, _menuRelatorios, _menuFerramentas, _menuAjuda });
+        _menu.Items.AddRange(new ToolStripItem[] { _menuFile, _menuCadastros, _menuMovimentos, _menuFiscal, _menuRelatorios, _menuFerramentas, _menuAjuda, _sepTool1, _tbNovo, _tbAbrir, _tbImportar, _tbProcessar, _tbApuracao, _sepTool2, _tbExportar, _tbImprimir, _tbEnvironment });
         _menu.Location = new Point(0, 0);
         _menu.Name = "_menu";
-        _menu.Size = new Size(1600, 24);
+        _menu.Size = new Size(1600, 30);
         _menu.TabIndex = 0;
 
         _tbNovo.Text = "Novo";
@@ -475,12 +475,12 @@ partial class MainForm
         _tbEnvironment.Text = "Northfield Fiscal  •  Ambiente local";
         _tbEnvironment.Alignment = ToolStripItemAlignment.Right;
 
-        _tool.Items.AddRange(new ToolStripItem[] { _tbNovo, _tbAbrir, _sepTool1, _tbImportar, _tbProcessar, _tbApuracao, _sepTool2, _tbExportar, _tbImprimir, _tbEnvironment });
-        _tool.Location = new Point(0, 24);
+        _tool.Location = new Point(0, 30);
         _tool.Name = "_tool";
-        _tool.Size = new Size(1600, 27);
+        _tool.Size = new Size(1600, 0);
         _tool.TabIndex = 1;
         _tool.GripStyle = ToolStripGripStyle.Hidden;
+        _tool.Visible = false;
 
         _tabs.Controls.Add(_tabApuracao);
         _tabs.Controls.Add(_tabDocumentos);
@@ -488,7 +488,7 @@ partial class MainForm
         _tabs.Controls.Add(_tabMemoria);
         _tabs.Controls.Add(_tabPgdas);
         _tabs.Dock = DockStyle.Fill;
-        _tabs.Location = new Point(0, 51);
+        _tabs.Location = new Point(0, 30);
         _tabs.Name = "_tabs";
         _tabs.SelectedIndex = 0;
         _tabs.Size = new Size(1600, 825);
@@ -1053,7 +1053,6 @@ partial class MainForm
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(1600, 900);
         Controls.Add(_tabs);
-        Controls.Add(_tool);
         Controls.Add(_menu);
         Controls.Add(_status);
         MainMenuStrip = _menu;

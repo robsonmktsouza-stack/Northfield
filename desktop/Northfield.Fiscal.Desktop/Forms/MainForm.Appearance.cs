@@ -12,14 +12,13 @@ public sealed partial class MainForm
         _menu.BackColor = Theme.ToolbarBack;
         _menu.Renderer = Theme.ToolRenderer;
         _menu.Font = Theme.UiFont(8.4F);
-        _menu.Padding = new Padding(6, 1, 0, 1);
+        _menu.Padding = new Padding(6, 2, 6, 2);
+        _menu.AutoSize = false;
+        _menu.Height = 30;
 
-        _tool.BackColor = Theme.ToolbarBack;
-        _tool.Renderer = Theme.ToolRenderer;
-        _tool.Font = Theme.UiFont(8.3F);
-        _tool.Padding = new Padding(5, 2, 5, 2);
+        _tool.Visible = false;
 
-        foreach (ToolStripItem item in _tool.Items)
+        foreach (ToolStripItem item in _menu.Items)
         {
             if (item is ToolStripButton button)
             {
