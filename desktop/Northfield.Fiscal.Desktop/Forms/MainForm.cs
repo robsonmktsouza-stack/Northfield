@@ -66,9 +66,9 @@ public sealed partial class MainForm : Form
         _miRemoverDocumento.Click += (_, _) => RemoveSelectedDocument();
         _miProcessar.Click += async (_, _) => await ProcessCompetenceAsync();
         _miRecalcular.Click += (_, _) => RefreshAll();
-        _miSegregacao.Click += (_, _) => _tabs.SelectedTab = _tabSegregacao;
-        _miMemoria.Click += (_, _) => _tabs.SelectedTab = _tabMemoria;
-        _miPgdas.Click += (_, _) => _tabs.SelectedTab = _tabPgdas;
+        _miSegregacao.Click += (_, _) => ShowRoutineTab(_tabSegregacao);
+        _miMemoria.Click += (_, _) => ShowRoutineTab(_tabMemoria);
+        _miPgdas.Click += (_, _) => ShowRoutineTab(_tabPgdas);
         _miExportarCsv.Click += (_, _) => ExportCsv();
         _miImprimir.Click += (_, _) => PrintSummary();
         _miLimpar.Click += (_, _) => ClearDocuments();
@@ -79,7 +79,7 @@ public sealed partial class MainForm : Form
         _tbAbrir.Click += (_, _) => OpenSession();
         _tbImportar.Click += (_, _) => ImportFiles();
         _tbProcessar.Click += async (_, _) => await ProcessCompetenceAsync();
-        _tbApuracao.Click += (_, _) => _tabs.SelectedTab = _tabApuracao;
+        _tbApuracao.Click += (_, _) => ShowRoutineTab(_tabApuracao);
         _tbExportar.Click += (_, _) => ExportCsv();
         _tbImprimir.Click += (_, _) => PrintSummary();
 
@@ -478,7 +478,7 @@ public sealed partial class MainForm : Form
         LoadCompanyToForm(new CompanyContext());
         _txtSearch.Clear();
         RefreshAll();
-        _tabs.SelectedTab = _tabApuracao;
+        ShowRoutineTab(_tabApuracao);
     }
 
     private SessionData CreateSessionData() => new()
@@ -501,7 +501,7 @@ public sealed partial class MainForm : Form
             var data = _sessionService.Load(dialog.FileName);
             LoadSessionData(data);
             _currentSessionPath = dialog.FileName;
-            _tabs.SelectedTab = _tabApuracao;
+            ShowRoutineTab(_tabApuracao);
             RefreshAll();
         }
         catch (Exception ex)
@@ -636,7 +636,7 @@ public sealed partial class MainForm : Form
 
     private void FocusCompanyData()
     {
-        _tabs.SelectedTab = _tabApuracao;
+        ShowRoutineTab(_tabApuracao);
         _txtCnpj.Focus();
     }
 
