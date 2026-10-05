@@ -71,3 +71,18 @@ desktop/Northfield.Fiscal.Desktop/bin/Release/net10.0-windows/win-x64/publish/No
 ```
 
 O workflow `desktop-build.yml` também compila e publica automaticamente um artefato `Northfield-Fiscal-win-x64` no GitHub Actions.
+
+
+## Editar visualmente no Visual Studio
+
+Os formulários usam o padrão nativo do WinForms Designer.
+
+No **Gerenciador de Soluções**:
+
+1. expanda `Forms`;
+2. clique com o botão direito em `MainForm.cs`;
+3. escolha **Exibir Designer** (atalho: `Shift+F7`);
+4. use a **Caixa de Ferramentas** e a janela **Propriedades** para mover, redimensionar e editar os controles;
+5. para a janela de classificação, faça o mesmo em `DocumentEditForm.cs`.
+
+Os arquivos `.Designer.cs` ficam agrupados abaixo de cada formulário e são gerenciados pelo Visual Studio. A lógica do programa permanece em `MainForm.cs` / `DocumentEditForm.cs`, e o acabamento visual global fica em `Theme.cs` e `MainForm.Appearance.cs`.
