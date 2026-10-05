@@ -631,7 +631,7 @@ partial class MainForm
         _lblCompanyInfo.Dock = DockStyle.Fill;
         _lblCompanyInfo.Margin = new Padding(3, 4, 0, 2);
         _lblCompanyInfo.Padding = new Padding(10, 0, 10, 0);
-        _lblCompanyInfo.Text = "A interface organiza os documentos e resultados. As regras tributárias ficam isoladas na biblioteca fiscal.";
+        _lblCompanyInfo.Text = "Importe os documentos da competência, confira os dados e revise a segregação antes de fechar a apuração.";
         _lblCompanyInfo.TextAlign = ContentAlignment.MiddleLeft;
 
         _splitDocuments.Dock = DockStyle.Fill;
@@ -896,17 +896,17 @@ partial class MainForm
         _txtMemoryLcInfo.Dock = DockStyle.Fill;
         _txtMemoryLcInfo.Multiline = true;
         _txtMemoryLcInfo.ReadOnly = true;
-        _txtMemoryLcInfo.Text = "O código do serviço e a descrição extraídos do XML aparecem na memória. O enquadramento legal será responsabilidade da biblioteca fiscal.";
+        _txtMemoryLcInfo.Text = "Confira aqui o código do serviço e a descrição informados no documento.";
         _txtMemorySegInfo.BorderStyle = BorderStyle.None;
         _txtMemorySegInfo.Dock = DockStyle.Fill;
         _txtMemorySegInfo.Multiline = true;
         _txtMemorySegInfo.ReadOnly = true;
-        _txtMemorySegInfo.Text = "A segregação fica visível após classificação manual ou após a futura biblioteca retornar uma decisão.";
+        _txtMemorySegInfo.Text = "A segregação será exibida aqui após a classificação do documento.";
         _txtMemoryObsInfo.BorderStyle = BorderStyle.None;
         _txtMemoryObsInfo.Dock = DockStyle.Fill;
         _txtMemoryObsInfo.Multiline = true;
         _txtMemoryObsInfo.ReadOnly = true;
-        _txtMemoryObsInfo.Text = "Use duplo clique em um documento para informar uma classificação manual enquanto o motor ainda não estiver conectado.";
+        _txtMemoryObsInfo.Text = "Dê dois cliques em um documento para revisar ou ajustar a classificação.";
 
         _tabDocumentos.Controls.Add(_documentsRoot);
         _tabDocumentos.Location = new Point(4, 24);
@@ -1028,7 +1028,7 @@ partial class MainForm
         _pgdasNotice.BorderStyle = BorderStyle.FixedSingle;
         _pgdasNotice.Dock = DockStyle.Fill;
         _pgdasNotice.Padding = new Padding(12);
-        _pgdasNotice.Text = "Espelho de preparação para o PGDAS-D. O programa consolida as classificações existentes; a biblioteca será responsável pelas decisões fiscais automáticas.";
+        _pgdasNotice.Text = "Resumo das receitas classificadas para conferência antes do preenchimento do PGDAS-D.";
         _pgdasNotice.TextAlign = ContentAlignment.MiddleLeft;
         _gridPgdas.Dock = DockStyle.Fill;
 
@@ -1040,7 +1040,7 @@ partial class MainForm
         _stSep3.Text = "•";
         _stCompetence.Text = "Competência: -";
         _stEngine.Spring = true;
-        _stEngine.Text = "Motor: não conectado";
+        _stEngine.Text = "Classificação: manual";
         _stEngine.TextAlign = ContentAlignment.MiddleRight;
         _stSep4.Text = "•";
         _stClock.Text = "00/00/0000 00:00";
