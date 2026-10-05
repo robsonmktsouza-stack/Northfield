@@ -627,7 +627,7 @@ partial class MainForm
         _txtFactorR.ReadOnly = true;
         _txtFactorR.TextAlign = HorizontalAlignment.Right;
 
-        _lblCompanyInfo.BorderStyle = BorderStyle.FixedSingle;
+        _lblCompanyInfo.BorderStyle = BorderStyle.None;
         _lblCompanyInfo.Dock = DockStyle.Fill;
         _lblCompanyInfo.Margin = new Padding(3, 4, 0, 2);
         _lblCompanyInfo.Padding = new Padding(10, 0, 10, 0);
@@ -656,7 +656,7 @@ partial class MainForm
         _documentsHeader.Height = 42;
         _documentsHeader.Name = "_documentsHeader";
         _documentsAccent.Dock = DockStyle.Left;
-        _documentsAccent.Width = 4;
+        _documentsAccent.Width = 2;
         _documentsTitle.AutoSize = true;
         _documentsTitle.Location = new Point(12, 5);
         _documentsTitle.Text = "Documentos da competência";
@@ -681,7 +681,7 @@ partial class MainForm
         _summaryHeader.Height = 42;
         _summaryHeader.Name = "_summaryHeader";
         _summaryAccent.Dock = DockStyle.Left;
-        _summaryAccent.Width = 4;
+        _summaryAccent.Width = 2;
         _summaryTitle.AutoSize = true;
         _summaryTitle.Location = new Point(12, 5);
         _summaryTitle.Text = "Resumo da apuração";
@@ -776,7 +776,7 @@ partial class MainForm
         _memoryHeader.Height = 42;
         _memoryHeader.Name = "_memoryHeader";
         _memoryAccent.Dock = DockStyle.Left;
-        _memoryAccent.Width = 4;
+        _memoryAccent.Width = 2;
         _memoryTitle.AutoSize = true;
         _memoryTitle.Location = new Point(12, 5);
         _memoryTitle.Text = "Memória de cálculo";
@@ -964,7 +964,7 @@ partial class MainForm
         _segregationHeader.Dock = DockStyle.Top;
         _segregationHeader.Height = 42;
         _segregationAccent.Dock = DockStyle.Left;
-        _segregationAccent.Width = 4;
+        _segregationAccent.Width = 2;
         _segregationTitle.AutoSize = true;
         _segregationTitle.Location = new Point(12, 5);
         _segregationTitle.Text = "Segregação da competência";
@@ -993,7 +993,7 @@ partial class MainForm
         _fullMemoryHeader.Dock = DockStyle.Top;
         _fullMemoryHeader.Height = 42;
         _fullMemoryAccent.Dock = DockStyle.Left;
-        _fullMemoryAccent.Width = 4;
+        _fullMemoryAccent.Width = 2;
         _fullMemoryTitle.AutoSize = true;
         _fullMemoryTitle.Location = new Point(12, 5);
         _fullMemoryTitle.Text = "Memória completa";
@@ -1025,7 +1025,7 @@ partial class MainForm
         _pgdasRoot.RowCount = 2;
         _pgdasRoot.RowStyles.Add(new RowStyle(SizeType.Absolute, 76F));
         _pgdasRoot.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-        _pgdasNotice.BorderStyle = BorderStyle.FixedSingle;
+        _pgdasNotice.BorderStyle = BorderStyle.None;
         _pgdasNotice.Dock = DockStyle.Fill;
         _pgdasNotice.Padding = new Padding(12);
         _pgdasNotice.Text = "Resumo das receitas classificadas para conferência antes do preenchimento do PGDAS-D.";
