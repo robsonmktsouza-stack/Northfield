@@ -101,8 +101,7 @@ public sealed partial class CompaniesListForm : Form
     private static void ApplyCompanyActionIcon(NorthfieldButton button, Image icon)
     {
         button.ToolbarButton = true;
-        button.Image = new Bitmap(icon, new Size(28, 28));
-        icon.Dispose();
+        button.Image = icon;
         button.ImageAlign = ContentAlignment.MiddleCenter;
         button.TextImageRelation = TextImageRelation.Overlay;
         button.Padding = Padding.Empty;
