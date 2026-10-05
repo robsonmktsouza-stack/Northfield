@@ -51,6 +51,8 @@ partial class MainForm
     private ToolStripSeparator _sepFiscal;
     private ToolStripSeparator _sepTool1;
     private ToolStripSeparator _sepTool2;
+    private ToolStripSeparator _sepTool3;
+    private ToolStripSeparator _sepTool4;
     private ToolStripButton _tbNovo;
     private ToolStripButton _tbAbrir;
     private ToolStripButton _tbImportar;
@@ -233,7 +235,9 @@ partial class MainForm
         _tbNovo = new ToolStripButton();
         _tbAbrir = new ToolStripButton();
         _sepTool1 = new ToolStripSeparator();
+        _sepTool3 = new ToolStripSeparator();
         _tbImportar = new ToolStripButton();
+        _sepTool4 = new ToolStripSeparator();
         _tbProcessar = new ToolStripButton();
         _tbApuracao = new ToolStripButton();
         _sepTool2 = new ToolStripSeparator();
@@ -452,7 +456,7 @@ partial class MainForm
         _menuAjuda.Text = "Ajuda";
         _miSobre.Text = "Sobre";
 
-        _menu.Items.AddRange(new ToolStripItem[] { _menuFile, _menuCadastros, _menuMovimentos, _menuFiscal, _menuRelatorios, _menuFerramentas, _menuAjuda, _sepTool1, _tbNovo, _tbAbrir, _tbImportar, _tbProcessar, _tbApuracao, _sepTool2, _tbExportar, _tbImprimir, _tbEnvironment });
+        _menu.Items.AddRange(new ToolStripItem[] { _menuFile, _menuCadastros, _menuMovimentos, _menuFiscal, _menuRelatorios, _menuFerramentas, _menuAjuda, _sepTool1, _tbNovo, _tbAbrir, _sepTool3, _tbImportar, _sepTool4, _tbProcessar, _tbApuracao, _sepTool2, _tbExportar, _tbImprimir, _tbEnvironment });
         _menu.Location = new Point(0, 0);
         _menu.Name = "_menu";
         _menu.Size = new Size(1600, 30);
