@@ -9,3 +9,12 @@
 !/env.example
 /server.log
 /preview-*.png
+
+# Northfield Fiscal Desktop
+.vs/
+**/bin/
+**/obj/
+**/*.user
+**/*.suo
+**/TestResults/
+**/publish/
