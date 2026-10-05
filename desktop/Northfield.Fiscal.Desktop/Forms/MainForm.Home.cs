@@ -2,25 +2,27 @@ namespace Northfield.Fiscal.Desktop.Forms;
 
 public sealed partial class MainForm
 {
-    private TabPage _tabHome = null!;
-
     private void InitializeHomeWorkspace()
     {
-        _tabHome = new TabPage
-        {
-            Text = "Início",
-            Name = "_tabHome",
-            Padding = new Padding(0),
-            BackColor = Theme.AppBack,
-            UseVisualStyleBackColor = false
-        };
+        // A área inicial é o próprio fundo da janela, não uma aba.
+        _tabs.Visible = false;
+    }
 
-        _tabs.TabPages.Insert(0, _tabHome);
-        _tabs.SelectedTab = _tabHome;
+    private void ShowRoutineTab(TabPage tab)
+    {
+        _tabs.Visible = true;
+        _tabs.SelectedTab = tab;
+        tab.Focus();
+    }
+
+    private void ShowHomeWorkspace()
+    {
+        _tabs.Visible = false;
+        ActiveControl = null;
     }
 
     private void RefreshHomeWorkspace()
     {
-        // A tela inicial permanece propositalmente limpa.
+        // A área inicial permanece propositalmente vazia.
     }
 }
