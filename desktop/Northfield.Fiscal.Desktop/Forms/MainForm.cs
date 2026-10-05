@@ -7,6 +7,7 @@ using Northfield.Fiscal.Desktop.Services.Engine;
 
 namespace Northfield.Fiscal.Desktop.Forms;
 
+[System.ComponentModel.DesignerCategory("Form")]
 public sealed partial class MainForm : Form
 {
     private readonly List<FiscalDocument> _documents = [];
