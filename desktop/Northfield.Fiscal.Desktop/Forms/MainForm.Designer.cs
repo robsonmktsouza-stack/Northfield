@@ -349,7 +349,6 @@ partial class MainForm
         _splitDocuments.Dock = DockStyle.Fill;
         _splitDocuments.Orientation = Orientation.Vertical;
         _splitDocuments.SplitterWidth = 5;
-        _splitDocuments.SplitterDistance = 1000;
         apuracaoRoot.Controls.Add(_splitDocuments, 0, 1);
 
         var docPanel = CreateDesignerSection("Documentos da competência", "Notas e receitas carregadas para a apuração");
@@ -384,7 +383,6 @@ partial class MainForm
         var memoryPanel = CreateDesignerSection("Memória de cálculo", "Documento selecionado e trilha da decisão");
         _splitMemory.Dock = DockStyle.Fill;
         _splitMemory.SplitterWidth = 5;
-        _splitMemory.SplitterDistance = 390;
         memoryPanel.Controls.Add(_splitMemory);
         _splitMemory.BringToFront();
         apuracaoRoot.Controls.Add(memoryPanel, 0, 2);
