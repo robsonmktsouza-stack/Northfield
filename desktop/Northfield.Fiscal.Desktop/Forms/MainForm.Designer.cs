@@ -426,7 +426,7 @@ partial class MainForm
 
         _menuCadastros.DropDownItems.AddRange(new ToolStripItem[] { _miDadosEmpresa });
         _menuCadastros.Text = "Cadastros";
-        _miDadosEmpresa.Text = "Dados da empresa";
+        _miDadosEmpresa.Text = "Empresas";
 
         _menuMovimentos.DropDownItems.AddRange(new ToolStripItem[] { _miImportarMovimentos, _miEditarDocumento, _miRemoverDocumento });
         _menuMovimentos.Text = "Movimentos";
