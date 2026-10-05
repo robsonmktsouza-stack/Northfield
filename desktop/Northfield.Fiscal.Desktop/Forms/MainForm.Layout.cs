@@ -76,8 +76,9 @@ public sealed partial class MainForm
     {
         _menu.Dock = DockStyle.Top;
         _menu.Font = Theme.UiFont(9F);
-        _menu.BackColor = Color.FromArgb(246, 249, 252);
-        _menu.RenderMode = ToolStripRenderMode.System;
+        _menu.BackColor = Color.White;
+        _menu.Renderer = Theme.ToolRenderer;
+        _menu.Padding = new Padding(8, 2, 0, 2);
 
         var file = new ToolStripMenuItem("Ficheiro");
         file.DropDownItems.Add("Novo", null, (_, _) => NewSession());
@@ -122,31 +123,43 @@ public sealed partial class MainForm
     private void BuildToolbar()
     {
         _tool.Dock = DockStyle.Top;
-        _tool.Height = 42;
+        _tool.Height = 40;
         _tool.Padding = new Padding(8, 4, 8, 4);
         _tool.GripStyle = ToolStripGripStyle.Hidden;
-        _tool.BackColor = Color.White;
-        _tool.RenderMode = ToolStripRenderMode.System;
-        _tool.Font = Theme.UiFont(9F);
+        _tool.BackColor = Theme.ToolbarBack;
+        _tool.Renderer = Theme.ToolRenderer;
+        _tool.Font = Theme.UiFont(8.8F);
 
         AddToolButton("Novo", (_, _) => NewSession());
         AddToolButton("Abrir", (_, _) => OpenSession());
         _tool.Items.Add(new ToolStripSeparator());
         AddToolButton("Importar XML", (_, _) => ImportFiles());
-        AddToolButton("Processar", async (_, _) => await ProcessCompetenceAsync());
+        AddToolButton("Processar", async (_, _) => await ProcessCompetenceAsync(), primary: true);
         AddToolButton("Apuração", (_, _) => _tabs.SelectedTab = _tabApuracao);
         _tool.Items.Add(new ToolStripSeparator());
         AddToolButton("Exportar", (_, _) => ExportCsv());
         AddToolButton("Imprimir", (_, _) => PrintSummary());
+
+        _tool.Items.Add(new ToolStripLabel("Northfield Fiscal  •  Ambiente local")
+        {
+            Alignment = ToolStripItemAlignment.Right,
+            ForeColor = Theme.Muted,
+            Font = Theme.UiFont(8.3F),
+            Padding = new Padding(8, 0, 4, 0)
+        });
     }
 
-    private void AddToolButton(string text, EventHandler handler)
+    private void AddToolButton(string text, EventHandler handler, bool primary = false)
     {
         var button = new ToolStripButton(text)
         {
             AutoSize = true,
             DisplayStyle = ToolStripItemDisplayStyle.Text,
-            Padding = new Padding(7, 2, 7, 2)
+            Padding = new Padding(9, 2, 9, 2),
+            Margin = new Padding(1, 0, 1, 0),
+            ForeColor = primary ? Theme.PrimaryDark : Theme.Text,
+            BackColor = primary ? Theme.PrimarySoft : Color.Transparent,
+            Font = Theme.UiFont(8.8F, primary ? FontStyle.Bold : FontStyle.Regular)
         };
         button.Click += handler;
         _tool.Items.Add(button);
@@ -155,8 +168,12 @@ public sealed partial class MainForm
     private void BuildTabs()
     {
         _tabs.Dock = DockStyle.Fill;
-        _tabs.Font = Theme.UiFont(9F);
-        _tabs.Padding = new Point(16, 6);
+        _tabs.Font = Theme.UiFont(8.8F);
+        _tabs.DrawMode = TabDrawMode.OwnerDrawFixed;
+        _tabs.SizeMode = TabSizeMode.Fixed;
+        _tabs.ItemSize = new Size(150, 31);
+        _tabs.Padding = new Point(14, 5);
+        _tabs.DrawItem += DrawMainTab;
         _tabs.Controls.AddRange([_tabApuracao, _tabDocumentos, _tabSegregacao, _tabMemoria, _tabPgdas]);
 
         foreach (TabPage tab in _tabs.TabPages)
@@ -172,6 +189,34 @@ public sealed partial class MainForm
         BuildPgdasTab();
     }
 
+    private void DrawMainTab(object? sender, DrawItemEventArgs e)
+    {
+        var selected = e.Index == _tabs.SelectedIndex;
+        var rect = e.Bounds;
+        var back = selected ? Color.White : Theme.ToolbarBack;
+
+        using var background = new SolidBrush(back);
+        e.Graphics.FillRectangle(background, rect);
+
+        if (selected)
+        {
+            using var accent = new SolidBrush(Theme.Primary);
+            e.Graphics.FillRectangle(accent, rect.Left + 8, rect.Bottom - 3, rect.Width - 16, 3);
+        }
+
+        var text = _tabs.TabPages[e.Index].Text;
+        var color = selected ? Theme.PrimaryDark : Theme.Text;
+        var font = Theme.UiFont(8.8F, selected ? FontStyle.Bold : FontStyle.Regular);
+        TextRenderer.DrawText(
+            e.Graphics,
+            text,
+            font,
+            rect,
+            color,
+            TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.EndEllipsis);
+        font.Dispose();
+    }
+
     private void BuildApuracaoTab()
     {
         var root = new TableLayoutPanel
@@ -182,9 +227,9 @@ public sealed partial class MainForm
             BackColor = Theme.AppBack,
             Padding = new Padding(0)
         };
-        root.RowStyles.Add(new RowStyle(SizeType.Absolute, 142));
-        root.RowStyles.Add(new RowStyle(SizeType.Percent, 61));
-        root.RowStyles.Add(new RowStyle(SizeType.Percent, 39));
+        root.RowStyles.Add(new RowStyle(SizeType.Absolute, 128));
+        root.RowStyles.Add(new RowStyle(SizeType.Percent, 63));
+        root.RowStyles.Add(new RowStyle(SizeType.Percent, 37));
         _tabApuracao.Controls.Add(root);
 
         root.Controls.Add(BuildCompanyPanel(), 0, 0);
@@ -199,7 +244,7 @@ public sealed partial class MainForm
         root.Controls.Add(upper, 0, 1);
         upper.Panel1.Controls.Add(BuildMainDocumentsPanel());
         upper.Panel2.Controls.Add(BuildSummaryPanel());
-        ConfigurePreferredSplitter(upper, preferredDistance: 980, trailingPanelMinimum: 280);
+        ConfigurePreferredSplitter(upper, preferredDistance: 1010, trailingPanelMinimum: 340);
 
         root.Controls.Add(BuildMemoryPanel(), 0, 2);
     }
@@ -209,22 +254,24 @@ public sealed partial class MainForm
         var panel = Theme.SectionPanel();
         panel.Dock = DockStyle.Fill;
         panel.Margin = new Padding(0, 0, 0, 7);
+        panel.Padding = new Padding(10, 7, 10, 7);
 
         var table = new TableLayoutPanel
         {
             Dock = DockStyle.Fill,
             ColumnCount = 6,
             RowCount = 2,
-            BackColor = Theme.PanelBack
+            BackColor = Theme.PanelBack,
+            Margin = new Padding(0)
         };
-        table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 185));
-        table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 230));
-        table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45));
-        table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 195));
-        table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25));
-        table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30));
-        table.RowStyles.Add(new RowStyle(SizeType.Percent, 50));
-        table.RowStyles.Add(new RowStyle(SizeType.Percent, 50));
+        table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150));
+        table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 190));
+        table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 44));
+        table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 175));
+        table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 56));
+        table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 285));
+        table.RowStyles.Add(new RowStyle(SizeType.Absolute, 55));
+        table.RowStyles.Add(new RowStyle(SizeType.Absolute, 55));
         panel.Controls.Add(table);
 
         _dtCompetence.Format = DateTimePickerFormat.Custom;
@@ -247,15 +294,23 @@ public sealed partial class MainForm
         AddField(table, 3, 0, "Regime tributário", _cboTaxRegime);
         AddField(table, 4, 0, "Município", _txtMunicipality);
 
-        var financial = new FlowLayoutPanel { Dock = DockStyle.Fill, WrapContents = false, AutoScroll = true, Padding = new Padding(0, 16, 0, 0) };
+        var options = new FlowLayoutPanel
+        {
+            Dock = DockStyle.Fill,
+            FlowDirection = FlowDirection.TopDown,
+            WrapContents = false,
+            Padding = new Padding(8, 7, 0, 0),
+            Margin = new Padding(0)
+        };
         _chkConsiderIss.Text = "Considerar ISS retido";
         _chkConsiderIss.Checked = true;
         _chkConsiderIss.AutoSize = true;
+        _chkConsiderIss.Margin = new Padding(0, 0, 0, 5);
         _chkGroup.Text = "Agrupar por segregação";
         _chkGroup.AutoSize = true;
-        financial.Controls.Add(_chkConsiderIss);
-        financial.Controls.Add(_chkGroup);
-        table.Controls.Add(financial, 5, 0);
+        options.Controls.Add(_chkConsiderIss);
+        options.Controls.Add(_chkGroup);
+        table.Controls.Add(options, 5, 0);
 
         AddField(table, 0, 1, "RBT12 (R$)", _numRbt12);
         AddField(table, 1, 1, "Folha 12m (R$)", _numPayroll);
@@ -263,12 +318,16 @@ public sealed partial class MainForm
 
         var info = new Label
         {
-            Text = "O programa hospedeiro importa, confere e apresenta os documentos. A decisão fiscal automática será fornecida pela biblioteca do Simples.",
-            ForeColor = Theme.Muted,
+            Text = "A interface só organiza os documentos e resultados. As regras tributárias ficam isoladas na biblioteca fiscal.",
+            ForeColor = Theme.PrimaryDark,
+            BackColor = Theme.PrimarySoft,
             AutoSize = false,
             Dock = DockStyle.Fill,
             TextAlign = ContentAlignment.MiddleLeft,
-            Padding = new Padding(8, 12, 8, 0)
+            Font = Theme.UiFont(8.2F),
+            Padding = new Padding(10, 0, 10, 0),
+            Margin = new Padding(3, 6, 0, 5),
+            BorderStyle = BorderStyle.FixedSingle
         };
         table.Controls.Add(info, 3, 1);
         table.SetColumnSpan(info, 3);
@@ -285,12 +344,13 @@ public sealed partial class MainForm
 
     private static void AddField(TableLayoutPanel table, int column, int row, string label, Control control)
     {
-        var host = new TableLayoutPanel { Dock = DockStyle.Fill, RowCount = 2, ColumnCount = 1, Margin = new Padding(3, 1, 8, 3) };
-        host.RowStyles.Add(new RowStyle(SizeType.Absolute, 23));
+        var host = new TableLayoutPanel { Dock = DockStyle.Fill, RowCount = 2, ColumnCount = 1, Margin = new Padding(3, 0, 8, 2) };
+        host.RowStyles.Add(new RowStyle(SizeType.Absolute, 21));
         host.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
-        host.Controls.Add(new Label { Text = label, AutoSize = true, ForeColor = Theme.Text, Font = Theme.UiFont(8.3F), Dock = DockStyle.Fill, TextAlign = ContentAlignment.BottomLeft }, 0, 0);
+        host.Controls.Add(new Label { Text = label, AutoSize = true, ForeColor = Theme.Muted, Font = Theme.UiFont(8.1F), Dock = DockStyle.Fill, TextAlign = ContentAlignment.BottomLeft }, 0, 0);
         control.Dock = DockStyle.Fill;
-        control.Margin = new Padding(0, 2, 0, 0);
+        control.Font = Theme.UiFont(8.8F);
+        control.Margin = new Padding(0, 2, 0, 1);
         host.Controls.Add(control, 0, 1);
         table.Controls.Add(host, column, row);
     }
@@ -300,21 +360,13 @@ public sealed partial class MainForm
         var panel = Theme.SectionPanel();
         panel.Dock = DockStyle.Fill;
         panel.Margin = new Padding(0, 0, 5, 7);
+        panel.Padding = new Padding(0);
 
-        var title = new Label
-        {
-            Text = "Documentos da competência",
-            Dock = DockStyle.Top,
-            Height = 30,
-            Font = Theme.UiFont(10F, FontStyle.Bold),
-            ForeColor = Theme.PrimaryDark,
-            TextAlign = ContentAlignment.MiddleLeft
-        };
-        panel.Controls.Add(_gridApuracao);
-        panel.Controls.Add(title);
         _gridApuracao.Dock = DockStyle.Fill;
         Theme.StyleGrid(_gridApuracao);
         ConfigureDocumentGrid(_gridApuracao);
+        panel.Controls.Add(_gridApuracao);
+        panel.Controls.Add(CreateSectionHeader("Documentos da competência", "Notas e receitas carregadas para a apuração"));
         return panel;
     }
 
@@ -323,30 +375,19 @@ public sealed partial class MainForm
         var panel = Theme.SectionPanel();
         panel.Dock = DockStyle.Fill;
         panel.Margin = new Padding(5, 0, 0, 7);
-
-        var title = new Label
-        {
-            Text = "Resumo da apuração",
-            Dock = DockStyle.Top,
-            Height = 32,
-            Font = Theme.UiFont(10F, FontStyle.Bold),
-            ForeColor = Theme.PrimaryDark,
-            TextAlign = ContentAlignment.MiddleLeft
-        };
-        panel.Controls.Add(title);
+        panel.Padding = new Padding(0);
 
         var content = new TableLayoutPanel
         {
             Dock = DockStyle.Fill,
             RowCount = 8,
             ColumnCount = 2,
-            Padding = new Padding(0, 36, 0, 0),
-            BackColor = Theme.PanelBack
+            Padding = new Padding(12, 8, 12, 8),
+            BackColor = Color.White
         };
-        content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 67));
-        content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33));
+        content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 66));
+        content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 34));
         for (var i = 0; i < 8; i++) content.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
-        panel.Controls.Add(content);
 
         AddSummaryRow(content, 0, "Receita bruta do período", _lblSummaryRevenue, true);
         AddSummaryRow(content, 1, "Serviços sem retenção", _lblSummaryNoRetention);
@@ -357,22 +398,32 @@ public sealed partial class MainForm
 
         _lblAlerts.Text = "Sem alertas";
         _lblAlerts.Dock = DockStyle.Fill;
-        _lblAlerts.TextAlign = ContentAlignment.MiddleLeft;
+        _lblAlerts.TextAlign = ContentAlignment.MiddleRight;
         _lblAlerts.ForeColor = Theme.Warning;
         _lblAlerts.Font = Theme.UiFont(8.7F, FontStyle.Bold);
-        content.Controls.Add(new Label { Text = "Alertas / Pendências", Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft, Font = Theme.UiFont(8.7F), ForeColor = Theme.Text }, 0, 6);
+        content.Controls.Add(new Label
+        {
+            Text = "Alertas / Pendências",
+            Dock = DockStyle.Fill,
+            TextAlign = ContentAlignment.MiddleLeft,
+            Font = Theme.UiFont(8.6F),
+            ForeColor = Theme.Text
+        }, 0, 6);
         content.Controls.Add(_lblAlerts, 1, 6);
+
+        panel.Controls.Add(content);
+        panel.Controls.Add(CreateSectionHeader("Resumo da apuração", "Consolidação da competência"));
         return panel;
     }
 
     private static void AddSummaryRow(TableLayoutPanel table, int row, string caption, Label value, bool bold = false)
     {
-        var label = new Label { Text = caption, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft, ForeColor = Theme.Text, Font = Theme.UiFont(8.7F, bold ? FontStyle.Bold : FontStyle.Regular) };
+        var label = new Label { Text = caption, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft, ForeColor = bold ? Theme.PrimaryDark : Theme.Text, Font = Theme.UiFont(8.6F, bold ? FontStyle.Bold : FontStyle.Regular) };
         value.Text = "R$ 0,00";
         value.Dock = DockStyle.Fill;
         value.TextAlign = ContentAlignment.MiddleRight;
         value.ForeColor = Theme.Text;
-        value.Font = Theme.UiFont(8.8F, bold ? FontStyle.Bold : FontStyle.Regular);
+        value.Font = Theme.UiFont(bold ? 9.2F : 8.8F, bold ? FontStyle.Bold : FontStyle.Regular);
         table.Controls.Add(label, 0, row);
         table.Controls.Add(value, 1, row);
     }
@@ -382,27 +433,31 @@ public sealed partial class MainForm
         var panel = Theme.SectionPanel();
         panel.Dock = DockStyle.Fill;
         panel.Margin = new Padding(0);
+        panel.Padding = new Padding(0);
 
-        var title = new Label
+        var split = new SplitContainer
         {
-            Text = "Memória de cálculo (documento selecionado)",
-            Dock = DockStyle.Top,
-            Height = 30,
-            Font = Theme.UiFont(10F, FontStyle.Bold),
-            ForeColor = Theme.PrimaryDark,
-            TextAlign = ContentAlignment.MiddleLeft
+            Dock = DockStyle.Fill,
+            SplitterWidth = 5,
+            BackColor = Theme.BorderSoft
         };
-        panel.Controls.Add(title);
-
-        var split = new SplitContainer { Dock = DockStyle.Fill, SplitterWidth = 5, BackColor = Theme.PanelBack, Padding = new Padding(0, 32, 0, 0) };
         panel.Controls.Add(split);
-        ConfigurePreferredSplitter(split, preferredDistance: 390, trailingPanelMinimum: 320);
+        panel.Controls.Add(CreateSectionHeader("Memória de cálculo", "Documento selecionado e trilha da decisão"));
+        ConfigurePreferredSplitter(split, preferredDistance: 390, trailingPanelMinimum: 360);
 
-        var details = new TableLayoutPanel { Dock = DockStyle.Fill, RowCount = 8, ColumnCount = 2, Padding = new Padding(4) };
+        var details = new TableLayoutPanel
+        {
+            Dock = DockStyle.Fill,
+            RowCount = 8,
+            ColumnCount = 2,
+            Padding = new Padding(12, 8, 8, 8),
+            BackColor = Color.White
+        };
         details.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150));
         details.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
         for (var i = 0; i < 8; i++) details.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
         split.Panel1.Controls.Add(details);
+
         AddDetailRow(details, 0, "Documento", _lblMemDocument, true);
         AddDetailRow(details, 1, "Emissão", _lblMemIssue);
         AddDetailRow(details, 2, "Tomador", _lblMemRecipient);
@@ -412,16 +467,23 @@ public sealed partial class MainForm
         AddDetailRow(details, 6, "Base de cálculo do ISS", _lblMemIssBase);
         AddDetailRow(details, 7, "ISS retido", _lblMemIss);
 
-        var right = new TabControl { Dock = DockStyle.Fill, Font = Theme.UiFont(8.7F) };
-        var fiscal = new TabPage("Análise fiscal") { BackColor = Color.White };
-        var service = new TabPage("Itens da LC 116") { BackColor = Color.White };
-        var segregation = new TabPage("Segregação") { BackColor = Color.White };
-        var obs = new TabPage("Observações") { BackColor = Color.White };
+        var right = new TabControl
+        {
+            Dock = DockStyle.Fill,
+            Font = Theme.UiFont(8.6F),
+            Padding = new Point(12, 5)
+        };
+        var fiscal = new TabPage("Análise fiscal") { BackColor = Color.White, Padding = new Padding(8) };
+        var service = new TabPage("Itens da LC 116") { BackColor = Color.White, Padding = new Padding(8) };
+        var segregation = new TabPage("Segregação") { BackColor = Color.White, Padding = new Padding(8) };
+        var obs = new TabPage("Observações") { BackColor = Color.White, Padding = new Padding(8) };
         right.TabPages.AddRange([fiscal, service, segregation, obs]);
         split.Panel2.Controls.Add(right);
 
         _lstMemory.Dock = DockStyle.Fill;
         _lstMemory.BorderStyle = BorderStyle.None;
+        _lstMemory.BackColor = Color.White;
+        _lstMemory.ForeColor = Theme.Text;
         _lstMemory.Font = Theme.UiFont(8.8F);
         fiscal.Controls.Add(_lstMemory);
         service.Controls.Add(CreateInfoBox("O código do serviço e a descrição extraídos do XML aparecem na memória. O enquadramento legal será responsabilidade da biblioteca fiscal."));
@@ -445,7 +507,7 @@ public sealed partial class MainForm
 
     private static void AddDetailRow(TableLayoutPanel table, int row, string caption, Label value, bool bold = false)
     {
-        table.Controls.Add(new Label { Text = caption, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft, ForeColor = Theme.Text, Font = Theme.UiFont(8.5F) }, 0, row);
+        table.Controls.Add(new Label { Text = caption, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft, ForeColor = Theme.Muted, Font = Theme.UiFont(8.3F) }, 0, row);
         value.Dock = DockStyle.Fill;
         value.TextAlign = ContentAlignment.MiddleLeft;
         value.ForeColor = Theme.Text;
@@ -460,12 +522,15 @@ public sealed partial class MainForm
         root.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
         _tabDocumentos.Controls.Add(root);
 
-        var commands = new FlowLayoutPanel { Dock = DockStyle.Fill, WrapContents = false, Padding = new Padding(4, 5, 4, 5) };
-        var btnImport = new Button { Text = "Importar XML/ZIP", Width = 130, Height = 30 };
+        var commands = new FlowLayoutPanel { Dock = DockStyle.Fill, WrapContents = false, Padding = new Padding(6, 7, 6, 5), BackColor = Theme.ToolbarBack };
+        var btnImport = new Button { Text = "Importar XML/ZIP", Width = 132, Height = 30 };
+        Theme.StyleButton(btnImport, primary: true);
         btnImport.Click += (_, _) => ImportFiles();
-        var btnEdit = new Button { Text = "Editar classificação", Width = 135, Height = 30 };
+        var btnEdit = new Button { Text = "Editar classificação", Width = 138, Height = 30 };
+        Theme.StyleButton(btnEdit);
         btnEdit.Click += (_, _) => EditSelectedDocument();
-        var btnRemove = new Button { Text = "Remover", Width = 90, Height = 30 };
+        var btnRemove = new Button { Text = "Remover", Width = 92, Height = 30 };
+        Theme.StyleButton(btnRemove);
         btnRemove.Click += (_, _) => RemoveSelectedDocument();
         _txtSearch.Width = 260;
         _txtSearch.Height = 30;
@@ -483,18 +548,8 @@ public sealed partial class MainForm
     {
         var panel = Theme.SectionPanel();
         panel.Dock = DockStyle.Fill;
+        panel.Padding = new Padding(0);
         _tabSegregacao.Controls.Add(panel);
-
-        var title = new Label
-        {
-            Text = "Segregação da competência",
-            Dock = DockStyle.Top,
-            Height = 38,
-            Font = Theme.UiFont(11F, FontStyle.Bold),
-            ForeColor = Theme.PrimaryDark,
-            TextAlign = ContentAlignment.MiddleLeft
-        };
-        panel.Controls.Add(title);
 
         Theme.StyleGrid(_gridSegregation);
         _gridSegregation.Dock = DockStyle.Fill;
@@ -503,21 +558,28 @@ public sealed partial class MainForm
         _gridSegregation.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Documentos", Width = 110, DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleRight } });
         _gridSegregation.Columns.Add(MoneyColumn("Valor (R$)", 150));
         panel.Controls.Add(_gridSegregation);
+        panel.Controls.Add(CreateSectionHeader("Segregação da competência", "Receitas agrupadas conforme a classificação vigente"));
     }
 
     private void BuildMemoryTab()
     {
         var panel = Theme.SectionPanel();
         panel.Dock = DockStyle.Fill;
+        panel.Padding = new Padding(0);
         _tabMemoria.Controls.Add(panel);
+
         _txtFullMemory.Dock = DockStyle.Fill;
         _txtFullMemory.Multiline = true;
         _txtFullMemory.ReadOnly = true;
         _txtFullMemory.ScrollBars = ScrollBars.Both;
         _txtFullMemory.WordWrap = false;
         _txtFullMemory.BackColor = Color.White;
+        _txtFullMemory.ForeColor = Theme.Text;
+        _txtFullMemory.BorderStyle = BorderStyle.None;
         _txtFullMemory.Font = new Font("Consolas", 9F);
+        _txtFullMemory.Margin = new Padding(10);
         panel.Controls.Add(_txtFullMemory);
+        panel.Controls.Add(CreateSectionHeader("Memória completa", "Rastreamento da competência e das classificações"));
     }
 
     private void BuildPgdasTab()
@@ -532,10 +594,10 @@ public sealed partial class MainForm
             Text = "Espelho de preparação para o PGDAS-D. O programa apenas consolida as classificações existentes; a futura biblioteca será responsável por determinar automaticamente cada segregação.",
             Dock = DockStyle.Fill,
             Padding = new Padding(12),
-            BackColor = Theme.HeaderBack,
+            BackColor = Theme.PrimarySoft,
             ForeColor = Theme.PrimaryDark,
             BorderStyle = BorderStyle.FixedSingle,
-            Font = Theme.UiFont(9F)
+            Font = Theme.UiFont(8.8F, FontStyle.Bold)
         };
         root.Controls.Add(notice, 0, 0);
 
@@ -567,6 +629,48 @@ public sealed partial class MainForm
         grid.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Situação", Width = 130 });
         grid.CellDoubleClick += (_, e) => { if (e.RowIndex >= 0) EditSelectedDocument(grid); };
         grid.SelectionChanged += (_, _) => GridSelectionChanged(grid);
+    }
+
+    private static Control CreateSectionHeader(string title, string subtitle)
+    {
+        var header = new Panel
+        {
+            Dock = DockStyle.Top,
+            Height = 42,
+            BackColor = Theme.HeaderBack,
+            Padding = new Padding(12, 4, 8, 4)
+        };
+
+        var accent = new Panel
+        {
+            Dock = DockStyle.Left,
+            Width = 4,
+            BackColor = Theme.Primary,
+            Margin = new Padding(0)
+        };
+
+        var titleLabel = new Label
+        {
+            Text = title,
+            AutoSize = true,
+            ForeColor = Theme.PrimaryDark,
+            Font = Theme.UiFont(9.6F, FontStyle.Bold),
+            Location = new Point(12, 5)
+        };
+
+        var subtitleLabel = new Label
+        {
+            Text = subtitle,
+            AutoSize = true,
+            ForeColor = Theme.Muted,
+            Font = Theme.UiFont(7.8F),
+            Location = new Point(12, 23)
+        };
+
+        header.Controls.Add(subtitleLabel);
+        header.Controls.Add(titleLabel);
+        header.Controls.Add(accent);
+        return header;
     }
 
     private static void ConfigurePreferredSplitter(SplitContainer split, int preferredDistance, int trailingPanelMinimum)
@@ -606,9 +710,12 @@ public sealed partial class MainForm
     private void BuildStatusBar()
     {
         _status.Dock = DockStyle.Bottom;
-        _status.BackColor = Color.FromArgb(244, 247, 250);
+        _status.BackColor = Theme.ToolbarBack;
+        _status.Renderer = Theme.ToolRenderer;
         _status.SizingGrip = false;
-        _status.Font = Theme.UiFont(8.3F);
+        _status.Font = Theme.UiFont(8.1F);
+        _status.Padding = new Padding(6, 1, 6, 1);
+
         _stRecords.Text = "Registros: 0";
         _stSelected.Text = "Selecionado: 0";
         _stCompany.Text = "Empresa: -";
@@ -616,7 +723,23 @@ public sealed partial class MainForm
         _stEngine.Spring = true;
         _stEngine.TextAlign = ContentAlignment.MiddleRight;
         _stEngine.Text = "Motor: não conectado";
+        _stEngine.ForeColor = Theme.Warning;
         _stClock.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
-        _status.Items.AddRange([_stRecords, new ToolStripStatusLabel("|"), _stSelected, new ToolStripStatusLabel("|"), _stCompany, new ToolStripStatusLabel("|"), _stCompetence, _stEngine, new ToolStripStatusLabel("|"), _stClock]);
+        _stClock.ForeColor = Theme.Muted;
+
+        var separator1 = new ToolStripStatusLabel("•") { ForeColor = Theme.Border };
+        var separator2 = new ToolStripStatusLabel("•") { ForeColor = Theme.Border };
+        var separator3 = new ToolStripStatusLabel("•") { ForeColor = Theme.Border };
+        var separator4 = new ToolStripStatusLabel("•") { ForeColor = Theme.Border };
+
+        _status.Items.AddRange([
+            _stRecords, separator1,
+            _stSelected, separator2,
+            _stCompany, separator3,
+            _stCompetence,
+            _stEngine, separator4, _stClock
+        ]);
     }
+
+}
 }
