@@ -2,6 +2,7 @@ using Northfield.Fiscal.Desktop.Models;
 
 namespace Northfield.Fiscal.Desktop.Forms;
 
+[System.ComponentModel.DesignerCategory("Form")]
 public sealed partial class DocumentEditForm : Form
 {
     private readonly FiscalDocument _document;
