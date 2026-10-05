@@ -61,7 +61,7 @@ public sealed partial class MainForm : Form
         _miImportarMovimentos.Click += (_, _) => ImportFiles();
         _miExportar.Click += (_, _) => ExportCsv();
         _miSair.Click += (_, _) => Close();
-        _miDadosEmpresa.Click += (_, _) => FocusCompanyData();
+        _miDadosEmpresa.Click += (_, _) => ShowCompanies();
         _miEditarDocumento.Click += (_, _) => EditSelectedDocument();
         _miRemoverDocumento.Click += (_, _) => RemoveSelectedDocument();
         _miProcessar.Click += async (_, _) => await ProcessCompetenceAsync();
