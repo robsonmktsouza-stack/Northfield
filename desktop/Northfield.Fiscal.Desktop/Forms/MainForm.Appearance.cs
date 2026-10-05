@@ -20,19 +20,31 @@ public sealed partial class MainForm
 
         foreach (ToolStripItem item in _menu.Items)
         {
-            if (item is ToolStripButton button)
+            switch (item)
             {
-                button.Padding = new Padding(7, 1, 7, 1);
-                button.Margin = new Padding(1, 0, 1, 0);
-                button.ForeColor = Theme.Text;
-                button.Font = Theme.UiFont(8.3F);
-                button.BackColor = Color.Transparent;
+                case ToolStripMenuItem menuItem:
+                    menuItem.Padding = new Padding(7, 0, 7, 0);
+                    menuItem.Margin = Padding.Empty;
+                    break;
+
+                case ToolStripButton button:
+                    button.Padding = new Padding(8, 0, 8, 0);
+                    button.Margin = Padding.Empty;
+                    button.ForeColor = Theme.Text;
+                    button.Font = Theme.UiFont(8.3F);
+                    button.BackColor = Color.Transparent;
+                    break;
+
+                case ToolStripSeparator separator:
+                    separator.Margin = new Padding(5, 4, 5, 4);
+                    break;
             }
         }
 
         _tbProcessar.Font = Theme.UiFont(8.3F, FontStyle.Bold);
         _tbEnvironment.ForeColor = Theme.Muted;
         _tbEnvironment.Font = Theme.UiFont(8F);
+        _tbEnvironment.Margin = new Padding(12, 0, 8, 0);
 
         // Deixa o próprio Windows desenhar as abas, dando aparência de software desktop clássico.
         _tabs.DrawMode = TabDrawMode.Normal;
