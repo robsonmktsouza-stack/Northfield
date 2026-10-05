@@ -127,7 +127,8 @@ public sealed partial class MainForm
                     break;
 
                 case TextBox textBox:
-                    textBox.Font = textBox == null ? Theme.UiFont() : textBox.Font;
+                    if (textBox.Font is null)
+                        textBox.Font = Theme.UiFont();
                     break;
             }
 
