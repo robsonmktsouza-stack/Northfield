@@ -31,6 +31,12 @@
     <Compile Update="Forms\DocumentEditForm.Designer.cs">
       <DependentUpon>DocumentEditForm.cs</DependentUpon>
     </Compile>
+    <Compile Update="Forms\CompaniesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\CompaniesListForm.Designer.cs">
+      <DependentUpon>CompaniesListForm.cs</DependentUpon>
+    </Compile>
     <Compile Update="Controls\HomeWorkspaceControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
