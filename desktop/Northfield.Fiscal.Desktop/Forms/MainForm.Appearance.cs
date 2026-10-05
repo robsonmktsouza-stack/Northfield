@@ -28,9 +28,9 @@ public sealed partial class MainForm
             }
         }
 
-        _tbProcessar.BackColor = Theme.PrimarySoft;
-        _tbProcessar.ForeColor = Theme.PrimaryDark;
-        _tbProcessar.Font = Theme.UiFont(8.8F, FontStyle.Bold);
+        _tbProcessar.BackColor = Color.Transparent;
+        _tbProcessar.ForeColor = Theme.Text;
+        _tbProcessar.Font = Theme.UiFont(8.8F);
         _tbEnvironment.ForeColor = Theme.Muted;
         _tbEnvironment.Font = Theme.UiFont(8.3F);
 
@@ -67,12 +67,12 @@ public sealed partial class MainForm
         _segregationSection.BackColor = Color.White;
         _fullMemorySection.BackColor = Color.White;
 
-        _lblCompanyInfo.BackColor = Theme.PrimarySoft;
-        _lblCompanyInfo.ForeColor = Theme.PrimaryDark;
+        _lblCompanyInfo.BackColor = Color.White;
+        _lblCompanyInfo.ForeColor = Theme.Muted;
 
-        _pgdasNotice.BackColor = Theme.PrimarySoft;
-        _pgdasNotice.ForeColor = Theme.PrimaryDark;
-        _pgdasNotice.Font = Theme.UiFont(8.8F, FontStyle.Bold);
+        _pgdasNotice.BackColor = Color.White;
+        _pgdasNotice.ForeColor = Theme.Muted;
+        _pgdasNotice.Font = Theme.UiFont(8.7F);
 
         _txtFullMemory.BackColor = Color.White;
         _txtFullMemory.ForeColor = Theme.Text;
@@ -82,18 +82,18 @@ public sealed partial class MainForm
         _status.BackColor = Theme.ToolbarBack;
         _status.Renderer = Theme.ToolRenderer;
         _status.Font = Theme.UiFont(8.1F);
-        _stEngine.ForeColor = Theme.Warning;
+        _stEngine.ForeColor = Theme.Muted;
         _stClock.ForeColor = Theme.Muted;
     }
 
     private static void StyleSection(Panel header, Panel accent, Label title, Label subtitle)
     {
         header.BackColor = Theme.HeaderBack;
-        accent.BackColor = Theme.Primary;
-        title.ForeColor = Theme.PrimaryDark;
-        title.Font = Theme.UiFont(9.6F, FontStyle.Bold);
+        accent.BackColor = Theme.Border;
+        title.ForeColor = Theme.Text;
+        title.Font = Theme.UiFont(9.2F, FontStyle.Bold);
         subtitle.ForeColor = Theme.Muted;
-        subtitle.Font = Theme.UiFont(7.8F);
+        subtitle.Font = Theme.UiFont(7.7F);
     }
 
     private void DrawMainTab(object? sender, DrawItemEventArgs e)
@@ -109,7 +109,7 @@ public sealed partial class MainForm
 
         if (selected)
         {
-            using var accent = new SolidBrush(Theme.Primary);
+            using var accent = new SolidBrush(Color.FromArgb(105, 126, 146));
             e.Graphics.FillRectangle(accent, rect.Left + 8, rect.Bottom - 3, Math.Max(1, rect.Width - 16), 3);
         }
 
