@@ -20,19 +20,8 @@ public sealed partial class MainForm : Form
 
     public MainForm()
     {
-        Text = "Northfield Fiscal - Simples Nacional";
-        WindowState = FormWindowState.Maximized;
-        MinimumSize = new Size(1180, 720);
-        StartPosition = FormStartPosition.CenterScreen;
-        BackColor = Theme.AppBack;
-        ForeColor = Theme.Text;
-        Font = Theme.UiFont();
-        KeyPreview = true;
-        AllowDrop = true;
-        DoubleBuffered = true;
-        AutoScaleMode = AutoScaleMode.Dpi;
-
-        BuildUi();
+        InitializeComponent();
+        ApplyRuntimeTheme();
         HookEvents();
         LoadLastSession();
         RefreshAll();
@@ -50,11 +39,52 @@ public sealed partial class MainForm : Form
         _chkGroup.CheckedChanged += (_, _) => { CompanyFormChanged(); RefreshSegregation(); };
         _txtSearch.TextChanged += (_, _) => RefreshDocumentGrids();
         _tabs.SelectedIndexChanged += (_, _) => RefreshAll();
+        _tabs.DrawItem += DrawMainTab;
+
+        _gridApuracao.CellDoubleClick += (_, e) => { if (e.RowIndex >= 0) EditSelectedDocument(_gridApuracao); };
+        _gridDocuments.CellDoubleClick += (_, e) => { if (e.RowIndex >= 0) EditSelectedDocument(_gridDocuments); };
+        _gridApuracao.SelectionChanged += (_, _) => GridSelectionChanged(_gridApuracao);
+        _gridDocuments.SelectionChanged += (_, _) => GridSelectionChanged(_gridDocuments);
+
+        _btnImportDocs.Click += (_, _) => ImportFiles();
+        _btnEditDoc.Click += (_, _) => EditSelectedDocument(_gridDocuments);
+        _btnRemoveDoc.Click += (_, _) => RemoveSelectedDocument();
+
+        _miNovo.Click += (_, _) => NewSession();
+        _miAbrir.Click += (_, _) => OpenSession();
+        _miSalvar.Click += (_, _) => SaveSession(false);
+        _miSalvarComo.Click += (_, _) => SaveSession(true);
+        _miImportar.Click += (_, _) => ImportFiles();
+        _miImportarMovimentos.Click += (_, _) => ImportFiles();
+        _miExportar.Click += (_, _) => ExportCsv();
+        _miSair.Click += (_, _) => Close();
+        _miDadosEmpresa.Click += (_, _) => FocusCompanyData();
+        _miEditarDocumento.Click += (_, _) => EditSelectedDocument();
+        _miRemoverDocumento.Click += (_, _) => RemoveSelectedDocument();
+        _miProcessar.Click += async (_, _) => await ProcessCompetenceAsync();
+        _miRecalcular.Click += (_, _) => RefreshAll();
+        _miSegregacao.Click += (_, _) => _tabs.SelectedTab = _tabSegregacao;
+        _miMemoria.Click += (_, _) => _tabs.SelectedTab = _tabMemoria;
+        _miPgdas.Click += (_, _) => _tabs.SelectedTab = _tabPgdas;
+        _miExportarCsv.Click += (_, _) => ExportCsv();
+        _miImprimir.Click += (_, _) => PrintSummary();
+        _miLimpar.Click += (_, _) => ClearDocuments();
+        _miPastaLocal.Click += (_, _) => OpenLocalDataFolder();
+        _miSobre.Click += (_, _) => ShowAbout();
+
+        _tbNovo.Click += (_, _) => NewSession();
+        _tbAbrir.Click += (_, _) => OpenSession();
+        _tbImportar.Click += (_, _) => ImportFiles();
+        _tbProcessar.Click += async (_, _) => await ProcessCompetenceAsync();
+        _tbApuracao.Click += (_, _) => _tabs.SelectedTab = _tabApuracao;
+        _tbExportar.Click += (_, _) => ExportCsv();
+        _tbImprimir.Click += (_, _) => PrintSummary();
+
         FormClosing += (_, _) => SaveLastSessionSilently();
         DragEnter += MainForm_DragEnter;
         DragDrop += MainForm_DragDrop;
 
-        var timer = new System.Windows.Forms.Timer { Interval = 30000 };
+        var timer = new System.Windows.Forms.Timer(components) { Interval = 30000 };
         timer.Tick += (_, _) => _stClock.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
         timer.Start();
     }
