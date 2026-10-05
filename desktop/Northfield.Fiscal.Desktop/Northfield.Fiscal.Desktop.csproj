@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
     <AssemblyName>Northfield.Fiscal.Desktop</AssemblyName>
     <RootNamespace>Northfield.Fiscal.Desktop</RootNamespace>
     <Version>0.2.0</Version>
