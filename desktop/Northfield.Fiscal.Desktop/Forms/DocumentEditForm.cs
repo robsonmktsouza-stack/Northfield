@@ -14,7 +14,7 @@ public sealed partial class DocumentEditForm : Form
         InitializeComponent();
         ApplyRuntimeTheme();
 
-        Text = $"Classificação manual - {document.DisplayDocument}";
+        Text = $"Revisar documento - {document.DisplayDocument}";
         _lblDocumentValue.Text = document.DisplayDocument;
         _btnSave.Click += (_, _) => SaveAndClose();
 
@@ -85,15 +85,15 @@ public sealed partial class DocumentEditForm : Form
         _document.Annex = _cboAnnex.SelectedItem?.ToString() ?? string.Empty;
         _document.Segregation = _txtSegregation.Text.Trim();
         _document.ManualClassification = true;
-        _document.Status = "Classificação manual";
+        _document.Status = "Revisado";
         _document.Memory =
         [
-            "Classificação informada manualmente.",
+            "Classificação revisada pelo usuário.",
             $"Item/código de serviço: {(_document.ServiceCode.Length == 0 ? "não informado" : _document.ServiceCode)}.",
             $"ISS retido: {(_document.IssWithheld ? "Sim" : "Não")}.",
             $"Anexo informado: {(_document.Annex.Length == 0 ? "pendente" : _document.Annex)}.",
             $"Segregação informada: {(_document.Segregation.Length == 0 ? "pendente" : _document.Segregation)}.",
-            "Nenhuma regra fiscal automática foi executada pelo programa hospedeiro."
+            "Documento revisado e pronto para conferência."
         ];
 
         DialogResult = DialogResult.OK;
