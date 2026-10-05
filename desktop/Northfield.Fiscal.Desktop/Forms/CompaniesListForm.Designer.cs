@@ -98,29 +98,29 @@ partial class CompaniesListForm
         _actions.Location = new Point(90, 6);
         _actions.Margin = new Padding(0);
         _actions.Name = "_actions";
-        _actions.Size = new Size(288, 24);
+        _actions.Size = new Size(336, 24);
         _actions.WrapContents = false;
 
         _btnSelect.Margin = new Padding(4, 0, 0, 0);
         _btnSelect.Name = "_btnSelect";
-        _btnSelect.Size = new Size(78, 24);
+        _btnSelect.Size = new Size(94, 24);
         _btnSelect.Text = "Selecionar";
 
         _btnNew.Margin = new Padding(0, 0, 4, 0);
         _btnNew.Name = "_btnNew";
-        _btnNew.Size = new Size(62, 24);
+        _btnNew.Size = new Size(72, 24);
         _btnNew.Text = "Novo";
 
         _btnEdit.Enabled = false;
         _btnEdit.Margin = new Padding(0, 0, 4, 0);
         _btnEdit.Name = "_btnEdit";
-        _btnEdit.Size = new Size(62, 24);
+        _btnEdit.Size = new Size(74, 24);
         _btnEdit.Text = "Editar";
 
         _btnDelete.Enabled = false;
         _btnDelete.Margin = new Padding(0, 0, 4, 0);
         _btnDelete.Name = "_btnDelete";
-        _btnDelete.Size = new Size(68, 24);
+        _btnDelete.Size = new Size(78, 24);
         _btnDelete.Text = "Excluir";
 
         _searchPanel.Controls.Add(_lblSearch);
