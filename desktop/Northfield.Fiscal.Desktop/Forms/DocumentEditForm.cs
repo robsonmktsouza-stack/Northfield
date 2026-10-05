@@ -23,6 +23,8 @@ public sealed class DocumentEditForm : Form
         Font = Theme.UiFont();
         BackColor = Theme.AppBack;
         ShowIcon = false;
+        DoubleBuffered = true;
+        AutoScaleMode = AutoScaleMode.Dpi;
 
         BuildUi();
         LoadData();
@@ -33,12 +35,13 @@ public sealed class DocumentEditForm : Form
         var main = new TableLayoutPanel
         {
             Dock = DockStyle.Fill,
-            Padding = new Padding(14),
+            Padding = new Padding(18, 16, 18, 12),
             ColumnCount = 2,
             RowCount = 8,
-            BackColor = Theme.AppBack
+            BackColor = Theme.ToolbarBack,
+            BorderStyle = BorderStyle.FixedSingle
         };
-        main.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 170));
+        main.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 155));
         main.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
         Controls.Add(main);
 
@@ -72,10 +75,13 @@ public sealed class DocumentEditForm : Form
         var notice = new Label
         {
             Text = "Esta edição é manual e serve para uso do programa antes da biblioteca fiscal. O aplicativo não cria nem infere regras tributárias.",
-            ForeColor = Theme.Muted,
-            AutoSize = true,
-            MaximumSize = new Size(500, 0),
-            Padding = new Padding(0, 6, 0, 6)
+            ForeColor = Theme.PrimaryDark,
+            BackColor = Theme.PrimarySoft,
+            AutoSize = false,
+            Dock = DockStyle.Fill,
+            TextAlign = ContentAlignment.MiddleLeft,
+            Padding = new Padding(10, 6, 10, 6),
+            BorderStyle = BorderStyle.FixedSingle
         };
         AddRow(main, 7, "", notice, 55);
 
@@ -89,10 +95,11 @@ public sealed class DocumentEditForm : Form
         };
         Controls.Add(buttons);
 
-        var btnSave = new Button { Text = "Salvar", Width = 100, Height = 30, BackColor = Theme.Primary, ForeColor = Color.White, FlatStyle = FlatStyle.Flat };
-        btnSave.FlatAppearance.BorderColor = Theme.Primary;
+        var btnSave = new Button { Text = "Salvar classificação", Width = 138, Height = 30 };
+        Theme.StyleButton(btnSave, primary: true);
         btnSave.Click += (_, _) => SaveAndClose();
         var btnCancel = new Button { Text = "Cancelar", Width = 100, Height = 30, DialogResult = DialogResult.Cancel };
+        Theme.StyleButton(btnCancel);
         buttons.Controls.Add(btnSave);
         buttons.Controls.Add(btnCancel);
         AcceptButton = btnSave;
@@ -109,12 +116,13 @@ public sealed class DocumentEditForm : Form
                 Text = label,
                 AutoSize = true,
                 Anchor = AnchorStyles.Left,
-                ForeColor = Theme.Text,
-                Font = Theme.UiFont(8.7F)
+                ForeColor = Theme.Muted,
+                Font = Theme.UiFont(8.4F)
             }, 0, row);
         }
         control.Dock = control is Label ? DockStyle.None : DockStyle.Fill;
-        control.Margin = new Padding(0, 4, 0, 4);
+        control.Margin = new Padding(0, 5, 0, 5);
+        control.Font = Theme.UiFont(8.8F);
         table.Controls.Add(control, 1, row);
     }
 
